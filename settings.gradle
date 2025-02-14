@@ -1,0 +1,24 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'template-service'
+
+include 'domain'
+include 'application'
+include 'application:commands'
+include 'application:queries'
+include 'adapters:in:rest'
+include 'adapters:out:persistence'
+include 'adapters:out:messaging'
+include 'infrastructure'
+include 'shared'

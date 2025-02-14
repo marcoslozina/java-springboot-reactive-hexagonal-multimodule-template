@@ -1,0 +1,208 @@
+image: eclipse-temurin:21-jdk
+
+stages:
+  - build
+  - unit-test
+  - integration-test
+  - performance-test
+  - mutation-test
+  - report
+  - sonar-analysis
+  - security-scan
+  - dependency-scan
+  - deploy
+  - deploy-k8s
+  - deploy-aws
+  - health-check-k8s
+  - health-check-aws
+  - rollback-k8s
+  - rollback-aws
+
+variables:
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+  APP_ENV: "dev"
+  PROJECT_VERSION: "${CI_COMMIT_TAG:-latest}"
+  KUBE_NAMESPACE: "$APP_ENV"
+  AWS_REGION: "us-east-1"
+  DEPLOYMENT_MARKER: "$CI_PIPELINE_ID"
+  HELM_RELEASE_NAME: "template-service"
+  HEALTH_CHECK_URL: "https://$APP_ENV.example.com/actuator/health"
+  SONAR_HOST_URL: "https://sonarqube.example.com"
+  SONAR_PROJECT_KEY: "template-service"
+  SONAR_TOKEN: "$SONAR_TOKEN"
+
+cache:
+  paths:
+    - .gradle/
+
+before_script:
+  - chmod +x ./gradlew
+  - echo "🔹 Selected environment: $APP_ENV"
+  - echo "🔹 Project version: $PROJECT_VERSION"
+  - cp src/main/resources/config/application-$APP_ENV.yml src/main/resources/application.yml
+
+build:
+  stage: build
+  script:
+    - ./gradlew clean build
+  artifacts:
+    paths:
+      - build/libs/*.jar
+
+unit-tests:
+  stage: unit-test
+  script:
+    - ./gradlew test
+  artifacts:
+    reports:
+      junit: build/test-results/test/*.xml
+    paths:
+      - build/reports/tests/test/
+      - build/reports/jacoco/test/html/
+
+integration-tests:
+  stage: integration-test
+  script:
+    - ./gradlew integrationTest
+  artifacts:
+    reports:
+      junit: build/test-results/integrationTest/*.xml
+    paths:
+      - build/reports/tests/integrationTest/
+      - build/reports/jacoco/integrationTest/html/
+
+performance-tests:
+  stage: performance-test
+  script:
+    - ./gradlew performanceTest
+  artifacts:
+    reports:
+      junit: build/test-results/performanceTest/*.xml
+    paths:
+      - build/reports/tests/performanceTest/
+
+mutation-tests:
+  stage: mutation-test
+  script:
+    - ./gradlew mutationTest
+  artifacts:
+    paths:
+      - build/reports/pitest/
+
+arch-tests:
+  stage: report
+  script:
+    - ./gradlew archTest
+  artifacts:
+    reports:
+      junit: build/test-results/architectureTest/*.xml
+    paths:
+      - build/reports/tests/architectureTest/
+
+report:
+  stage: report
+  script:
+    - ./gradlew jacocoTestReport
+  artifacts:
+    paths:
+      - build/reports/jacoco/test/html/
+      - build/reports/jacoco/integrationTest/html/
+    when: always
+
+sonar-analysis:
+  stage: sonar-analysis
+  script:
+    - ./gradlew sonarqube -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+  only:
+    - main
+    - merge_requests
+
+security-scan:
+  stage: security-scan
+  image: registry.gitlab.com/gitlab-org/security-products/analyzers/trivy:latest
+  script:
+    - trivy fs --exit-code 1 --severity HIGH,CRITICAL .
+  only:
+    - main
+    - merge_requests
+
+dependency-scan:
+  stage: dependency-scan
+  image: owasp/dependency-check:latest
+  script:
+    - dependency-check --project "$CI_PROJECT_NAME" --scan . --format HTML --out dependency-check-report
+  only:
+    - main
+    - merge_requests
+  artifacts:
+    paths:
+      - dependency-check-report/
+
+deploy:
+  stage: deploy
+  script:
+    - ./gradlew bootJar
+  only:
+    - main
+    - tags
+  environment:
+    name: $APP_ENV
+    url: "https://$APP_ENV.example.com"
+
+deploy-k8s:
+  stage: deploy-k8s
+  script:
+    - helm upgrade --install $HELM_RELEASE_NAME ./helm/template-service -n $KUBE_NAMESPACE --set image.tag=$PROJECT_VERSION
+  only:
+    - main
+    - tags
+  environment:
+    name: "$APP_ENV-k8s"
+    url: "https://k8s.$APP_ENV.example.com"
+
+deploy-aws:
+  stage: deploy-aws
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name my-cluster
+    - helm upgrade --install $HELM_RELEASE_NAME ./helm/template-service -n $KUBE_NAMESPACE --set image.tag=$PROJECT_VERSION
+  only:
+    - main
+    - tags
+  environment:
+    name: "$APP_ENV-aws"
+    url: "https://aws.$APP_ENV.example.com"
+
+health-check-k8s:
+  stage: health-check-k8s
+  script:
+    - until curl --silent --fail $HEALTH_CHECK_URL; do echo "Waiting for service to be healthy..."; sleep 5; done
+  only:
+    - main
+    - tags
+
+health-check-aws:
+  stage: health-check-aws
+  script:
+    - until curl --silent --fail $HEALTH_CHECK_URL; do echo "Waiting for service to be healthy..."; sleep 5; done
+  only:
+    - main
+    - tags
+
+rollback-k8s:
+  stage: rollback-k8s
+  script:
+    - helm rollback $HELM_RELEASE_NAME -n $KUBE_NAMESPACE
+  only:
+    - rollback
+  environment:
+    name: "$APP_ENV-k8s"
+
+rollback-aws:
+  stage: rollback-aws
+  script:
+    - aws eks update-kubeconfig --region $AWS_REGION --name my-cluster
+    - helm rollback $HELM_RELEASE_NAME -n $KUBE_NAMESPACE
+  only:
+    - rollback
+  environment:
+    name: "$APP_ENV-aws"

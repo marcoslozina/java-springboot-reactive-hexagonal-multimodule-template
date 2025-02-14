@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':shared')
+    testImplementation "com.tngtech.archunit:archunit-junit5:${archunitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+
+
+}

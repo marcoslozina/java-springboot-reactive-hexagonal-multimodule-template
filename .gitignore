@@ -1,0 +1,85 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradlew
+!gradlew.bat
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# macOS
+.DS_Store
+
+# Logs & System files
+logs/
+*.log
+hs_err_pid*
+
+# Application-specific
+config/
+.env
+*.local
+
+# Database & Temporary files
+*.db
+*.sqlite
+/tmp/
+
+# Compiled Java files
+*.class
+*.jar
+*.war
+*.ear
+
+# Test & Coverage reports
+/test-results/
+/target/
+out/
+coverage/
+
+# OS-specific
+Thumbs.db
+
+# Generated files
+/generated/
+
+# IDE metadata & temporary files
+.vscode/
+*.swp
+*.swo
+
+# Dependency caches
+/.mvn/
+/.gradle/
+/.cache/
+
+# Git hooks (if customized locally)
+.git/hooks/
+
+# Spotless & formatting artifacts
+/.spotless/
+/.editorconfig/
+
+# OpenAPI Generated files
+/openapi/
+
+# CI/CD configurations
+/.gitlab-ci.yml
+/docker-compose.yml
+/Dockerfile
+
+# YAML configuration backups
+/src/main/resources/config/*.yml~
+
+# Reports and test logs
+/reports/
+/jacoco/

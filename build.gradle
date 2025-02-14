@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${dependencyManagementVersion}"
+    id 'com.diffplug.spotless' version "${spotlessVersion}"
+    id 'info.solidsoft.pitest' version "${pitestVersion}"
+    id 'jacoco'
+    id 'com.github.ben-manes.versions' version "${benManesVersion}"
+    id 'pmd'
+    id 'org.sonarqube' version "${sonarQubeVersion}"
+}
+
+group = 'com.company.templateservice'
+version = '1.0.0-RELEASE'
+
+def javaVersion = file('java.version').text.trim()
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(javaVersion.toInteger()))
+    }
+}
+
+springBoot {
+    mainClass.set("com.company.templateservice.Application")
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.register("integrationTest", Test) {
+        useJUnitPlatform()
+    }
+
+    tasks.register("performanceTest", Test) {
+        useJUnitPlatform()
+    }
+
+    tasks.register("mutationTest", Test) {
+        useJUnitPlatform()
+    }
+
+    tasks.register("archTest", Test) {
+        useJUnitPlatform()
+    }
+}
