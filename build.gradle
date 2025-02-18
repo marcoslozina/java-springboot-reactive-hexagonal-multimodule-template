@@ -20,6 +20,10 @@ java {
     }
 }
 
+bootJar {
+    enabled = true
+}
+
 springBoot {
     mainClass.set("com.company.templateservice.Application")
 }
@@ -53,3 +57,31 @@ subprojects {
         useJUnitPlatform()
     }
 }
+
+dependencies {
+
+    implementation "io.r2dbc:r2dbc-h2:1.0.0.RELEASE"
+    // --- WebFlux ---
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // --- Base de Datos Reactiva ---
+    // implementation "io.r2dbc:r2dbc-postgresql:${r2dbcVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-r2dbc"
+
+    // --- ORM Reactivo ---
+    implementation "org.hibernate.reactive:hibernate-reactive-core:${hibernateReactiveVersion}"
+
+    // --- AWS SDK ---
+    implementation "software.amazon.awssdk:s3:${awsSdkVersion}"
+    implementation "software.amazon.awssdk:dynamodb:${awsSdkVersion}"
+    implementation "software.amazon.awssdk:sns:${awsSdkVersion}"
+    implementation "software.amazon.awssdk:sqs:${awsSdkVersion}"
+
+    // --- Kafka Reactivo ---
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation "io.projectreactor.kafka:reactor-kafka:${reactorKafkaVersion}"
+
+    // --- Serialización JSON ---
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+}
+
