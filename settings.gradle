@@ -1,24 +1,22 @@
 pluginManagement {
     repositories {
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
     }
 }
 
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 
 rootProject.name = 'template-service'
 
 include 'domain'
-include 'application'
-include 'application:commands'
-include 'application:queries'
-include 'adapters:in:rest'
-include 'adapters:out:persistence'
-include 'adapters:out:messaging'
+include 'application', 'application:commands', 'application:queries'
+include 'adapters', 'adapters:in', 'adapters:in:rest', 'adapters:out', 'adapters:out:persistence', 'adapters:out:messaging'
 include 'infrastructure'
 include 'shared'

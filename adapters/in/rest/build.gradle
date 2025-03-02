@@ -2,7 +2,3 @@ dependencies {
     implementation project(':application')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
-
-repositories {
-    mavenCentral() // ✅ Asegura que esta línea está presente
-}
