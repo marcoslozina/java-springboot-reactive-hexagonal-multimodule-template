@@ -1,5 +1,1 @@
-dependencies {
-    implementation project(':application')
-    implementation project(':adapters:out:persistence')
-    implementation 'org.springframework.boot:spring-boot-starter'
-}
+dependencies { /* Por ahora vacío, si tiene cosas propias se agregan */ }

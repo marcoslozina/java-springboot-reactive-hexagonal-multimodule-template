@@ -1,8 +1,4 @@
 plugins {
-    id 'info.solidsoft.pitest' version "${pitestVersion}"
+    id 'java'
 }
-
-dependencies {
-    implementation project(':domain')
-    implementation 'org.springframework.boot:spring-boot-starter-reactor'
-}
+dependencies { implementation 'org.springframework.boot:spring-boot-starter-reactor' }

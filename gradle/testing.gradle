@@ -1,0 +1,15 @@
+jacoco {
+    toolVersion = "${jacocoVersion}"
+}
+
+tasks.withType(Test).configureEach {
+    finalizedBy 'jacocoTestReport'
+}
+
+tasks.named('jacocoTestReport') {
+    dependsOn 'test'
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+}

@@ -1,33 +1,4 @@
 plugins {
     id 'java'
-    id 'jacoco'
-    id 'pmd'
 }
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
-    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
-    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
-    testImplementation "com.tngtech.archunit:archunit-junit5:${archunitVersion}"
-    testImplementation "io.projectreactor:reactor-test"
-    testImplementation "org.jacoco:org.jacoco.core:${jacocoVersion}"
-    testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
-    testImplementation "org.pitest:pitest-junit5-plugin:${pitestJunitPluginVersion}"
-}
-
-pmd {
-    toolVersion = "${pmdVersion}"
-}
-
-jacoco {
-    toolVersion = "${jacocoVersion}"
-}
-
-tasks.named('jacocoTestReport') {
-    dependsOn test
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-    }
-}
+dependencies { implementation 'org.springframework.boot:spring-boot-starter' }

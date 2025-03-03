@@ -1,0 +1,17 @@
+dependencyUpdates {
+    outputFormatter = 'json'
+    outputDir = 'build/dependencyUpdates'
+    reportfileName = 'report'
+}
+
+dependencyCheck {
+    failBuildOnCVSS = 7
+    suppressionFile = file("${project.rootDir}/config/schemas/dependency-check-suppressions.xml")
+
+    analyzers {
+        assemblyEnabled = false
+    }
+}
+tasks.register('checkAll') {
+    dependsOn 'clean', 'test', 'jacocoTestReport', 'dependencyUpdates', 'dependencyCheckAnalyze'
+}
