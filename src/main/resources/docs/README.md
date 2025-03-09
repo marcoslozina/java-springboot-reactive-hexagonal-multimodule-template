@@ -1,3 +1,5 @@
+![Build Status](https://gitlab.com/tu-grupo/tu-proyecto/badges/main/pipeline.svg)
+![Coverage](https://gitlab.com/tu-grupo/tu-proyecto/badges/main/coverage.svg)
 🚀 Hexagonal Architecture Template
 
 Overview

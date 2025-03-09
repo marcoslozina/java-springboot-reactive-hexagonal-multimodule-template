@@ -6,8 +6,8 @@ plugins {
     id 'pmd'
     id 'org.sonarqube' version "${sonarQubeVersion}"
     id 'jacoco'
-    id 'org.owasp.dependencycheck' version '8.4.1'
     id 'com.github.ben-manes.versions' version "${benManesVersion}"
+    id 'checkstyle'
 }
 
 group = 'com.company.templateservice'
@@ -18,6 +18,11 @@ java {
         languageVersion.set(JavaLanguageVersion.of(javaVersion.toInteger()))
     }
 }
+
+tasks.register('audit') {
+    dependsOn 'checkAll'
+}
+
 
 springBoot {
     mainClass.set("com.company.templateservice.Application")

@@ -9,10 +9,15 @@ dependencyManagement {
 dependencies {
     // Core Framework
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "org.springframework.boot:spring-boot-starter-data-r2dbc:${springBootVersion}"
+
 
     // Observabilidad común
     implementation 'io.micrometer:micrometer-tracing-bridge-otel'
     implementation "io.opentelemetry:opentelemetry-exporter-otlp"
+
+    implementation "com.google.guava:guava:${guavaVersion}"
+
 
     // Calidad de código común
     implementation "net.sourceforge.pmd:pmd-java:${pmdVersion}"

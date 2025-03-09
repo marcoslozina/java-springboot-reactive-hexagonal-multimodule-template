@@ -18,3 +18,17 @@ sonarqube {
         property "sonar.host.url", "https://sonarqube.example.com"
     }
 }
+
+checkstyle {
+    toolVersion = "${checkstyleVersion}"
+    configFile = file("${projectDir}/config/checkstyle/checkstyle.xml")
+
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = true
+        html.required = false
+        html.stylesheet = resources.text.fromFile('config/checkstyle/checkstyle.xml')
+    }
+}

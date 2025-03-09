@@ -1,1 +1,7 @@
-// Configuración de observabilidad si hace falta en el futuro (OTEL, Logs JSON, etc.)
+dependencies {
+    implementation 'io.opentelemetry:opentelemetry-api'
+    implementation 'io.opentelemetry:opentelemetry-sdk'
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+}

@@ -1,0 +1,7 @@
+dependencies {
+    constraints {
+        implementation("com.google.guava:guava:32.1.2-jre") {
+            because 'Resuelve CVE-2023-2976 - Vulnerabilidad de seguridad'
+        }
+    }
+}

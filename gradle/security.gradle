@@ -4,14 +4,12 @@ dependencyUpdates {
     reportfileName = 'report'
 }
 
-dependencyCheck {
-    failBuildOnCVSS = 7
-    suppressionFile = file("${project.rootDir}/config/schemas/dependency-check-suppressions.xml")
-
-    analyzers {
-        assemblyEnabled = false
+tasks.register('dependencyCheck') {
+    doLast {
+        println 'Para ejecutar el Dependency Check, usar el script ./run-dependency-check.sh'
     }
 }
+
 tasks.register('checkAll') {
-    dependsOn 'clean', 'test', 'jacocoTestReport', 'dependencyUpdates', 'dependencyCheckAnalyze'
+    dependsOn 'clean', 'test', 'jacocoTestReport', 'dependencyUpdates', 'dependencyCheckAnalyze', 'spotlessCheck', 'checkstyleMain', 'pmdMain'
 }
