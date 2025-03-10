@@ -1,0 +1,11 @@
+# Archivo de configuración para Dependabot en GitHub
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "org.springframework.boot"
+        versions: ["5.x"]  # Evita actualizaciones mayores inesperadas
