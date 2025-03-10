@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<pmd>
+    <ruleset name="Custom PMD Rules">
+        <rule ref="category/java/bestpractices.xml/UseUtilityClass"/>
+        <rule ref="category/java/performance.xml/AvoidInstantiatingObjectsInLoops"/>
+    </ruleset>
+</pmd>

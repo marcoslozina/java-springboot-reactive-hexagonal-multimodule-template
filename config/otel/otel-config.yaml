@@ -1,0 +1,11 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  logging:
+    loglevel: debug
+  otlphttp:
+    endpoint: http://otel-collector:4318

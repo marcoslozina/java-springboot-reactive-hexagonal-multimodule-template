@@ -1,85 +1,86 @@
-# Gradle
+# 🛠️ Gradle
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !gradlew
 !gradlew.bat
 
-# IntelliJ IDEA
+# 🛠️ Configuración de Gradle (forzar seguimiento)
+!gradle/*.gradle
+!gradle/*.properties
+
+# 🚀 IntelliJ IDEA
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# Eclipse
+# 🌐 Eclipse
 .project
 .classpath
 .settings/
 
-# macOS
+# 🍏 macOS
 .DS_Store
 
-# Logs & System files
+# 🛠️ Logs & Archivos del sistema
 logs/
 *.log
 hs_err_pid*
 
-# Application-specific
-config/
-.env
-*.local
-
-# Database & Temporary files
-*.db
-*.sqlite
+# 🔐 Configuración y Archivos Sensibles
+config/*.env
+config/*.local
+config/*.db
+config/*.sqlite
 /tmp/
 
-# Compiled Java files
+# 🖥️ Archivos compilados
 *.class
 *.jar
 *.war
 *.ear
 
-# Test & Coverage reports
+# 🔍 Reportes de Test y Coverage
 /test-results/
 /target/
 out/
 coverage/
 
-# OS-specific
+# 💻 Archivos específicos del sistema operativo
 Thumbs.db
 
-# Generated files
+# 🔄 Archivos generados automáticamente
 /generated/
 
-# IDE metadata & temporary files
+# 🛠️ Configuración de IDEs y metadata temporal
 .vscode/
 *.swp
 *.swo
 
-# Dependency caches
+# 🏗️ Caché de dependencias
 /.mvn/
 /.gradle/
 /.cache/
 
-# Git hooks (if customized locally)
+# 🛠️ Git Hooks (si se modifican localmente)
 .git/hooks/
 
-# Spotless & formatting artifacts
+# ✨ Spotless & Formatting
 /.spotless/
 /.editorconfig/
 
-# OpenAPI Generated files
+# 🔍 Archivos generados por OpenAPI
 /openapi/
 
-# CI/CD configurations
+# ⚙️ Configuración de CI/CD y Docker
 /.gitlab-ci.yml
 /docker-compose.yml
 /Dockerfile
 
-# YAML configuration backups
-/src/main/resources/config/*.yml~
+# 📄 Backups de configuración YAML
+!/src/main/resources/config/*.yml  # ⚠️ Permitir trackear YAMLs de configuración
 
-# Reports and test logs
+# 📝 Reportes y logs de test
 /reports/
 /jacoco/
