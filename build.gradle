@@ -8,6 +8,8 @@ plugins {
     id 'jacoco'
     id 'com.github.ben-manes.versions' version "${benManesVersion}"
     id 'checkstyle'
+    id 'org.owasp.dependencycheck' version "${owaspDependencyCheckVersion}"
+
 }
 
 group = 'com.company.templateservice'
@@ -26,6 +28,10 @@ tasks.register('audit') {
 
 springBoot {
     mainClass.set("com.company.templateservice.Application")
+}
+
+dependencies {
+    implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
 }
 
 apply from: "${rootDir}/gradle/dependencies.gradle"

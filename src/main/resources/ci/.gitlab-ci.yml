@@ -14,38 +14,69 @@ stages:
 unit-tests:
   stage: unit-test
   script: ./gradlew test
-  artifacts: ...
+  artifacts:
+    paths:
+      - build/reports/tests/
+    reports:
+      junit: build/test-results/test/*.xml
 
 integration-tests:
   stage: integration-test
   script: ./gradlew integrationTest
-  artifacts: ...
+  artifacts:
+    paths:
+      - build/reports/integration-tests/
+    reports:
+      junit: build/test-results/integrationTest/*.xml
 
 mutation-tests:
   stage: quality
   script: ./gradlew pitest
-  artifacts: ...
+  artifacts:
+    paths:
+      - build/reports/pitest/
 
 sonar-analysis:
   stage: analysis
-  script: ./gradlew sonarqube ...
+  script: ./gradlew sonarqube
   only:
     - main
+  artifacts:
+    paths:
+      - build/reports/sonarqube/
 
+# 🔹 Nuevo Job: Actualización de Dependencias
+check-for-updates:
+  stage: security
+  script:
+    - ./gradlew dependencyUpdates
+  only:
+    - develop
+  artifacts:
+    paths:
+      - build/reports/dependency-updates-report.txt
+
+# 🔹 Seguridad: Escaneo de Dependencias
 dependency-scan:
   stage: security
-  script: ./gradlew dependencyCheckAnalyze
-  artifacts: ...
+  script:
+    - ./gradlew dependencyCheckAnalyze
+  artifacts:
+    paths:
+      - build/reports/dependency-check-report.html
+  allow_failure: false # Falla el build si hay vulnerabilidades críticas
 
+# 🔹 Seguridad: Escaneo de Contenedores
 docker-scan:
   stage: security
-  script: trivy image my-app:${CI_COMMIT_SHA}
+  script:
+    - trivy image my-app:${CI_COMMIT_SHA}
   only:
     - main
 
 deploy:
   stage: deploy
-  script: helm upgrade ...
+  script: helm upgrade my-app .
   only:
     - main
 
@@ -59,6 +90,13 @@ health-check:
 
 rollback:
   stage: rollback
-  script: helm rollback ...
+  script:
+    - helm rollback my-app
+    - echo "Esperando que el servicio vuelva a estar saludable..."
+    - until curl --fail "$HEALTH_CHECK_URL"; do
+      echo "Esperando servicio...";
+      sleep 5;
+      done
+    - echo "Rollback completado con éxito!"
   only:
     - rollback
