@@ -100,3 +100,12 @@ rollback:
     - echo "Rollback completado con éxito!"
   only:
     - rollback
+
+deploy-argocd:
+  stage: deploy
+  script:
+    - kubectl apply -f argocd/app.yaml
+    - argocd app sync template-service
+  only:
+    - main
+
