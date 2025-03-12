@@ -1,39 +1,52 @@
 plugins {
+    // Core plugins
     id 'java'
     id 'org.springframework.boot' version "${springBootVersion}"
     id 'io.spring.dependency-management' version "${dependencyManagementVersion}"
+
+    // Code Quality & Static Analysis
     id 'com.diffplug.spotless' version "${spotlessVersion}"
     id 'pmd'
-    id 'org.sonarqube' version "${sonarQubeVersion}"
-    id 'jacoco'
-    id 'com.github.ben-manes.versions' version "${benManesVersion}"
     id 'checkstyle'
-    id 'org.owasp.dependencycheck' version "${owaspDependencyCheckVersion}"
+    id 'org.sonarqube' version "${sonarQubeVersion}"
 
+    // Security & Dependency Management
+    id 'org.owasp.dependencycheck' version "${owaspDependencyCheckVersion}"
+    id 'com.github.ben-manes.versions' version "${benManesVersion}"
+
+    // Test Coverage & Auditing
+    id 'jacoco'
 }
 
 group = 'com.company.templateservice'
 version = '1.0.0-RELEASE'
 
+def javaVersion = file("${rootDir}/java.version").text.trim().toInteger()
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(javaVersion.toInteger()))
     }
 }
 
-tasks.register('audit') {
-    dependsOn 'checkAll'
-}
-
-
 springBoot {
     mainClass.set("com.company.templateservice.Application")
 }
 
-dependencies {
-    implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
+// Custom Tasks
+tasks.register('audit') {
+    dependsOn 'checkAll'
 }
 
+dependencies {
+    // Observability
+    implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
+
+    // Spring Cloud Contract for Consumer-Driven Testing
+    testImplementation "org.springframework.cloud:spring-cloud-starter-contract-verifier:${springCloudContractVersion}"
+    testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock:${springCloudContractVersion}"
+}
+
+// External Configurations
 apply from: "${rootDir}/gradle/dependencies.gradle"
 apply from: "${rootDir}/gradle/quality.gradle"
 apply from: "${rootDir}/gradle/testing.gradle"

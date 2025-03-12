@@ -15,8 +15,30 @@ dependencyResolutionManagement {
 
 rootProject.name = 'template-service'
 
+/*
+ * Project Structure - Hexagonal Architecture:
+ * - domain: Core business logic
+ * - application: Use cases, split into commands and queries
+ * - adapters: Interfaces for input/output (REST, persistence, messaging)
+ * - infrastructure: Technical details (config, security, etc.)
+ * - shared: Common utilities
+ */
+
 include 'domain'
-include 'application', 'application:commands', 'application:queries'
-include 'adapters', 'adapters:in', 'adapters:in:rest', 'adapters:out', 'adapters:out:persistence', 'adapters:out:messaging'
+
+// Application Layer
+include 'application'
+include 'application:commands'
+include 'application:queries'
+
+// Adapters Layer
+include 'adapters'
+include 'adapters:in'
+include 'adapters:in:rest'
+include 'adapters:out'
+include 'adapters:out:persistence'
+include 'adapters:out:messaging'
+
+// Infrastructure & Shared Modules
 include 'infrastructure'
 include 'shared'
