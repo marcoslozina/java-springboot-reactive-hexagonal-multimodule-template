@@ -32,18 +32,21 @@ springBoot {
     mainClass.set("com.company.templateservice.Application")
 }
 
+// Dependencies
+dependencies {
+    // Observability & Monitoring
+    implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
+
+    // API Testing & Mocks
+    testImplementation "com.github.tomakehurst:wiremock-jre8:${wiremockVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+}
+
 // Custom Tasks
 tasks.register('audit') {
     dependsOn 'checkAll'
-}
-
-dependencies {
-    // Observability
-    implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
-
-    // Spring Cloud Contract for Consumer-Driven Testing
-    testImplementation "org.springframework.cloud:spring-cloud-starter-contract-verifier:${springCloudContractVersion}"
-    testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock:${springCloudContractVersion}"
 }
 
 // External Configurations
