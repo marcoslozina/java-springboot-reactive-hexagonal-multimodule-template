@@ -36,6 +36,7 @@ springBoot {
 dependencies {
     // Observability & Monitoring
     implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
+    implementation "org.springframework.cloud:spring-cloud-starter-vault-config"
 
     // API Testing & Mocks
     testImplementation "com.github.tomakehurst:wiremock-jre8:${wiremockVersion}"

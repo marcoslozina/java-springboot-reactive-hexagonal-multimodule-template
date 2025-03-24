@@ -2,6 +2,13 @@ server:
   port: 8080
 
 spring:
+  cloud:
+    vault:
+      uri: http://localhost:8200
+      authentication: TOKEN
+      token: myroot
+      kv:
+        enabled: true
   application:
     name: template-service
 
