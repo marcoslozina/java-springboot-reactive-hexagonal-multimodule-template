@@ -1,44 +1,68 @@
 plugins {
-    // Core plugins
     id 'java'
-    id 'org.springframework.boot' version "${springBootVersion}"
-    id 'io.spring.dependency-management' version "${dependencyManagementVersion}"
-
-    // Code Quality & Static Analysis
-    id 'com.diffplug.spotless' version "${spotlessVersion}"
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'com.diffplug.spotless' version '6.21.0'
     id 'pmd'
     id 'checkstyle'
-    id 'org.sonarqube' version "${sonarQubeVersion}"
-
-    // Security & Dependency Management
-    id 'org.owasp.dependencycheck' version "${owaspDependencyCheckVersion}"
-    id 'com.github.ben-manes.versions' version "${benManesVersion}"
-
-    // Test Coverage & Auditing
+    id 'org.sonarqube' version '4.2.1.3168'
+    id 'org.owasp.dependencycheck' version '12.1.0'
+    id 'com.github.ben-manes.versions' version '0.52.0'
     id 'jacoco'
 }
 
 group = 'com.company.templateservice'
 version = '1.0.0-RELEASE'
 
-def javaVersion = file("${rootDir}/java.version").text.trim().toInteger()
+springBoot {
+    mainClass.set("com.company.Application")
+}
+
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(javaVersion.toInteger()))
+        languageVersion.set(JavaLanguageVersion.of(23))
+    }
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_23
+    targetCompatibility = JavaVersion.VERSION_23
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.1"
     }
 }
 
-springBoot {
-    mainClass.set("com.company.templateservice.Application")
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = rootProject.group
+    version = rootProject.version
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(23))
+        }
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+    }
 }
 
-// Dependencies
+// Dependencies para el módulo raíz (podés moverlos si van en otro módulo)
 dependencies {
-    // Observability & Monitoring
+    // Observability
     implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-vault-config"
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.security:spring-security-config'
 
-    // API Testing & Mocks
+    // Testing
     testImplementation "com.github.tomakehurst:wiremock-jre8:${wiremockVersion}"
     testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
@@ -49,10 +73,3 @@ dependencies {
 tasks.register('audit') {
     dependsOn 'checkAll'
 }
-
-// External Configurations
-apply from: "${rootDir}/gradle/dependencies.gradle"
-apply from: "${rootDir}/gradle/quality.gradle"
-apply from: "${rootDir}/gradle/testing.gradle"
-apply from: "${rootDir}/gradle/observability.gradle"
-apply from: "${rootDir}/gradle/security.gradle"

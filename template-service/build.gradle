@@ -1,7 +1,0 @@
-dependencies {
-    testImplementation "org.springframework.cloud:spring-cloud-starter-contract-verifier:${springCloudContractVersion}"
-    testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock:${springCloudContractVersion}"
-}
-
-// Configurar generación de stubs para testing
-}
