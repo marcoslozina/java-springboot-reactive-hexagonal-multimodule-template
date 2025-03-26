@@ -5,7 +5,7 @@ plugins {
     id 'com.diffplug.spotless' version '6.23.3'
    // id 'pmd'
     id 'checkstyle'
-    id 'org.sonarqube' version '4.2.1.3168'
+    id 'org.sonarqube' version '6.1.0.5360'
     id 'org.owasp.dependencycheck' version '12.1.0'
     id 'com.github.ben-manes.versions' version '0.52.0'
     id 'jacoco'
