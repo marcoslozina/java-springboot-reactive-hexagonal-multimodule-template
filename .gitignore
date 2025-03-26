@@ -35,6 +35,13 @@ config/*.db
 config/*.sqlite
 /tmp/
 
+# ✅ Permitimos configuración y recursos necesarios
+!config/*.yml
+!config/*.json
+!ci/*.yml
+!scripts/**
+!infra/**
+
 # 🖥️ Archivos compilados
 *.class
 *.jar
@@ -73,13 +80,13 @@ Thumbs.db
 # 🔍 Archivos generados por OpenAPI
 /openapi/
 
-# ⚙️ Configuración de CI/CD y Docker
-/.gitlab-ci.yml
-/docker-compose.yml
-/Dockerfile
-
 # 📄 Backups de configuración YAML
 !/src/main/resources/config/*.yml  # ⚠️ Permitir trackear YAMLs de configuración
+
+# ⚙️ Configuración de CI/CD y Docker
+!docker-compose.yml
+!Dockerfile
+!.gitlab-ci.yml
 
 # 📝 Reportes y logs de test
 /reports/

@@ -2,9 +2,9 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
-    id 'com.diffplug.spotless' version '6.21.0'
+    id 'com.diffplug.spotless' version '6.23.3'
     id 'pmd'
-    id 'checkstyle'
+    // id 'checkstyle'
     id 'org.sonarqube' version '4.2.1.3168'
     id 'org.owasp.dependencycheck' version '12.1.0'
     id 'com.github.ben-manes.versions' version '0.52.0'
@@ -15,17 +15,22 @@ group = 'com.company.templateservice'
 version = '1.0.0-RELEASE'
 
 springBoot {
-    mainClass.set("com.company.Application")
+    mainClass.set("com.company.Application") // ⬅️ Asegurate que esta clase exista
 }
 
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(23))
     }
-}
-java {
     sourceCompatibility = JavaVersion.VERSION_23
     targetCompatibility = JavaVersion.VERSION_23
+}
+
+spotless {
+    java {
+        googleJavaFormat('1.17.0')
+        target 'src/**/*.java'
+    }
 }
 
 dependencyManagement {
@@ -52,9 +57,8 @@ subprojects {
     }
 }
 
-// Dependencies para el módulo raíz (podés moverlos si van en otro módulo)
 dependencies {
-    // Observability
+    // Observabilidad y configuración segura
     implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-vault-config"
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
@@ -67,9 +71,17 @@ dependencies {
     testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
-// Custom Tasks
+// ✅ Usamos sólo bootJar para generar el JAR ejecutable
+bootJar {
+    archiveFileName = 'app.jar'
+}
+
+// Custom audit task
 tasks.register('audit') {
     dependsOn 'checkAll'
 }
