@@ -1,0 +1,4 @@
+export GRADLE_HOME=/opt/gradle/gradle-8.12
+export PATH=$GRADLE_HOME/bin:$PATH
+source ~/.bashrc
+export GRADLE_OPTS="--add-opens=java.base/java.io=ALL-UNNAMED -Xmx2g -Xms512m"

@@ -16,6 +16,6 @@ public class ProductService implements ProductInputPort {
     @Override
     public ProductDTO getProductById(Long id) {
         return productOutputPort.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+            .orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema id="suppressions"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dc="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd"
+           id="suppressions"
            elementFormDefault="qualified"
-           targetNamespace="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd"
-           xmlns:dc="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+           targetNamespace="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
 
     <xs:complexType name="regexStringType">
         <xs:simpleContent>
@@ -56,7 +56,9 @@
                         <xs:attribute name="until" use="optional" type="xs:date">
                             <xs:annotation>
                                 <xs:documentation>
-                                    When specified the suppression will only be active when the specified date is still in the future. On and after the 'until' date the suppression will no longer be active.
+                                    When specified the suppression will only be active when the specified date is still
+                                    in the future. On and after the 'until' date the suppression will no longer be
+                                    active.
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:attribute>

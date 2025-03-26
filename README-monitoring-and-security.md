@@ -1,6 +1,7 @@
 # 🛡️ Security and Observability - Local Setup
 
-This project includes services like **Keycloak** (for authentication), **Grafana** (for observability), and optionally **Prometheus** (for metrics). Follow this guide to test and verify everything is working correctly.
+This project includes services like **Keycloak** (for authentication), **Grafana** (for observability), and optionally *
+*Prometheus** (for metrics). Follow this guide to test and verify everything is working correctly.
 
 ---
 
@@ -30,12 +31,12 @@ docker-compose up -d
 
 - URL: [http://localhost:8080](http://localhost:8080)
 - Default admin credentials:
-  - Username: `admin`
-  - Password: `admin` (or check your `docker-compose.yml`)
+    - Username: `admin`
+    - Password: `admin` (or check your `docker-compose.yml`)
 - Recommended actions:
-  - Create a custom **Realm**.
-  - Create a **Client** of type `confidential`.
-  - Configure redirect URIs if needed.
+    - Create a custom **Realm**.
+    - Create a **Client** of type `confidential`.
+    - Configure redirect URIs if needed.
 
 ---
 
@@ -43,11 +44,11 @@ docker-compose up -d
 
 - URL: [http://localhost:3000](http://localhost:3000)
 - Default credentials:
-  - Username: `admin`
-  - Password: `admin`
+    - Username: `admin`
+    - Password: `admin`
 - Recommended actions:
-  - Add **Prometheus** as a data source: `http://prometheus:9090`
-  - Import dashboards for Spring Boot, JVM metrics, or database observability.
+    - Add **Prometheus** as a data source: `http://prometheus:9090`
+    - Import dashboards for Spring Boot, JVM metrics, or database observability.
 
 ---
 
@@ -82,9 +83,9 @@ docker-compose down
 
 ## 🛠 Additional Tips
 
-- If you make changes to Keycloak or Grafana config, consider using persistent volumes to retain settings across restarts.
+- If you make changes to Keycloak or Grafana config, consider using persistent volumes to retain settings across
+  restarts.
 - You can export your Keycloak realm using `kcadm.sh` and include it in version control for reproducibility.
-
 
 ---
 

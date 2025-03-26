@@ -7,6 +7,6 @@ class DomainEventPublisher {
 
     public Mono<Void> publish(DomainEvent event) {
         return kafkaTemplate.send("product-events", event.getClass().getSimpleName(), event)
-                .then();
+            .then();
     }
 }

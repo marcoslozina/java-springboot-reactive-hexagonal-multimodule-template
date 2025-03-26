@@ -1,6 +1,7 @@
 📌 Guide: Changing Java Version with SDKMAN! and System Configuration
 
-This guide explains how to change the Java version using SDKMAN!, update system environment files to make the change permanent, and ensure that Gradle uses the correct version.
+This guide explains how to change the Java version using SDKMAN!, update system environment files to make the change
+permanent, and ensure that Gradle uses the correct version.
 
 ✅ 1. Check the Current Java Version
 
@@ -22,7 +23,7 @@ Find the version you want to use.
 
 If the desired version is not installed, install it with:
 
-sdk install java 23.0.2-amzn  # Adjust based on the available version
+sdk install java 23.0.2-amzn # Adjust based on the available version
 
 To verify installation:
 
@@ -32,7 +33,7 @@ sdk list java
 
 To change the Java version only for the current session, use:
 
-sdk use java 23.0.2-amzn  # Adjust based on the installed version
+sdk use java 23.0.2-amzn # Adjust based on the installed version
 
 Verify the change with:
 
