@@ -6,8 +6,11 @@ build/
 !gradlew.bat
 
 # 🛠️ Configuración de Gradle (forzar seguimiento)
-!gradle/*.gradle
-!gradle/*.properties
+!gradlew
+!gradlew.bat
+!gradle/wrapper/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
 
 # 🚀 IntelliJ IDEA
 .idea/
