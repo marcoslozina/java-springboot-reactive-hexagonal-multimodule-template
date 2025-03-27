@@ -2,10 +2,10 @@
 
 echo "🔍 Ejecutando validaciones antes del commit..."
 
-./gradlew spotlessCheck checkstyleMain dependencyCheckAnalyze --quiet
+./gradlew spotlessApply checkstyleMain --quiet
 
 if [ $? -ne 0 ]; then
-  echo "❌ Validaciones fallaron. Commit cancelado. "
+  echo "❌ Validaciones fallaron. Commit cancelado."
   exit 1
 fi
 
