@@ -65,3 +65,9 @@ template-service/
 - Este template es compatible con **Java 21**.
 - Si actualizás Java o Gradle, actualizá estos archivos.
 - Evitar `sudo` al usar Gradle.
+
+![Build](https://github.com/USUARIO/template-service/actions/workflows/sonar.yml/badge.svg)
+![Coverage](https://sonarcloud.io/api/project_badges/measure?project=USUARIO_TEMPLATE-SERVICE&metric=coverage)
+![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=USUARIO_TEMPLATE-SERVICE&metric=alert_status)
+![Release](https://img.shields.io/github/v/release/USUARIO/template-service)
+

@@ -38,12 +38,23 @@ mutation-tests:
 
 sonar-analysis:
   stage: analysis
-  script: ./gradlew sonarqube
+  image: gradle:8.7-jdk23
+  variables:
+    SONAR_HOST_URL: "https://sonarcloud.io"
+    SONAR_PROJECT_KEY: "USUARIO_TEMPLATE-SERVICE"
+    SONAR_ORGANIZATION: "USUARIO"
+  script:
+    - ./gradlew sonarqube
+      -Dsonar.projectKey=$SONAR_PROJECT_KEY
+      -Dsonar.organization=$SONAR_ORGANIZATION
+      -Dsonar.host.url=$SONAR_HOST_URL
+      -Dsonar.token=0779d80a2182a86d3a319d2fcbb8450aec191d87
   only:
     - main
   artifacts:
     paths:
       - build/reports/sonarqube/
+
 
 # 🔹 Nuevo Job: Actualización de Dependencias
 check-for-updates:

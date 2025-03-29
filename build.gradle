@@ -105,3 +105,10 @@ bootJar {
 tasks.register('audit') {
     dependsOn 'checkAll'
 }
+
+sonar {
+    properties {
+        property "sonar.projectKey", "USUARIO_TEMPLATE-SERVICE"
+        property "sonar.organization", "USUARIO"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
