@@ -67,3 +67,10 @@ management:
     export:
       prometheus:
         enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    enabled: true

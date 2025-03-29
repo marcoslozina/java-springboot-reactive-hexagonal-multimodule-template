@@ -20,10 +20,24 @@ public class SecurityConfig {
     http.authorizeExchange(
             exchanges ->
                 exchanges
+                    // 👉 Swagger y OpenAPI sin autenticación
+                    .pathMatchers(
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/v3/api-docs.yaml",
+                        "/v3/api-docs/swagger-config",
+                        "/webjars/**" // 🔥 necesario para JS/CSS de Swagger
+                        )
+                    .permitAll()
+
+                    // 👉 Rutas protegidas
                     .pathMatchers("/admin/**")
                     .hasRole("ADMIN")
                     .pathMatchers("/user/**")
                     .hasRole("USER")
+
+                    // 👉 El resto requiere autenticación
                     .anyExchange()
                     .authenticated())
         .oauth2ResourceServer(
