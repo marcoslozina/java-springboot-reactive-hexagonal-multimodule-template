@@ -6,8 +6,7 @@ spring:
     name: template-service
   r2dbc:
     url: r2dbc:h2:mem:///devdb
-    username: dev_user
-    password: dev_pass
+
   sql:
     init:
       mode: always

@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @WebFluxTest(controllers = AdminController.class)
 @Import(com.company.templateservice.config.SecurityConfig.class)
-public class SecurityIntegrationTest {
+class SecurityIntegrationTest {
 
   @Autowired private WebTestClient webClient;
 

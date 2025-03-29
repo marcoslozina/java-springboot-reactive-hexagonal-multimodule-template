@@ -108,8 +108,8 @@ tasks.register('audit') {
 
 sonar {
     properties {
-        property "sonar.projectKey", "USUARIO_TEMPLATE-SERVICE"
-        property "sonar.organization", "USUARIO"
+        property "sonar.projectKey", "marcoslozina_template-service"
+        property "sonar.organization", "marcoslozina"
         property "sonar.host.url", "https://sonarcloud.io"
     }
 }
