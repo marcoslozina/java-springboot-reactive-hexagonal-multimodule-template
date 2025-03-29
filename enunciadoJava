@@ -1,3 +1,0 @@
-
-Estoy realizando un proyecto que servira como base usando arquitectura exagonal y programacion reactiva, necestio que todas las dependencias sean compatibles con programacion reactiva y java 21
-necesito entender por que no me compilar el proyecto si es un tema de ambiente, de ide, com prodria empezar, e ir validarndo paso a paso. Necesito revisar todos los build.gradle, el seting.gradle y el gradle.property de mi proyecto.

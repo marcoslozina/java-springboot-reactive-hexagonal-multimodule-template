@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = 'template-service'
+rootProject.name = "template-service"
 
 /*
  * Project Structure - Hexagonal Architecture:
@@ -24,21 +24,21 @@ rootProject.name = 'template-service'
  * - shared: Common utilities
  */
 
-include 'domain'
+include("domain")
 
 // Application Layer
-include 'application'
-include 'application:commands'
-include 'application:queries'
+include("application")
+include("application:commands")
+include("application:queries")
 
 // Adapters Layer
-include 'adapters'
-include 'adapters:in'
-include 'adapters:in:rest'
-include 'adapters:out'
-include 'adapters:out:persistence'
-include 'adapters:out:messaging'
+include("adapters")
+include("adapters:in")
+include("adapters:in:rest")
+include("adapters:out")
+include("adapters:out:persistence")
+include("adapters:out:messaging")
 
 // Infrastructure & Shared Modules
-include 'infrastructure'
-include 'shared'
+include("infrastructure")
+include("shared")
