@@ -112,3 +112,4 @@ sonar {
         property "sonar.organization", "USUARIO"
         property "sonar.host.url", "https://sonarcloud.io"
     }
+}
