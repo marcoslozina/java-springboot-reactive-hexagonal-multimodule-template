@@ -1,3 +1,7 @@
+import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.api.artifacts.ExternalModuleDependency
+import org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency
+
 object Dependencies {
 
     object Spring {
@@ -34,5 +38,19 @@ object Dependencies {
         const val reactorTest = "io.projectreactor:reactor-test"
         const val springSecurityTest = "org.springframework.security:spring-security-test"
         const val archunit = "com.tngtech.archunit:archunit-junit5:${Versions.archunit}"
+
+        val junitPlatformCommonsStrict = moduleWithStrictVersion(
+            "org.junit.platform:junit-platform-commons", Versions.junitPlatform
+        )
     }
 }
+
+
+fun moduleWithStrictVersion(groupAndName: String, version: String): ExternalModuleDependency =
+    DefaultExternalModuleDependency(
+        groupAndName.substringBefore(":"), groupAndName.substringAfter(":"), version
+    ).apply {
+        this.version {
+            strictly(version)
+        }
+    }

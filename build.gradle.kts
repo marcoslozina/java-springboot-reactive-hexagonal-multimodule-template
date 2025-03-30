@@ -46,11 +46,7 @@ dependencies {
     implementation(Dependencies.Validation.hibernateValidator)
     implementation(Dependencies.Validation.jakartaEl)
 
-    implementation("org.junit.platform:junit-platform-commons") {
-        version {
-            strictly(Versions.junitPlatform)
-        }
-    }
+    implementation(Dependencies.Test.junitPlatformCommonsStrict)
 
     // Testing
     testImplementation(Dependencies.Test.wiremock)
