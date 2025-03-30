@@ -1,4 +1,3 @@
-
 plugins {
     java
     id("org.springframework.boot") version "3.4.4"
@@ -18,12 +17,83 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(23))
     }
-    sourceCompatibility = JavaVersion.VERSION_23
-    targetCompatibility = JavaVersion.VERSION_23
 }
 
 springBoot {
-    mainClass.set("com.company.Application") // Asegurate de que esta clase exista
+    mainClass.set("com.company.Application")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.4")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.1")
+    }
+}
+
+dependencies {
+    implementation(Dependencies.Observability.micrometerPrometheus)
+    implementation(Dependencies.Cloud.vaultConfig)
+    implementation(Dependencies.Spring.bootOauth2)
+    implementation(Dependencies.Spring.bootSecurity)
+    implementation(Dependencies.Spring.bootWebflux)
+    implementation(Dependencies.Spring.securityConfig)
+    implementation(Dependencies.OpenAPI.springdocWebflux)
+    implementation(Dependencies.Validation.jakartaValidation)
+    implementation(Dependencies.Validation.hibernateValidator)
+    implementation(Dependencies.Validation.jakartaEl)
+
+    implementation("org.junit.platform:junit-platform-commons") {
+        version {
+            strictly(Versions.junitPlatform)
+        }
+    }
+
+    // Testing
+    testImplementation(Dependencies.Test.wiremock)
+    testImplementation(Dependencies.Test.restAssured)
+    testImplementation(Dependencies.Test.junitApi)
+    testRuntimeOnly(Dependencies.Test.junitEngine)
+
+    testImplementation(Dependencies.Spring.bootTest) {
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+        exclude(group = "org.junit.jupiter", module = "junit-jupiter")
+        exclude(group = "org.junit", module = "junit-bom")
+        exclude(group = "org.junit.platform", module = "junit-platform-commons")
+    }
+
+    testImplementation(Dependencies.Test.reactorTest)
+    testImplementation(Dependencies.Test.springSecurityTest)
+    testImplementation(Dependencies.Test.archunit)
+}
+
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useJUnitJupiter()
+        }
+    }
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+
+tasks.named<Jar>("bootJar") {
+    archiveFileName.set("app.jar")
+}
+
+tasks.register("audit") {
+    dependsOn("checkAll")
+}
+
+tasks.register<Test>("archTest") {
+    description = "Ejecuta los tests de arquitectura"
+    useJUnitPlatform()
+    include("**/*ArchitectureTest.class")
 }
 
 spotless {
@@ -39,10 +109,11 @@ checkstyle {
     isIgnoreFailures = false
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.1")
-        mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.4")
+sonarqube {
+    properties {
+        property("sonar.projectKey", "marcoslozina_template-service")
+        property("sonar.organization", "marcoslozina")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
@@ -62,50 +133,15 @@ subprojects {
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
     }
-
-    tasks.register<Test>("archTest") {
-        description = "Ejecuta los tests de arquitectura"
-        useJUnitPlatform()
-        include("**/*ArchitectureTest.class")
-    }
 }
 
-dependencies {
-    // Observabilidad y configuración segura
-    implementation(Deps.Observability.micrometerPrometheus)
-    implementation(Deps.Cloud.vaultConfig)
-    implementation(Deps.Spring.bootOauth2)
-    implementation(Deps.Spring.bootSecurity)
-    implementation(Deps.Spring.bootWebflux)
-    implementation(Deps.Spring.securityConfig)
-    implementation(Deps.OpenAPI.springdocWebflux)
-    implementation(Deps.Validation.jakartaValidation)
-    implementation(Deps.Validation.hibernateValidator)
-    implementation(Deps.Validation.jakartaEl)
-
-    // Testing
-    testImplementation(Deps.Test.wiremock)
-    testImplementation(Deps.Test.restAssured)
-    testImplementation(Deps.Test.junitApi)
-    testRuntimeOnly(Deps.Test.junitEngine)
-    testImplementation(Deps.Spring.bootTest)
-    testImplementation(Deps.Test.reactorTest)
-    testImplementation(Deps.Test.springSecurityTest)
-    testImplementation(Deps.Test.archunit)
-}
-
-tasks.named<Jar>("bootJar") {
-    archiveFileName.set("app.jar")
-}
-
-tasks.register("audit") {
-    dependsOn("checkAll")
-}
-
-sonarqube {
-    properties {
-        property("sonar.projectKey", "marcoslozina_template-service")
-        property("sonar.organization", "marcoslozina")
-        property("sonar.host.url", "https://sonarcloud.io")
+configurations.all {
+    resolutionStrategy {
+        force("org.junit.jupiter:junit-jupiter:${Versions.junit}")
+        force("org.junit.jupiter:junit-jupiter-api:${Versions.junit}")
+        force("org.junit.jupiter:junit-jupiter-engine:${Versions.junit}")
+        force("org.junit.platform:junit-platform-commons:${Versions.junitPlatform}")
+        force("org.junit.platform:junit-platform-engine:${Versions.junitPlatform}")
+        force("org.junit.platform:junit-platform-launcher:${Versions.junitPlatform}")
     }
 }

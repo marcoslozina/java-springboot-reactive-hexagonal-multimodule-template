@@ -1,4 +1,4 @@
-object Deps {
+object Dependencies {
 
     object Spring {
         const val bootWebflux = "org.springframework.boot:spring-boot-starter-webflux"
