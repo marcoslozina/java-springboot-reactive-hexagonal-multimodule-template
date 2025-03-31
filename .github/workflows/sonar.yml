@@ -2,8 +2,7 @@ name: SonarCloud Analysis
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
 
 jobs:
@@ -29,14 +28,16 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle
+          restore-keys: ${{ runner.os }}-gradle
 
-      - name: Build and analyze
+      - name: Generate coverage
+        run: ./gradlew jacocoTestReport
+
+      - name: SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew clean build sonarqube \
+          ./gradlew sonarqube \
             -Dsonar.projectKey=marcoslozina_template-service \
             -Dsonar.organization=marcoslozina \
             -Dsonar.host.url=https://sonarcloud.io \

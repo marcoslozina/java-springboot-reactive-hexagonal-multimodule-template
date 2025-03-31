@@ -21,5 +21,14 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Spotless Check
+        run: ./gradlew spotlessCheck
+
+      - name: Build and Run Tests
+        run: ./gradlew build test --no-daemon
+
+      - name: Generate Jacoco Report
+        run: ./gradlew jacocoTestReport
+
+      - name: Print Build Version
+        run: ./gradlew printVersion
