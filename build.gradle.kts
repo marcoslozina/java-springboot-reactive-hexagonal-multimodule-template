@@ -141,6 +141,14 @@ subprojects {
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
     }
+
+    tasks.register("printVersion") {
+        group = "info"
+        description = "Prints the project version"
+        doLast {
+            println("Project version: ${project.version}")
+        }
+    }
 }
 
 configurations.all {
