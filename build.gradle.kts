@@ -1,21 +1,30 @@
+// ✅ Load versions from gradle.properties
+val springBootVersion = project.findProperty("springBootVersion") as String
+val springCloudVersion = project.findProperty("springCloudVersion") as String
+val dependencyManagementVersion = project.findProperty("dependencyManagementVersion") as String
+val checkstyleVersion = project.findProperty("checkstyleVersion") as String
+val javaVersion = project.findProperty("javaVersion") as String
+val junitVersion = project.findProperty("junitVersion") as String
+val junitPlatformVersion = project.findProperty("junitPlatformVersion") as String
+
 plugins {
     java
+    jacoco
+    id("checkstyle")
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.diffplug.spotless") version "7.0.2"
-    id("checkstyle")
     id("org.sonarqube") version "6.1.0.5360"
     id("org.owasp.dependencycheck") version "12.1.0"
     id("com.github.ben-manes.versions") version "0.52.0"
-    jacoco
-}
+ }
 
 group = "com.company.templateservice"
 version = "1.0.0-RELEASE"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(23))
+        languageVersion.set(JavaLanguageVersion.of(javaVersion.toInt()))
     }
 }
 
@@ -29,12 +38,14 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.4")
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.1")
+        mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+        mavenBom("org.junit:junit-bom:$junitVersion")
     }
 }
 
 dependencies {
+    // 🌐 App dependencies
     implementation(Dependencies.Observability.micrometerPrometheus)
     implementation(Dependencies.Cloud.vaultConfig)
     implementation(Dependencies.Spring.bootOauth2)
@@ -46,9 +57,10 @@ dependencies {
     implementation(Dependencies.Validation.hibernateValidator)
     implementation(Dependencies.Validation.jakartaEl)
 
+    // 🧪 Fix JUnit reflection issue
     implementation(Dependencies.Test.junitPlatformCommonsStrict)
 
-    // Testing
+    // 🔍 Testing
     testImplementation(Dependencies.Test.wiremock)
     testImplementation(Dependencies.Test.restAssured)
     testImplementation(Dependencies.Test.junitApi)
@@ -87,7 +99,7 @@ tasks.register("audit") {
 }
 
 tasks.register<Test>("archTest") {
-    description = "Ejecuta los tests de arquitectura"
+    description = "Runs architecture tests"
     useJUnitPlatform()
     include("**/*ArchitectureTest.class")
 }
@@ -100,7 +112,7 @@ spotless {
 }
 
 checkstyle {
-    toolVersion = "10.12.2"
+    toolVersion = checkstyleVersion
     configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
     isIgnoreFailures = false
 }
@@ -122,7 +134,7 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(23))
+            languageVersion.set(JavaLanguageVersion.of(javaVersion.toInt()))
         }
     }
 
@@ -133,11 +145,11 @@ subprojects {
 
 configurations.all {
     resolutionStrategy {
-        force("org.junit.jupiter:junit-jupiter:${Versions.junit}")
-        force("org.junit.jupiter:junit-jupiter-api:${Versions.junit}")
-        force("org.junit.jupiter:junit-jupiter-engine:${Versions.junit}")
-        force("org.junit.platform:junit-platform-commons:${Versions.junitPlatform}")
-        force("org.junit.platform:junit-platform-engine:${Versions.junitPlatform}")
-        force("org.junit.platform:junit-platform-launcher:${Versions.junitPlatform}")
+        force("org.junit.jupiter:junit-jupiter:$junitVersion")
+        force("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+        force("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+        force("org.junit.platform:junit-platform-commons:$junitPlatformVersion")
+        force("org.junit.platform:junit-platform-engine:$junitPlatformVersion")
+        force("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
     }
 }
