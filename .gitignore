@@ -1,96 +1,75 @@
-# 🛠️ Gradle
+# ──────────────── 🛠️ GRADLE ────────────────
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !gradlew
 !gradlew.bat
 
-# 🛠️ Configuración de Gradle (forzar seguimiento)
-!gradlew
-!gradlew.bat
+# Forzamos seguimiento de configuración de Gradle
 !gradle/wrapper/
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
 
-# 🚀 IntelliJ IDEA
+# ──────────────── 💻 IDEs ────────────────
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# 🌐 Eclipse
-.project
-.classpath
-.settings/
-
-# 🍏 macOS
-.DS_Store
-
-# 🛠️ Logs & Archivos del sistema
-logs/
-*.log
-hs_err_pid*
-
-# 🔐 Configuración y Archivos Sensibles
-config/*.env
-config/*.local
-config/*.db
-config/*.sqlite
-/tmp/
-
-# ✅ Permitimos configuración y recursos necesarios
-!config/*.yml
-!config/*.json
-!ci/*.yml
-!scripts/**
-!infra/**
-
-# 🖥️ Archivos compilados
-*.class
-*.jar
-*.war
-*.ear
-
-# 🔍 Reportes de Test y Coverage
-/test-results/
-/target/
-out/
-coverage/
-
-# 💻 Archivos específicos del sistema operativo
-Thumbs.db
-
-# 🔄 Archivos generados automáticamente
-/generated/
-
-# 🛠️ Configuración de IDEs y metadata temporal
 .vscode/
 *.swp
 *.swo
 
-# 🏗️ Caché de dependencias
-/.mvn/
-/.gradle/
-/.cache/
+# Eclipse
+.project
+.classpath
+.settings/
 
-# 🛠️ Git Hooks (si se modifican localmente)
-.git/hooks/
+# ──────────────── 🧪 TESTS & COVERAGE ────────────────
+/test-results/
+/target/
+out/
+coverage/
+/reports/
+/jacoco/
 
-# ✨ Spotless & Formatting
+# ──────────────── 🔧 ARCHIVOS TEMPORALES Y LOGS ────────────────
+*.log
+logs/
+hs_err_pid*
+.DS_Store
+Thumbs.db
+
+# ──────────────── 🛠️ FORMATO, LINTER & CACHÉ ────────────────
 /.spotless/
 /.editorconfig/
+/.mvn/
+/.cache/
 
-# 🔍 Archivos generados por OpenAPI
+# ──────────────── 🧼 OPENAPI Y GENERADOS ────────────────
 /openapi/
+/generated/
 
-# 📄 Backups de configuración YAML
-!/src/main/resources/config/*.yml  # ⚠️ Permitir trackear YAMLs de configuración
-
-# ⚙️ Configuración de CI/CD y Docker
+# ──────────────── 🔧 CI/CD & DOCKER ────────────────
+.git/hooks/
 !docker-compose.yml
 !Dockerfile
 !.gitlab-ci.yml
+!.github/**
 
-# 📝 Reportes y logs de test
-/reports/
-/jacoco/
+# ──────────────── ✅ NO IGNORAR CONFIGURACIÓN NI SCRIPTS ────────────────
+!config/**
+!scripts/**
+!infra/**
+!ci/**
+!**/*.yml
+!**/*.json
+!**/*.env
+!**/*.db
+!**/*.sqlite
+
+# ──────────────── 📄 NO IGNORAR ARCHIVOS DE CÓDIGO ────────────────
+!**/*.kt
+!**/*.java
+!**/build.gradle.kts
+!**/settings.gradle.kts

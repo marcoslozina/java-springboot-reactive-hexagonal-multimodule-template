@@ -14,5 +14,6 @@ ADMIN_PASSWORD=supersecreto ;SPRING_PROFILES_ACTIVE=local;ADMIN_USER=admin
 export SONAR_TOKEN=0779d80a2182a86d3a319d2fcbb8450aec191d87
 
 gradle clean build spotlessApply --refresh-dependencies
+gradle sonarqube -Dsonar.token=0779d80a2182a86d3a319d2fcbb8450aec191d87
 
 
