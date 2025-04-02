@@ -16,6 +16,13 @@ spring:
     producer:
       retries: 10
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.uat.example.com/
+          jwk-set-uri: https://auth.uat.example.com/.well-known/jwks.json
+
 logging:
   level:
     root: ERROR

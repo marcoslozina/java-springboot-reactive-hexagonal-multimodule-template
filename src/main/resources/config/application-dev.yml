@@ -1,4 +1,10 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.dev.example.com/
+          jwk-set-uri: https://auth.dev.example.com/.well-known/jwks.json
   r2dbc:
     url: ${DB_URL:r2dbc:postgresql://dev-db.example.com:5432/dev_db}
     username: ${DB_USERNAME:dev_user}

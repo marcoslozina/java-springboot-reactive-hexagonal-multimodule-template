@@ -9,10 +9,11 @@ spring:
       token: myroot
       kv:
         enabled: true
+
   application:
     name: template-service
 
-  # 📌 Configuración de Base de Datos Reactiva (H2 para desarrollo, PostgreSQL para producción)
+  # 📌 Configuración de Base de Datos Reactiva
   r2dbc:
     url: ${DB_URL:r2dbc:h2:mem:///testdb?options=DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE}
     username: ${DB_USERNAME:sa}
@@ -27,11 +28,13 @@ spring:
     init:
       mode: always  # Permitir carga de scripts SQL al iniciar en H2
 
-  # 🔐 Configuración de Seguridad
+  # 🔐 Configuración de Seguridad OAuth2 y JWT
   security:
-    user:
-      name: ${ADMIN_USER}
-      password: ${ADMIN_PASSWORD}
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://tu-proveedor-oauth2.com/
+          jwk-set-uri: https://tu-proveedor-oauth2.com/.well-known/jwks.json
 
   # ⚡ Configuración de Kafka Reactivo
   kafka:
