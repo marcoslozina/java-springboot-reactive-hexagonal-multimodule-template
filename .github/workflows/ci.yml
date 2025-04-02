@@ -8,7 +8,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write  # 👈 Necesario para que GitHub Actions pueda crear releases
+  contents: write  # 👈 Necesario para crear releases y pushear el changelog
 
 jobs:
   build:
@@ -100,8 +100,17 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v4
         with:
           configuration: ".github/changelog-config.json"
+          outputFile: "CHANGELOG.md"  # 👈 genera o actualiza el changelog local
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit updated changelog
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add CHANGELOG.md
+          git commit -m "docs: update changelog [skip ci]" || echo "No changes to commit"
+          git push origin HEAD:main
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
