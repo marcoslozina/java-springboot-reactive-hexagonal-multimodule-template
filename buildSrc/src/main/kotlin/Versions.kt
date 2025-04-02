@@ -11,4 +11,5 @@ object Versions {
     const val wiremock = "3.0.1"
     const val restAssured = "5.3.1"
     const val archunit = "1.2.1"
+    const val logstashLogback = "7.4"
 }

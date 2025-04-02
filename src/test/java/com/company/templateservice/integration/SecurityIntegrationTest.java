@@ -1,6 +1,5 @@
 package com.company.templateservice.integration;
 
-import com.company.templateservice.config.SecurityConfig;
 import com.company.templateservice.controller.AdminController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @ActiveProfiles("test")
 @WebFluxTest(controllers = AdminController.class)
-@Import(SecurityConfig.class)
+@Import(TestSecurityConfig.class)
 class SecurityIntegrationTest {
 
   @Autowired private WebTestClient webClient;

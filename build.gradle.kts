@@ -1,4 +1,5 @@
 // ✅ Load versions from gradle.properties
+val logstashLogbackVersion = project.findProperty("logstashLogbackVersion") as String
 val springBootVersion = project.findProperty("springBootVersion") as String
 val springCloudVersion = project.findProperty("springCloudVersion") as String
 val dependencyManagementVersion = project.findProperty("dependencyManagementVersion") as String

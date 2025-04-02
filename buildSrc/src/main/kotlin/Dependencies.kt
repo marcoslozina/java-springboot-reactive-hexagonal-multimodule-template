@@ -20,6 +20,10 @@ object Dependencies {
         const val micrometerPrometheus = "io.micrometer:micrometer-registry-prometheus:${Versions.micrometer}"
     }
 
+    object Logging {
+        const val logstashLogback = "net.logstash.logback:logstash-logback-encoder:${Versions.logstashLogback}"
+    }
+
     object OpenAPI {
         const val springdocWebflux = "org.springdoc:springdoc-openapi-starter-webflux-ui:${Versions.springdocOpenApi}"
     }
