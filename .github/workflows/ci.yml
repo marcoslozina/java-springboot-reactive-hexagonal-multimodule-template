@@ -104,11 +104,12 @@ jobs:
         with:
           configuration: ".github/changelog-config.json"
           outputFile: "CHANGELOG.md"
-          failOnError: false  # 👉 Evita que falle si no puede acceder a PRs
+          failOnError: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit updated changelog
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
