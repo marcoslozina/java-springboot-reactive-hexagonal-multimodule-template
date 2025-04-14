@@ -15,7 +15,7 @@ plugins {
     id("checkstyle") // Static code analysis
     id("org.springframework.boot") version "3.4.4" // Spring Boot support
     id("io.spring.dependency-management") version "1.1.7" // BOM and version alignment
-    id("com.diffplug.spotless") version "7.0.2" // Code formatting
+    id("com.diffplug.spotless") version "7.0.3" // Code formatting
     id("org.sonarqube") version "6.1.0.5360" // Code quality analysis with SonarQube
     id("org.owasp.dependencycheck") version "12.1.1" // Security audit for dependencies
     id("com.github.ben-manes.versions") version "0.52.0" // Plugin to check for dependency updates
