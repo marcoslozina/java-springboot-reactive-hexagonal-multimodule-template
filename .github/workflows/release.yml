@@ -3,7 +3,7 @@ name: Release y Changelog
 on:
   push:
     tags:
-      - 'v*.*.*'  # solo se ejecuta en tags, para evitar conflictos
+      - 'v*.*.*'  # solo se ejecuta en tags
 
 jobs:
   changelog-release:
@@ -27,16 +27,7 @@ jobs:
       - name: Crear carpeta de release
         run: mkdir -p release && cp build/libs/*.jar release/
 
-      - name: Generar changelog desde commits convencionales
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          output-file: CHANGELOG.md
-          skip-version-file: true
-          skip-commit: true
-
-      - name: Crear release
+      - name: Crear release desde el changelog generado localmente
         uses: softprops/action-gh-release@v1
         with:
           files: release/*.jar
