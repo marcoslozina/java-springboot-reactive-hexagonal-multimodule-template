@@ -1,3 +1,7 @@
+# [](https://github.com/marcoslozina/template-service/compare/v1.0.0...v) (2025-04-14)
+
+
+
 # 📦 Changelog
 
 This changelog documents all notable changes to the `template-service` project.  
