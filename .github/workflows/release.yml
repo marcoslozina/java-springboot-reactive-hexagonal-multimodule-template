@@ -3,7 +3,10 @@ name: Release y Changelog
 on:
   push:
     tags:
-      - 'v*.*.*'  # solo se ejecuta en tags
+      - 'v*.*.*'
+
+permissions:
+  contents: write  # ✅ Necesario para subir el release a GitHub
 
 jobs:
   changelog-release:
@@ -13,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # 🔁 Necesario para ver todos los commits entre tags
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -21,16 +24,34 @@ jobs:
           distribution: 'temurin'
           java-version: '23'
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build y generar JAR
         run: ./gradlew clean build
 
       - name: Crear carpeta de release
         run: mkdir -p release && cp build/libs/*.jar release/
 
-      - name: Crear release desde el changelog generado localmente
+      - name: Generar changelog dinámico con release-it
+        run: npx release-it --no-increment --ci --output changelog.md
+
+      - name: Leer changelog y guardarlo como variable
+        id: changelog
+        run: |
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          tail -n +2 changelog.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Crear release en GitHub
         uses: softprops/action-gh-release@v1
         with:
           files: release/*.jar
-          body_path: CHANGELOG.md
+          body: ${{ steps.changelog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
