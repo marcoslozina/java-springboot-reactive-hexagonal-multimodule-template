@@ -6,34 +6,30 @@ on:
       - 'v*.*.*'
 
 permissions:
-  contents: write  # ✅ Necesario para subir el release a GitHub
+  contents: write
 
 jobs:
-  changelog-release:
-    name: Generar changelog y release
+  release:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # 🔁 Necesario para ver todos los commits entre tags
+          fetch-depth: 0
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '23'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Instalar dependencias
+        run: npm ci
 
-      - name: Build y generar JAR
-        run: ./gradlew clean build
+      - name: Build del JAR
+        run: ./gradlew clean build --no-daemon
 
       - name: Crear carpeta de release
         run: mkdir -p release && cp build/libs/*.jar release/
