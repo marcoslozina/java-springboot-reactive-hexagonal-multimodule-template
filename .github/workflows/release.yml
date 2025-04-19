@@ -3,10 +3,10 @@ name: Release y Changelog
 on:
   push:
     tags:
-      - 'v*.*.*'  # Se ejecuta cuando hacés push de un tag como v1.0.0, v1.0.1, etc.
+      - 'v*.*.*'  # Ejecutar cuando se pushea un tag como v1.0.0, v1.0.1, etc.
 
 permissions:
-  contents: write  # Necesario para crear releases en GitHub
+  contents: write  # Necesario para crear releases
 
 jobs:
   release:
@@ -17,7 +17,8 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Importante para ver todos los commits entre tags
+          fetch-depth: 0
+          ref: ${{ github.ref }}  # ✅ Solución para evitar error: ref HEAD is not a symbolic ref
 
       - name: Configurar Java 23
         uses: actions/setup-java@v3
@@ -42,7 +43,7 @@ jobs:
       - name: Generar changelog con release-it
         run: npx release-it --no-increment --ci --output changelog.md
 
-      - name: Extraer changelog para el body del release
+      - name: Extraer changelog para usarlo en el release
         id: changelog
         run: |
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
