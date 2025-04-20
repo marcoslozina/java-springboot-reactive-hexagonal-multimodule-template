@@ -14,9 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run release-please
-        uses: google-github-actions/release-please-action@v4
+        uses: googleapis/release-please-action@v4  # ✅ Correcto y actualizado
         with:
-          release-type: simple
-          package-name: template-service
-          extra-files: |
-            build.gradle
+          release-type: simple                     # ✅ Mantené esto si no tenés package.json ni versión automática
+          token: ${{ secrets.GITHUB_TOKEN }}
