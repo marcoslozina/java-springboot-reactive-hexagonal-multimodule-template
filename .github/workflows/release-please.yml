@@ -3,7 +3,7 @@ name: Release Please
 on:
   push:
     branches:
-      - main
+      - main  # O tu rama principal
 
 permissions:
   contents: write
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run release-please
-        uses: googleapis/release-please-action@v4  # ✅ Correcto y actualizado
+        uses: google-github-actions/release-please-action@v4
         with:
-          release-type: simple                     # ✅ Mantené esto si no tenés package.json ni versión automática
-          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: simple
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
