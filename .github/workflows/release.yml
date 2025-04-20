@@ -3,10 +3,10 @@ name: Release y Changelog
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*.*.*'  # Ejecutar cuando se pushea un tag como v1.0.0, v1.0.1, etc.
 
 permissions:
-  contents: write
+  contents: write  # Necesario para crear releases
 
 jobs:
   release:
@@ -17,11 +17,11 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # No uses `ref:` acá
+          fetch-depth: 0  # Traer todo el historial
 
       - name: Cambiar a rama temporal desde el tag
         run: |
-          git fetch --tags
+          git fetch origin --force --tags
           git checkout -b temp-release ${{ github.ref_name }}
 
       - name: Configurar Java 23
@@ -61,3 +61,9 @@ jobs:
           body: ${{ steps.changelog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Eliminar rama temporal
+        if: always()
+        run: |
+          git checkout main
+          git branch -D temp-release || true
