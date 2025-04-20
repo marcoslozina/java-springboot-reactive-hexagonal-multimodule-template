@@ -3,10 +3,10 @@ name: Release y Changelog
 on:
   push:
     tags:
-      - 'v*.*.*'  # Ejecutar cuando se pushea un tag como v1.0.0, v1.0.1, etc.
+      - 'v*.*.*'
 
 permissions:
-  contents: write  # Necesario para crear releases
+  contents: write
 
 jobs:
   release:
@@ -17,8 +17,12 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-          ref: ${{ github.ref }}  # ✅ Solución para evitar error: ref HEAD is not a symbolic ref
+          fetch-depth: 0  # No uses `ref:` acá
+
+      - name: Cambiar a rama temporal desde el tag
+        run: |
+          git fetch --tags
+          git checkout -b temp-release ${{ github.ref_name }}
 
       - name: Configurar Java 23
         uses: actions/setup-java@v3
