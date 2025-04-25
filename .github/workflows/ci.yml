@@ -8,7 +8,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write   # ✅ Necesario para que softprops/action-gh-release cree releases
+  contents: write
 
 env:
   RUN_SONAR: ${{ vars.RUN_SONAR }}
@@ -71,5 +71,5 @@ jobs:
             -Dsonar.projectKey=marcoslozina_template-service \
             -Dsonar.organization=marcoslozina \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=$SONAR_TOKEN
+            -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
