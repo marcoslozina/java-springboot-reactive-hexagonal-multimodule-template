@@ -22,21 +22,7 @@ It provides a clean and extensible foundation for building secure, observable, a
 
 ## 📏 Architecture Diagram
 
-```text
-                    ┌────────────────────────────────┐
-                    │      External Interface     │
-                    │ (API / Users / UI Clients) │
-                    └────────────────────────────┘
-                                 │
-                         ┌───────────────────┐
-                         │  Application Layer  │
-                         │    (Use Cases)      │
-                         └───────────────────┘
-                                 │
-      ┌───────────────────────────────────────┐
-      │              │              │              │
-  ▼ Domain Logic   ▼   Interfaces (Ports)   ▼ Adapters (DB, Kafka)
-```
+![Hexagonal Architecture](docs/images/architecture-diagram.png)
 
 ---
 
@@ -137,10 +123,29 @@ It provides a clean and extensible foundation for building secure, observable, a
 ```text
 src/
  ├── main/
- │    ├── java/com/company/templateservice
- │    └── resources
+ │    ├── java/
+ │    │    └── com/company/templateservice/
+ │    │         ├── application/   # Application services (use cases)
+ │    │         ├── domain/         # Core domain models and business logic
+ │    │         ├── infrastructure/ # Outbound adapters (DB, Kafka, Vault, etc.)
+ │    │         ├── adapter/         # Inbound adapters (controllers, API endpoints)
+ │    │         ├── shared/          # Shared utilities, exceptions, constants
+ │    │         └── config/          # Spring Boot configuration classes
+ │    └── resources/                # Application properties, YAML configs
  └── test/
-      └── java/com/company/templateservice
+      └── java/
+           └── com/company/templateservice/
+                ├── application/   # Application layer unit tests
+                ├── domain/         # Domain model and business rule tests
+                ├── infrastructure/ # Infrastructure integration tests
+                ├── adapter/        # API/controller endpoint tests
+                ├── shared/         # Shared utils testing
+                └── integration/    # Full end-to-end integration tests
+Dockerfile
+build.gradle.kts
+settings.gradle.kts
+README.md
+docker-compose.yml
 ```
 
 ---
