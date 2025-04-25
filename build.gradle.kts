@@ -1,24 +1,23 @@
 // ✅ Load project-wide version values from gradle.properties file
-val logstashLogbackVersion = project.findProperty("logstashLogbackVersion") as String           // For structured logging (Logback JSON encoder)
-val springBootVersion = project.findProperty("springBootVersion") as String                      // Spring Boot core version
-val springCloudVersion = project.findProperty("springCloudVersion") as String                    // Spring Cloud dependencies (Vault, Config, etc.)
-val dependencyManagementVersion = project.findProperty("dependencyManagementVersion") as String  // Spring dependency management plugin
-val checkstyleVersion = project.findProperty("checkstyleVersion") as String                      // Checkstyle static analysis tool
-val javaVersion = project.findProperty("javaVersion") as String                                  // Java language version (used in toolchain)
-val junitVersion = project.findProperty("junitVersion") as String                                // JUnit Jupiter version
-val junitPlatformVersion = project.findProperty("junitPlatformVersion") as String                // JUnit Platform (engine, launcher, etc.)
+val logstashLogbackVersion = project.findProperty("logstashLogbackVersion") as String
+val springBootVersion = project.findProperty("springBootVersion") as String
+val springCloudVersion = project.findProperty("springCloudVersion") as String
+val dependencyManagementVersion = project.findProperty("dependencyManagementVersion") as String
+val checkstyleVersion = project.findProperty("checkstyleVersion") as String
+val javaVersion = project.findProperty("javaVersion") as String
+val junitVersion = project.findProperty("junitVersion") as String
+val junitPlatformVersion = project.findProperty("junitPlatformVersion") as String
 
-// ✅ Plugins used in the project
 plugins {
-    java // Java support
-    jacoco // Code coverage tool
-    id("checkstyle") // Static code analysis
-    id("org.springframework.boot") version "3.4.4" // Spring Boot support
-    id("io.spring.dependency-management") version "1.1.7" // BOM and version alignment
-    id("com.diffplug.spotless") version "7.0.2" // Code formatting
-    id("org.sonarqube") version "6.1.0.5360" // Code quality analysis with SonarQube
-    id("org.owasp.dependencycheck") version "12.1.1" // Security audit for dependencies
-    id("com.github.ben-manes.versions") version "0.52.0" // Plugin to check for dependency updates
+    java
+    jacoco
+    id("checkstyle")
+    id("org.springframework.boot") version "3.4.4"
+    id("io.spring.dependency-management") version "1.1.7"
+    id("com.diffplug.spotless") version "7.0.2"
+    id("org.sonarqube") version "6.1.0.5360"
+    id("org.owasp.dependencycheck") version "12.1.1"
+    id("com.github.ben-manes.versions") version "0.52.0"
 }
 
 group = "com.company.templateservice"
@@ -47,7 +46,6 @@ dependencyManagement {
 }
 
 dependencies {
-    // 🌐 App dependencies
     implementation(Dependencies.Observability.micrometerPrometheus)
     implementation(Dependencies.Cloud.vaultConfig)
     implementation(Dependencies.Spring.bootOauth2)
@@ -58,13 +56,10 @@ dependencies {
     implementation(Dependencies.Validation.jakartaValidation)
     implementation(Dependencies.Validation.hibernateValidator)
     implementation(Dependencies.Validation.jakartaEl)
-
     implementation(Dependencies.Logging.logstashLogback)
 
-    // 🧪 Fix JUnit reflection issue
     implementation(Dependencies.Test.junitPlatformCommonsStrict)
 
-    // 🔍 Testing
     testImplementation(Dependencies.Test.wiremock)
     testImplementation(Dependencies.Test.restAssured)
     testImplementation(Dependencies.Test.junitApi)
@@ -126,6 +121,9 @@ sonarqube {
         property("sonar.projectKey", "marcoslozina_template-service")
         property("sonar.organization", "marcoslozina")
         property("sonar.host.url", "https://sonarcloud.io")
+
+        property("sonar.exclusions", "**/config/**, **/controller/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
 
@@ -152,6 +150,16 @@ subprojects {
         doLast {
             println("Project version: ${project.version}")
         }
+    }
+}
+
+tasks.named<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.test)
+
+    reports {
+        xml.required.set(true)   // ☑️ XML para SonarCloud
+        html.required.set(true)  // ☑️ HTML para ver localmente
+        csv.required.set(false)
     }
 }
 
