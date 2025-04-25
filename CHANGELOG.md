@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/marcoslozina/template-service/compare/v1.0.0...v1.0.1) (2025-04-25)
+
+
+### Bug Fixes
+
+* update ci jacaco pipeline configuration ([5b85e21](https://github.com/marcoslozina/template-service/commit/5b85e21fda0fadbe7cfb8305b13622c0c4a0c696))
+
 ## 1.0.0 (2025-04-20)
 
 
