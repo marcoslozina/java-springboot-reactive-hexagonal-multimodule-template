@@ -1,9 +1,30 @@
 # 🧱 Template Service
 
-[![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
+[![CI Status](https://img.shields.io/badge/CI--Status-Passed-brightgreen?style=flat&logo=github)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 [![Release](https://img.shields.io/github/v/release/marcoslozina/template-service)](https://github.com/marcoslozina/template-service/releases)
+
+
+---
+
+## 🧰 Tech Stack
+
+![Java](https://img.shields.io/badge/Java-23-blue?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.4-brightgreen?logo=spring)
+![Gradle](https://img.shields.io/badge/Gradle-8.7-green?logo=gradle)
+![Reactive](https://img.shields.io/badge/Reactive-WebFlux-orange?logo=reactivex)
+![Kafka](https://img.shields.io/badge/Kafka-Apache-black?logo=apachekafka)
+![Vault](https://img.shields.io/badge/HashiCorp-Vault-black?logo=hashicorp)
+![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-orange?logo=prometheus)
+![Grafana](https://img.shields.io/badge/Grafana-Dashboard-yellow?logo=grafana)
+![Loki](https://img.shields.io/badge/Loki-Logs-lightgrey?logo=grafana)
+![Checkstyle](https://img.shields.io/badge/Checkstyle-Code_Style-orange)
+![PMD](https://img.shields.io/badge/PMD-Static_Analysis-blueviolet)
+![Jacoco](https://img.shields.io/badge/Jacoco-Coverage-red?logo=codecov)
+![SonarCloud](https://img.shields.io/badge/SonarCloud-Analysis-yellow?logo=sonarcloud)
+![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)
+![Swagger](https://img.shields.io/badge/OpenAPI-Swagger_UI-green?logo=swagger)
 
 ---
 

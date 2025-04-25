@@ -126,6 +126,9 @@ sonarqube {
         property("sonar.projectKey", "marcoslozina_template-service")
         property("sonar.organization", "marcoslozina")
         property("sonar.host.url", "https://sonarcloud.io")
+
+        property("sonar.exclusions", "**/config/**, **/controller/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
 
