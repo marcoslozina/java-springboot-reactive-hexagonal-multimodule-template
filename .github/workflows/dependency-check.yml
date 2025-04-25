@@ -2,7 +2,7 @@ name: Dependency Check
 
 on:
   schedule:
-    - cron: '0 0 * * 1'  # Ejecutar semanalmente los lunes
+    - cron: '0 0 * * 1'  # Run every Monday
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,21 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Check dependency updates
-        run: ./gradlew dependencyUpdates -Drevision=release
+        id: dependency-check
+        run: |
+          ./gradlew dependencyUpdates -Drevision=release
+          if grep -q "The following dependencies have later versions" build/dependencyUpdates/report.txt; then
+            echo "outdated=true" >> $GITHUB_ENV
+          else
+            echo "outdated=false" >> $GITHUB_ENV
+          fi
+
+      - name: Create dynamic badge
+        uses: Schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GITHUB_TOKEN }}
+          gistID: YOUR_GIST_ID
+          filename: dependencies.json
+          label: dependencies
+          message: ${{ env.outdated == 'true' && 'outdated' || 'up to date' }}
+          color: ${{ env.outdated == 'true' && 'red' || 'brightgreen' }}
