@@ -122,8 +122,17 @@ sonarqube {
         property("sonar.organization", "marcoslozina")
         property("sonar.host.url", "https://sonarcloud.io")
 
-        property("sonar.exclusions", "**/config/**, **/controller/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
+        // 🔽 Exclusiones del análisis general (code smells, bugs, etc.)
+        property("sonar.exclusions", "**/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
+
+        // 🔽 Exclusiones del análisis de cobertura
+        property("sonar.coverage.exclusions", "**/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
+
+        // 🔽 Ruta del reporte de cobertura Jacoco (XML)
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+
+        // 🔽 Rama de referencia para comparar “New Code”
+        property("sonar.newCode.referenceBranch", "main")
     }
 }
 
