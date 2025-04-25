@@ -41,6 +41,12 @@ jobs:
       - name: Generate Jacoco Report
         run: ./gradlew jacocoTestReport
 
+      - name: Upload Jacoco report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test/jacocoTestReport.xml
+
       - name: Print Build Version
         run: ./gradlew printVersion
 
@@ -60,8 +66,11 @@ jobs:
           java-version: '23'
           distribution: 'temurin'
 
-      - name: Generate coverage
-        run: ./gradlew jacocoTestReport
+      - name: Download Jacoco report
+        uses: actions/download-artifact@v3
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test
 
       - name: SonarCloud Analysis
         env:
