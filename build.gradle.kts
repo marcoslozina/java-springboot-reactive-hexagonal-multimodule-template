@@ -33,10 +33,11 @@ springBoot {
     mainClass.set("com.company.Application")
 }
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
-
 dependencyManagement {
     imports {
         mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
@@ -64,6 +65,7 @@ dependencies {
     testImplementation(Dependencies.Test.restAssured)
     testImplementation(Dependencies.Test.junitApi)
     testRuntimeOnly(Dependencies.Test.junitEngine)
+    testImplementation(project(":adapters:in:rest"))
 
     testImplementation(Dependencies.Spring.bootTest) {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -75,6 +77,7 @@ dependencies {
     testImplementation(Dependencies.Test.reactorTest)
     testImplementation(Dependencies.Test.springSecurityTest)
     testImplementation(Dependencies.Test.archunit)
+
 }
 
 testing {
