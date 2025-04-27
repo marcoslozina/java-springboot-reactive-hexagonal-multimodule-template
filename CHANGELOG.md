@@ -1,5 +1,38 @@
 # Changelog
 
+## 1.0.0 (2025-04-27)
+
+
+### Features
+
+* agregar funcionalidad X ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* configuration multimodule ([d7df58e](https://github.com/marcoslozina/template-service/commit/d7df58e069ee8bb58418ab7945e25996f58ccf0f))
+* configuration multimodule ([c671959](https://github.com/marcoslozina/template-service/commit/c671959624b13936775894c823c3f004aec4955f))
+* convert one module to multimodule ([d7df58e](https://github.com/marcoslozina/template-service/commit/d7df58e069ee8bb58418ab7945e25996f58ccf0f))
+* fix release-please ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fully configured Java backend project ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+
+
+### Bug Fixes
+
+* **application:** fix ci and release configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* disable workflow changelog generator ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* enable changelog generator ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix changelog ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix CI configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix pull request title ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix pull request title ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix release configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix release configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix sonar configuration coverage ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix tag release ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* node version from 18 to 20 ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* release change ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update ci jacaco pipeline configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update project structure ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update sonar badged sonar configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update sonar configuration coverage ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+
 ## [1.0.1](https://github.com/marcoslozina/template-service/compare/v1.0.0...v1.0.1) (2025-04-25)
 
 
