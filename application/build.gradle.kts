@@ -4,7 +4,7 @@ plugins {
 
 tasks.test {
     useJUnitPlatform()
-    finalizedBy("jacocoTestReport") // Terminar tests generando reporte
+    finalizedBy(tasks.named("jacocoTestReport"))
 }
 
 tasks.named<JacocoReport>("jacocoTestReport") {
@@ -17,12 +17,12 @@ tasks.named<JacocoReport>("jacocoTestReport") {
     }
 
     classDirectories.setFrom(
-        fileTree("${buildDir}/classes/java/main") // Clases compiladas
+        fileTree("${buildDir}/classes/java/main")
     )
     sourceDirectories.setFrom(
-        files("src/main/java") // Código fuente
+        files("src/main/java")
     )
     executionData.setFrom(
-        fileTree(buildDir).include("jacoco/test.exec") // Archivo de cobertura
+        fileTree(buildDir).include("jacoco/test.exec")
     )
 }
