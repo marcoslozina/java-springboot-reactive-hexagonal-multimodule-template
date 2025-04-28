@@ -7,7 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 import org.junit.jupiter.api.Test;
 
-public class HexagonalArchitectureTest {
+class HexagonalArchitectureTest {
 
   private final JavaClasses importedClasses =
       new ClassFileImporter()

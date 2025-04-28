@@ -27,12 +27,18 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation(Dependencies.Spring.bootWebflux)
-    implementation(Dependencies.Spring.bootSecurity)
-    implementation(Dependencies.OpenAPI.springdocWebflux)
-
-    testImplementation(Dependencies.Spring.bootTest)
-    testImplementation("org.springframework.security:spring-security-test")
+    // --- Internal modules ---
     implementation(project(":application"))
     implementation(project(":"))
+
+    // --- Spring Boot Dependencies ---
+    implementation(Dependencies.Spring.bootWebflux)
+    implementation(Dependencies.Spring.bootSecurity)
+
+    // --- OpenAPI Documentation ---
+    implementation(Dependencies.OpenAPI.springdocWebflux)
+
+    // --- Testing ---
+    testImplementation(Dependencies.Spring.bootTest)
+    testImplementation("org.springframework.security:spring-security-test")
 }
