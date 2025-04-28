@@ -185,3 +185,25 @@ configurations.all {
         force("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
     }
 }
+tasks.register<JacocoReport>("jacocoRootReport") {
+    dependsOn(subprojects.mapNotNull { it.tasks.findByName("test") })
+
+    additionalSourceDirs.setFrom(
+        files(subprojects.map { it.projectDir.resolve("src/main/java") })
+    )
+    sourceDirectories.setFrom(
+        files(subprojects.map { it.projectDir.resolve("src/main/java") })
+    )
+    classDirectories.setFrom(
+        files(subprojects.map { it.buildDir.resolve("classes/java/main") })
+    )
+    executionData.setFrom(
+        files(subprojects.map { it.buildDir.resolve("jacoco/test.exec") })
+    )
+
+    reports {
+        xml.required.set(true)    // ☑️ XML para SonarCloud
+        html.required.set(true)   // ☑️ HTML para ver en navegador
+        csv.required.set(false)
+    }
+}
