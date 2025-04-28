@@ -6,10 +6,11 @@ plugins {
 val springBootVersion: String by project
 val springCloudVersion: String by project
 val junitVersion: String by project
+val javaVersion: String by project
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(23)) // o leerlo también de properties si querés
+        languageVersion.set(JavaLanguageVersion.of(javaVersion.toInt()))
     }
 }
 
@@ -29,5 +30,9 @@ dependencies {
     implementation(Dependencies.Spring.bootWebflux)
     implementation(Dependencies.Spring.bootSecurity)
     implementation(Dependencies.OpenAPI.springdocWebflux)
+
     testImplementation(Dependencies.Spring.bootTest)
+    testImplementation("org.springframework.security:spring-security-test")
+    implementation(project(":application"))
+    implementation(project(":"))
 }

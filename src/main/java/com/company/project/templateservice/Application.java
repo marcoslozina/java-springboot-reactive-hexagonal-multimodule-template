@@ -1,4 +1,4 @@
-package com.company;
+package com.company.project.templateservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
