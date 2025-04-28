@@ -26,3 +26,10 @@ tasks.named<JacocoReport>("jacocoTestReport") {
         fileTree(buildDir).include("jacoco/test.exec")
     )
 }
+
+val junitVersion: String by project
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+}
