@@ -38,6 +38,7 @@ allprojects {
         mavenCentral()
     }
 }
+
 dependencyManagement {
     imports {
         mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
@@ -77,7 +78,6 @@ dependencies {
     testImplementation(Dependencies.Test.reactorTest)
     testImplementation(Dependencies.Test.springSecurityTest)
     testImplementation(Dependencies.Test.archunit)
-
 }
 
 testing {
@@ -124,17 +124,9 @@ sonarqube {
         property("sonar.projectKey", "marcoslozina_template-service")
         property("sonar.organization", "marcoslozina")
         property("sonar.host.url", "https://sonarcloud.io")
-
-        // 🔽 Exclusiones del análisis general (code smells, bugs, etc.)
         property("sonar.exclusions", "**/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
-
-        // 🔽 Exclusiones del análisis de cobertura
         property("sonar.coverage.exclusions", "**/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
-
-        // 🔽 Ruta del reporte de cobertura Jacoco (XML)
-        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
-
-        // 🔽 Rama de referencia para comparar “New Code”
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml")
         property("sonar.newCode.referenceBranch", "main")
     }
 }
@@ -165,12 +157,54 @@ subprojects {
     }
 }
 
+// 🔥 Jacoco para cada módulo individual
 tasks.named<JacocoReport>("jacocoTestReport") {
     dependsOn(tasks.test)
 
     reports {
-        xml.required.set(true)   // ☑️ XML para SonarCloud
-        html.required.set(true)  // ☑️ HTML para ver localmente
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
+}
+
+// 🔥 Agregado: Reporte global Jacoco corregido para Gradle 8+
+tasks.register<JacocoReport>("jacocoRootReport") {
+    dependsOn(
+        tasks.named("test"),
+        tasks.named("jacocoTestReport"),
+        subprojects.mapNotNull { it.tasks.findByName("test") },
+        subprojects.mapNotNull { it.tasks.findByName("jacocoTestReport") }
+    )
+
+    group = "verification"
+    description = "Genera un reporte unificado de cobertura de todos los submódulos."
+
+    executionData.setFrom(
+        fileTree(rootDir).include("**/build/jacoco/test.exec")
+    )
+
+    classDirectories.setFrom(
+        files(
+            subprojects.map { project ->
+                fileTree("${project.buildDir}/classes/java/main") {
+                    exclude(
+                        "**/infrastructure/**",
+                        "**/shared/**",
+                        "**/config/**"
+                    )
+                }
+            }
+        )
+    )
+
+    sourceDirectories.setFrom(
+        files(subprojects.map { it.projectDir.resolve("src/main/java") })
+    )
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
         csv.required.set(false)
     }
 }
@@ -183,27 +217,5 @@ configurations.all {
         force("org.junit.platform:junit-platform-commons:$junitPlatformVersion")
         force("org.junit.platform:junit-platform-engine:$junitPlatformVersion")
         force("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
-    }
-}
-tasks.register<JacocoReport>("jacocoRootReport") {
-    dependsOn(subprojects.mapNotNull { it.tasks.findByName("test") })
-
-    additionalSourceDirs.setFrom(
-        files(subprojects.map { it.projectDir.resolve("src/main/java") })
-    )
-    sourceDirectories.setFrom(
-        files(subprojects.map { it.projectDir.resolve("src/main/java") })
-    )
-    classDirectories.setFrom(
-        files(subprojects.map { it.buildDir.resolve("classes/java/main") })
-    )
-    executionData.setFrom(
-        files(subprojects.map { it.buildDir.resolve("jacoco/test.exec") })
-    )
-
-    reports {
-        xml.required.set(true)    // ☑️ XML para SonarCloud
-        html.required.set(true)   // ☑️ HTML para ver en navegador
-        csv.required.set(false)
     }
 }
