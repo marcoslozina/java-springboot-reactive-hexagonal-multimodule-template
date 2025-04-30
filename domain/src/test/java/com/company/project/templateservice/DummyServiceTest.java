@@ -30,6 +30,7 @@ class DummyServiceTest {
 
     @Test
     void isPositive_shouldReturnFalseForNegativeNumbers() {
-
+        int negativeNumber = -3;
+        assertFalse(dummyService.isPositive(negativeNumber), "Should return false for negative numbers");
     }
 }

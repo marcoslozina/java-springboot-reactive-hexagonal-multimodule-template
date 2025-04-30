@@ -48,6 +48,7 @@ dependencyManagement {
 }
 
 dependencies {
+    // --- Implementation Dependencies ---
     implementation(Dependencies.Observability.micrometerPrometheus)
     implementation(Dependencies.Cloud.vaultConfig)
     implementation(Dependencies.Spring.bootOauth2)
@@ -62,22 +63,22 @@ dependencies {
 
     implementation(Dependencies.Test.junitPlatformCommonsStrict)
 
+    // --- Test Dependencies ---
     testImplementation(Dependencies.Test.wiremock)
     testImplementation(Dependencies.Test.restAssured)
     testImplementation(Dependencies.Test.junitApi)
-    testRuntimeOnly(Dependencies.Test.junitEngine)
-    testImplementation(project(":adapters:in:rest"))
-
     testImplementation(Dependencies.Spring.bootTest) {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         exclude(group = "org.junit.jupiter", module = "junit-jupiter")
         exclude(group = "org.junit", module = "junit-bom")
         exclude(group = "org.junit.platform", module = "junit-platform-commons")
     }
-
     testImplementation(Dependencies.Test.reactorTest)
     testImplementation(Dependencies.Test.springSecurityTest)
     testImplementation(Dependencies.Test.archunit)
+
+    testRuntimeOnly(Dependencies.Test.junitEngine)
+    testImplementation(project(":adapters:in:rest"))
 }
 
 testing {
@@ -97,10 +98,13 @@ tasks.named<Jar>("bootJar") {
 }
 
 tasks.register("audit") {
+    group = "verification"
+    description = "Run full project checks including code style, tests, and security audits"
     dependsOn("checkAll")
 }
 
 tasks.register<Test>("archTest") {
+    group = "verification"
     description = "Runs architecture tests"
     useJUnitPlatform()
     include("**/*ArchitectureTest.class")
@@ -170,15 +174,15 @@ tasks.named<JacocoReport>("jacocoTestReport") {
 
 // 🔥 Agregado: Reporte global Jacoco corregido para Gradle 8+
 tasks.register<JacocoReport>("jacocoRootReport") {
+    group = "verification"
+    description = "Generates a unified code coverage report from all subprojects."
+
     dependsOn(
         tasks.named("test"),
         tasks.named("jacocoTestReport"),
         subprojects.mapNotNull { it.tasks.findByName("test") },
         subprojects.mapNotNull { it.tasks.findByName("jacocoTestReport") }
     )
-
-    group = "verification"
-    description = "Genera un reporte unificado de cobertura de todos los submódulos."
 
     executionData.setFrom(
         fileTree(rootDir).include("**/build/jacoco/test.exec")
