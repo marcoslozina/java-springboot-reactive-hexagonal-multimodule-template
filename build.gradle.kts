@@ -1,3 +1,4 @@
+
 // ✅ Load project-wide version values from gradle.properties file
 val logstashLogbackVersion = project.findProperty("logstashLogbackVersion") as String
 val springBootVersion = project.findProperty("springBootVersion") as String
@@ -48,7 +49,6 @@ dependencyManagement {
 }
 
 dependencies {
-    // --- Implementation Dependencies ---
     implementation(Dependencies.Observability.micrometerPrometheus)
     implementation(Dependencies.Cloud.vaultConfig)
     implementation(Dependencies.Spring.bootOauth2)
@@ -63,7 +63,6 @@ dependencies {
 
     implementation(Dependencies.Test.junitPlatformCommonsStrict)
 
-    // --- Test Dependencies ---
     testImplementation(Dependencies.Test.wiremock)
     testImplementation(Dependencies.Test.restAssured)
     testImplementation(Dependencies.Test.junitApi)
@@ -161,10 +160,8 @@ subprojects {
     }
 }
 
-// 🔥 Jacoco para cada módulo individual
 tasks.named<JacocoReport>("jacocoTestReport") {
     dependsOn(tasks.test)
-
     reports {
         xml.required.set(true)
         html.required.set(true)
@@ -172,7 +169,6 @@ tasks.named<JacocoReport>("jacocoTestReport") {
     }
 }
 
-// 🔥 Agregado: Reporte global Jacoco corregido para Gradle 8+
 tasks.register<JacocoReport>("jacocoRootReport") {
     group = "verification"
     description = "Generates a unified code coverage report from all subprojects."
@@ -190,13 +186,9 @@ tasks.register<JacocoReport>("jacocoRootReport") {
 
     classDirectories.setFrom(
         files(
-            subprojects.map { project ->
-                fileTree("${project.buildDir}/classes/java/main") {
-                    exclude(
-                        "**/infrastructure/**",
-                        "**/shared/**",
-                        "**/config/**"
-                    )
+            subprojects.map {
+                fileTree("${it.buildDir}/classes/java/main") {
+                    exclude("**/infrastructure/**", "**/shared/**", "**/config/**")
                 }
             }
         )

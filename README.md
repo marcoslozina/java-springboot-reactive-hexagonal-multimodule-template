@@ -8,7 +8,7 @@
 [![Release](https://img.shields.io/github/v/release/marcoslozina/template-service)](https://github.com/marcoslozina/template-service/releases)
 [![Code Style](https://img.shields.io/badge/style-Google%20Java%20Format-blue)](https://github.com/google/google-java-format)
 [![Lint](https://img.shields.io/badge/linter-Checkstyle-orange)](https://checkstyle.org/)
-[![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen)](https://github.com/ben-manes/gradle-versions-plugin)
+[![Dependencies](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/fc45cb1bddace6f645699522179d624f/raw/dependencies.json)](https://github.com/ben-manes/gradle-versions-plugin)
 [![Stars](https://img.shields.io/github/stars/marcoslozina/template-service?style=social)](https://github.com/marcoslozina/template-service/stargazers)
 
 ---
