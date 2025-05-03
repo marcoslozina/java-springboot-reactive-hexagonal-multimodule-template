@@ -46,6 +46,7 @@ jobs:
         with:
           name: jacoco-root-report
           path: build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml
+          if-no-files-found: error
 
       - name: Print Build Version
         run: ./gradlew printVersion
@@ -55,6 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     if: ${{ vars.RUN_SONAR == 'true' }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -71,6 +73,9 @@ jobs:
         with:
           name: jacoco-root-report
           path: build/reports/jacoco/jacocoRootReport
+
+      - name: Confirm Jacoco File Exists
+        run: ls -lah build/reports/jacoco/jacocoRootReport
 
       - name: SonarCloud Analysis
         env:
