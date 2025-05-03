@@ -87,6 +87,8 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml \
-            -Dsonar.sources=src/main/java,adapters/in/rest/src/main/java,adapters/out/messaging/src/main/java,adapters/out/persistence/src/main/java,domain/src/main/java \
-            -Dsonar.tests=src/test/java,adapters/in/rest/src/test/java,domain/src/test/java \
-            -Dsonar.java.binaries=build/classes/java/main,adapters/in/rest/build/classes/java/main,adapters/out/messaging/build/classes/java/main,adapters/out/persistence/build/classes/java/main,domain/build/classes/java/main
+            -Dsonar.sources=. \
+            -Dsonar.exclusions=**/build/**,**/*.kt \
+            -Dsonar.tests=. \
+            -Dsonar.test.exclusions=**/build/** \
+            -Dsonar.java.binaries=.
