@@ -86,7 +86,8 @@ jobs:
             -Dsonar.organization=marcoslozina \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=$SONAR_TOKEN \
-            -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml
-            -Dsonar.sources=src/main/java \
-            -Dsonar.tests=src/test/java \
-            -Dsonar.java.binaries=build/classes
+            -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml \
+            -Dsonar.sources=adapters/in/rest/src/main/java,adapters/out/messaging/src/main/java,adapters/out/persistence/src/main/java,domain/src/main/java \
+            -Dsonar.tests=adapters/in/rest/src/test/java,domain/src/test/java \
+            -Dsonar.java.binaries=adapters/in/rest/build/classes/java/main,adapters/out/messaging/build/classes/java/main,adapters/out/persistence/build/classes/java/main,domain/build/classes/java/main
+
