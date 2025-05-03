@@ -91,3 +91,4 @@ jobs:
             -Dsonar.tests=adapters/in/rest/src/test/java,domain/src/test/java \
             -Dsonar.java.binaries=adapters/in/rest/build/classes/java/main,adapters/out/messaging/build/classes/java/main,adapters/out/persistence/build/classes/java/main,domain/build/classes/java/main
 
+
