@@ -160,19 +160,12 @@ subprojects {
     }
 }
 
-tasks.named<JacocoReport>("jacocoTestReport") {
-    dependsOn(tasks.test)
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-        csv.required.set(false)
-    }
-}
-
 tasks.register<JacocoReport>("jacocoRootReport") {
     group = "verification"
     description = "Generates a unified code coverage report from all subprojects."
 
+    mustRunAfter("spotlessJava")
+    dependsOn("spotlessApply")
     dependsOn(
         tasks.named("test"),
         tasks.named("jacocoTestReport"),
@@ -198,6 +191,15 @@ tasks.register<JacocoReport>("jacocoRootReport") {
         files(subprojects.map { it.projectDir.resolve("src/main/java") })
     )
 
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
+}
+
+tasks.named<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.test)
     reports {
         xml.required.set(true)
         html.required.set(true)
