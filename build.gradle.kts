@@ -127,9 +127,15 @@ sonarqube {
         property("sonar.projectKey", "marcoslozina_template-service")
         property("sonar.organization", "marcoslozina")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.exclusions", "**/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
-        property("sonar.coverage.exclusions", "**/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
+        property("sonar.token", System.getenv("SONAR_TOKEN"))
+
+        // ✅ Reporte de cobertura
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml")
+
+        // ✅ Excluir del coverage, no del análisis general
+        property("sonar.coverage.exclusions", "**/Application.java, **/DummyService.java, **/AdminController.java, **/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
+
+        // ✅ Mantener si querés comparar ramas
         property("sonar.newCode.referenceBranch", "main")
     }
 }

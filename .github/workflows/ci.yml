@@ -80,16 +80,4 @@ jobs:
       - name: SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./gradlew sonar \
-            -Dsonar.projectKey=marcoslozina_template-service \
-            -Dsonar.organization=marcoslozina \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=$SONAR_TOKEN \
-            -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml \
-            -Dsonar.sources=domain/src/main/java,adapters/in/rest/src/main/java,adapters/out/messaging/src/main/java,adapters/out/persistence/src/main/java \
-            -Dsonar.tests=domain/src/test/java,adapters/in/rest/src/test/java \
-            -Dsonar.exclusions=**/build/**,**/resources/**,**/*.kt \
-            -Dsonar.coverage.exclusions=**/Application.java \
-            -Dsonar.test.inclusions=**/*Test.java \
-            -Dsonar.java.binaries=domain/build/classes/java/main,adapters/in/rest/build/classes/java/main,adapters/out/messaging/build/classes/java/main,adapters/out/persistence/build/classes/java/main
+        run: ./gradlew sonar
