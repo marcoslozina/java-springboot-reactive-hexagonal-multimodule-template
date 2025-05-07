@@ -6,8 +6,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 [![Release](https://img.shields.io/github/v/release/marcoslozina/template-service)](https://github.com/marcoslozina/template-service/releases)
-[![Code Style](https://img.shields.io/badge/style-Google%20Java%20Format-blue)](https://github.com/google/google-java-format)
-[![Lint](https://img.shields.io/badge/linter-Checkstyle-orange)](https://checkstyle.org/)
+
 
 
 ---
@@ -82,7 +81,7 @@ It provides a clean and extensible foundation for building secure, observable, a
 
 [![Spotless](https://img.shields.io/badge/Style-Spotless-blue)](https://github.com/diffplug/spotless)
 [![Google Format](https://img.shields.io/badge/Style-Google%20Java%20Format-ffb400)](https://github.com/google/google-java-format)
-
+[![Lint](https://img.shields.io/badge/linter-Checkstyle-orange)](https://checkstyle.org/)
 > Consistent code formatting enforced automatically with Spotless + Google Java Format.
 
 ---
