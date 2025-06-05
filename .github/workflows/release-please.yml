@@ -3,7 +3,7 @@ name: Release Please
 on:
   push:
     branches:
-      - main  # O tu rama principal
+      - main
 
 permissions:
   contents: write
@@ -22,11 +22,11 @@ jobs:
           java-version: '21'
           distribution: temurin
 
-      - name: Grant execute permissions to gradlew
-        run: chmod +x template-service/gradlew
+      - name: Grant permission to Gradle wrapper
+        run: chmod +x ./gradlew
 
       - name: Run tests before release
-        run: template-service/gradlew clean test
+        run: ./gradlew clean test
 
       - name: Run release-please
         uses: google-github-actions/release-please-action@v4

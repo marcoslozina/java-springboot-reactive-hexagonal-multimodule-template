@@ -2,12 +2,12 @@
 
 ## 📌 Project Status
 
+
 [![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
-[![Dependencies](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/c8f7b18150bc5ff47041cafca28dabc3/raw/dependencies.json)](https://github.com/marcoslozina/template-service/actions/workflows/dependency-check.yml)
-[![Release](https://img.shields.io/github/v/release/marcoslozina/template-service)](https://github.com/marcoslozina/template-service/releases)
-
+[![Dependencies](https://gist.githubusercontent.com/marcoslozina/c8f7b18150bc5ff47041cafca28dabc3/raw/dependencies.json?cache-bust=1)](https://github.com/marcoslozina/template-service)
+[![Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=release)](https://github.com/marcoslozina/template-service/releases)
 
 
 ---
