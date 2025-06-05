@@ -19,14 +19,15 @@ jobs:
           java-version: '21'
           distribution: temurin
 
-      - name: Grant permission to Gradle
+      - name: Grant permission to Gradle wrapper
         run: chmod +x template-service/gradlew
 
       - name: Run tests and generate coverage
         run: template-service/gradlew clean test jacocoRootReport
 
       - name: Run SonarCloud analysis
-        working-directory: template-service
         uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: template-service
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
