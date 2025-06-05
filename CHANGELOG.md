@@ -1,5 +1,58 @@
 # Changelog
 
+## 1.0.0 (2025-06-05)
+
+
+### Features
+
+* agregar funcionalidad X ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* configuration multimodule ([c671959](https://github.com/marcoslozina/template-service/commit/c671959624b13936775894c823c3f004aec4955f))
+* fix release-please ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fully configured Java backend project ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+
+
+### Bug Fixes
+
+* add controller test ([3523729](https://github.com/marcoslozina/template-service/commit/3523729c4d360bf9406daddefdbfffe488c7f527))
+* add main test ([31bebdf](https://github.com/marcoslozina/template-service/commit/31bebdfb9a4c1d7064eb58d32a5db61f6eaa0622))
+* **application:** fix ci and release configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* disable workflow changelog generator ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* enable changelog generator ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix changelog ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix CI configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix code smell ([39d309e](https://github.com/marcoslozina/template-service/commit/39d309e119f292170ba03c59ea53811508aee1d2))
+* fix finaly sonar ([e4a0b6d](https://github.com/marcoslozina/template-service/commit/e4a0b6dd776173cb72c8f2af2679d3c0abf35422))
+* fix gradle.kts coverage test configuration ([fe2a426](https://github.com/marcoslozina/template-service/commit/fe2a4268a18332edd76b78ff3bfe1c26d3dedca2))
+* fix minor sonar issues ([0af6e8f](https://github.com/marcoslozina/template-service/commit/0af6e8f4c080356b9a0d328d16ecb170c40c62e7))
+* fix pull request title ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix pull request title ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix release configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix release configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix sonar ([1e0a37a](https://github.com/marcoslozina/template-service/commit/1e0a37aa56b1cf5948c7bd311f8e01bd084c9868))
+* fix sonar ([1d66692](https://github.com/marcoslozina/template-service/commit/1d666927eca2e606687183d6207cc1f56a7f21c5))
+* fix sonar configuration coverage ([9c3efc1](https://github.com/marcoslozina/template-service/commit/9c3efc186e20312ebe9ef7dd13cc0bd124aa1c92))
+* fix sonar configuration coverage ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* fix sonar coverage ([9d2234a](https://github.com/marcoslozina/template-service/commit/9d2234a84f593461aa36abe4def9f9e4dff1b9f1))
+* fix sonar coverage issues ([6facbdd](https://github.com/marcoslozina/template-service/commit/6facbdddd39fdbf3b1d8f9a82ba13d975a00aaa0))
+* fix sonar issues ([2fef253](https://github.com/marcoslozina/template-service/commit/2fef253302bdb8c6a0644614cd2f12d6e8710495))
+* fix sonar issues ([0bac7dd](https://github.com/marcoslozina/template-service/commit/0bac7dd612d2bb1d21b0f4eedc8e39facb054490))
+* fix sonar issues binaries ([616dece](https://github.com/marcoslozina/template-service/commit/616dece442f5400f4f94e5af45ff2c2de83d16f4))
+* fix sonar issues coverage ([15d4f33](https://github.com/marcoslozina/template-service/commit/15d4f330741d0e5f1e74bd742cc9f68acbcc202c))
+* fix soner issues ([f46b0a1](https://github.com/marcoslozina/template-service/commit/f46b0a10538e9e90b4f818d842baab9e591d3304))
+* fix tag release ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* merge build gradle coverage task ([6b0c49c](https://github.com/marcoslozina/template-service/commit/6b0c49c776c939b96d8fbbd73b4b340e6d7edea3))
+* merge jacoco test coverage report ([c4719d2](https://github.com/marcoslozina/template-service/commit/c4719d27e405dfc7979a1d634657e87f8eaec1b8))
+* node version from 18 to 20 ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* release change ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update ci jacaco pipeline configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update coverage and dependencies badget ([e391309](https://github.com/marcoslozina/template-service/commit/e391309b3d19b5a688c984c096477e40e0ffc2e7))
+* update project structure ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update readme.md ([876a467](https://github.com/marcoslozina/template-service/commit/876a467e9d3a88d8625b7f0c75cada6512130b89))
+* update README.MD ci - badget config ([5ee7f97](https://github.com/marcoslozina/template-service/commit/5ee7f97943591820fbd59cdf1516dbdf2d690a2a))
+* update sonar badged sonar configuration ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update sonar configuration coverage ([439a83f](https://github.com/marcoslozina/template-service/commit/439a83feae90469d94feec8f50f5b3bb42cf5fd1))
+* update test coverage ([527591f](https://github.com/marcoslozina/template-service/commit/527591f3fd3b1babb906b856f6a2c8da1544574f))
+
 ## [1.0.1](https://github.com/marcoslozina/template-service/compare/v1.0.0...v1.0.1) (2025-04-25)
 
 
