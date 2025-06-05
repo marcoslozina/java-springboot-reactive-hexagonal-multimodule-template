@@ -23,14 +23,16 @@ jobs:
           distribution: temurin
 
       - name: Grant execute permissions to gradlew
+        working-directory: template-service
         run: chmod +x ./gradlew
 
       - name: Run tests before release
+        working-directory: template-service
         run: ./gradlew clean test
 
       - name: Run release-please
         uses: google-github-actions/release-please-action@v4
         with:
           release-type: simple
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}  # o GITHUB_TOKEN si lo cambiás
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           pull-request-title-pattern: "🚀 Release version ${version}"
