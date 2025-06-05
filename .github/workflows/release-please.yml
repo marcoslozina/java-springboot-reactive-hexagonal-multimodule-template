@@ -23,12 +23,10 @@ jobs:
           distribution: temurin
 
       - name: Grant execute permissions to gradlew
-        working-directory: template-service
-        run: chmod +x ./gradlew
+        run: chmod +x template-service/gradlew
 
       - name: Run tests before release
-        working-directory: template-service
-        run: ./gradlew clean test
+        run: template-service/gradlew clean test
 
       - name: Run release-please
         uses: google-github-actions/release-please-action@v4

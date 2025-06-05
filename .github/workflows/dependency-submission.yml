@@ -1,0 +1,32 @@
+name: Dependency Submission (Gradle)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  gradle-dependencies:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: template-service  # <- Ajusta según tu estructura
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@v3
+        with:
+          gradle-project-path: template-service
