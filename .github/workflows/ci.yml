@@ -26,15 +26,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      # ❌ Desactivamos el cache usando un key único por ejecución (github.run_id)
-      - name: Disable Gradle cache (force fresh build)
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: no-cache-${{ runner.os }}-${{ github.run_id }}
-
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
 
@@ -69,11 +60,13 @@ jobs:
       - name: Submit dependency graph
         uses: gradle/actions/dependency-submission@v3
 
-      - name: Check outdated dependencies and update badge
+      - name: Check outdated dependencies
         run: ./gradlew dependencyUpdates > deps.txt
 
-      - name: Upload badge to gist
-        uses: exuanbo/actions-dependency-review@v1
+      - name: Upload badge to Gist
+        uses: andymckay/gh-upload-to-gist@v1
         env:
-          GIST_ID: ${{ secrets.GIST_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          gist_url: https://gist.githubusercontent.com/marcoslozina/c8f7b18150bc5ff47041cafca28dabc3/raw/dependencies.json
+          file: deps.txt
