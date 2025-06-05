@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: template-service  # <- Ajusta según tu estructura
+        working-directory: template-service
 
     steps:
       - uses: actions/checkout@v4
@@ -29,4 +29,4 @@ jobs:
       - name: Generate and submit dependency graph
         uses: gradle/actions/dependency-submission@v3
         with:
-          gradle-project-path: template-service
+          build-root-directory: template-service
