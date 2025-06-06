@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/marcoslozina/template-service/compare/v1.2.0...v1.2.1) (2025-06-06)
+
+
+### Bug Fixes
+
+* fix property ([03c3e89](https://github.com/marcoslozina/template-service/commit/03c3e89ca6c5349945e61603ac9eb8f32a04d877))
+
 ## [1.2.0](https://github.com/marcoslozina/template-service/compare/v1.1.0...v1.2.0) (2025-06-06)
 
 
