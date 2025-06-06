@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.4](https://github.com/marcoslozina/template-service/compare/v1.2.3...v1.2.4) (2025-06-06)
+
+
+### Bug Fixes
+
+* fix build ([14b3a6f](https://github.com/marcoslozina/template-service/commit/14b3a6fe7df275693e24fcf11df22f97a2303847))
+* fix security vulnerability ([f72ae5f](https://github.com/marcoslozina/template-service/commit/f72ae5f2116a5293229a1c150096fc0d9b1b9b23))
+* fix spring boot version ([5aa4cf8](https://github.com/marcoslozina/template-service/commit/5aa4cf8ddb229d6c89b778d5f0f85cc2c65c02a9))
+* remove readme ([efd66b0](https://github.com/marcoslozina/template-service/commit/efd66b014f23eff01e68389c83660d85d8a20661))
+
 ## [1.2.3](https://github.com/marcoslozina/template-service/compare/v1.2.2...v1.2.3) (2025-06-06)
 
 
