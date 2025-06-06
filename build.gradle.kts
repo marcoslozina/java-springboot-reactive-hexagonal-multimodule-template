@@ -60,7 +60,13 @@ dependencies {
     implementation(Dependencies.Validation.hibernateValidator)
     implementation(Dependencies.Validation.jakartaEl)
     implementation(Dependencies.Logging.logstashLogback)
-
+  // 🔐 Seguridad: Corrección de vulnerabilidades detectadas
+    implementation(SecurityFixes.commonsBeanutils)
+    implementation(SecurityFixes.commonsIo)
+    implementation(SecurityFixes.httpClient5)
+    implementation(SecurityFixes.activemqArtemis)
+    implementation(SecurityFixes.jettyServer)
+    implementation(SecurityFixes.jettyHttp)
     implementation(Dependencies.Test.junitPlatformCommonsStrict)
 
     testImplementation(Dependencies.Test.wiremock)
@@ -79,6 +85,8 @@ dependencies {
     testRuntimeOnly(Dependencies.Test.junitEngine)
     testImplementation(project(":adapters:in:rest"))
 }
+
+
 
 testing {
     suites {
