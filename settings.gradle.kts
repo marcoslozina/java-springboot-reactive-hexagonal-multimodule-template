@@ -10,9 +10,9 @@ dependencyResolutionManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
+        maven("https://repo.spring.io/milestone") // ✅ Necesario para spring-cloud
     }
 }
-
 
 rootProject.name = "template-service"
 
