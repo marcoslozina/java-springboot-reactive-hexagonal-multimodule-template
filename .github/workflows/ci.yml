@@ -64,7 +64,7 @@ jobs:
         run: ./gradlew dependencyUpdates > deps.txt
 
       - name: Upload badge to Gist
-        uses: andymckay/gh-upload-to-gist@v1
+        uses: exuanbo/actions-dependency-review@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
