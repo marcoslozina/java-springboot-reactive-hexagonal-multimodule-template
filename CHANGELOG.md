@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.2](https://github.com/marcoslozina/template-service/compare/v1.2.1...v1.2.2) (2025-06-06)
+
+
+### Bug Fixes
+
+* fix dependabot ([1f48a17](https://github.com/marcoslozina/template-service/commit/1f48a173fe0c12409d5d8d16e4a36f71127ad213))
+* fix readme.md ([657154d](https://github.com/marcoslozina/template-service/commit/657154d189678065abf141253cc88710e72d0266))
+
 ## [1.2.1](https://github.com/marcoslozina/template-service/compare/v1.2.0...v1.2.1) (2025-06-06)
 
 
