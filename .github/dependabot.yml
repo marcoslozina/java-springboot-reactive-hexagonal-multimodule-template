@@ -7,10 +7,16 @@ updates:
     open-pull-requests-limit: 5
     rebase-strategy: auto
     ignore:
-      - dependency-name: "org.springframework.boot"
-        versions: ["5.x"]
+      # Ignorar actualizaciones conflictivas o que ya maneja el BOM de Spring Boot y Cloud
+      - dependency-name: "org.springframework.boot*"
+      - dependency-name: "org.springframework.security*"
+      - dependency-name: "org.springframework.cloud*"
+      - dependency-name: "org.springframework*"
+      - dependency-name: "io.netty*"
+      - dependency-name: "net.minidev*"
     allow:
       - dependency-type: "direct"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
