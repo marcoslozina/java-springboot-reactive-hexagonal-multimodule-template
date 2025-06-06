@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/marcoslozina/template-service/compare/v1.2.2...v1.2.3) (2025-06-06)
+
+
+### Bug Fixes
+
+* add vulnerabilitis buget ([485d72c](https://github.com/marcoslozina/template-service/commit/485d72cf9fe5ac79a148a5a19c54427eabfefab2))
+
 ## [1.2.2](https://github.com/marcoslozina/template-service/compare/v1.2.1...v1.2.2) (2025-06-06)
 
 
