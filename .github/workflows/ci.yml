@@ -63,10 +63,18 @@ jobs:
       - name: Check outdated dependencies
         run: ./gradlew dependencyUpdates > deps.txt
 
-      - name: Upload badge to Gist
-        uses: exuanbo/actions-dependency-review@v1
+      - name: Upload dependency report to Gist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          gist_url: https://gist.githubusercontent.com/marcoslozina/c8f7b18150bc5ff47041cafca28dabc3/raw/dependencies.json
-          file: deps.txt
+        run: |
+          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3 \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d @- <<EOF
+          {
+            "files": {
+              "dependencies.json": {
+                "content": "$(cat deps.txt)"
+              }
+            }
+          }
