@@ -19,10 +19,6 @@ It provides a clean and extensible foundation for building secure, observable, a
 
 ---
 
-## 📏 Architecture Diagram
-
-![Hexagonal Architecture](docs/images/architecture-diagram.png)
-
 ---
 
 ## 🛠️ Technology Stack by Layer
