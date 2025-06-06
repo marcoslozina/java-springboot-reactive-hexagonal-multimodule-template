@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.2.0](https://github.com/marcoslozina/template-service/compare/v1.1.0...v1.2.0) (2025-06-06)
+
+
+### Features
+
+* add dependecy submition ([51ad9f7](https://github.com/marcoslozina/template-service/commit/51ad9f70e2e5ccbc219699012a682dada266512c))
+* fix ci and sonar ([31307d6](https://github.com/marcoslozina/template-service/commit/31307d6b008148d5f6c0bc7509f78feef1c70270))
+* fix dependencies ([28af8c9](https://github.com/marcoslozina/template-service/commit/28af8c9c61ae981fc4144f270a7d396c9222b279))
+
+
+### Bug Fixes
+
+* fix ci ([82bbf33](https://github.com/marcoslozina/template-service/commit/82bbf3310c9bcc2ed1d1d1617995d874e737cfec))
+* fix ci ([e027567](https://github.com/marcoslozina/template-service/commit/e02756731bbb95e93a086d4e65d711fd9283038d))
+* fix ci ([bf85ba7](https://github.com/marcoslozina/template-service/commit/bf85ba7156135bc4dc12572a8ec67094d14a4dd7))
+* fix ci config ([ad599af](https://github.com/marcoslozina/template-service/commit/ad599af361d2dcc537c5541d0d4312cac9c1f086))
+* fix dependecies ([d3ebc38](https://github.com/marcoslozina/template-service/commit/d3ebc3826108527f2897c43baaa4e8531551d477))
+* fix dependencies ([328ef5d](https://github.com/marcoslozina/template-service/commit/328ef5da0c42b9af0efd8c14e1c69ec93bcf327b))
+* fix dependency submition ([c90f866](https://github.com/marcoslozina/template-service/commit/c90f866aeacd999f3c54ce3265a98fc71bf930d2))
+* fix readme ([358ca45](https://github.com/marcoslozina/template-service/commit/358ca45348a12c939044923c580acab920a6d02a))
+* fix release please test ([446b664](https://github.com/marcoslozina/template-service/commit/446b664f37dd031c48bf5c33dcee1e1d6db5ac87))
+* release please permision ([0130955](https://github.com/marcoslozina/template-service/commit/01309552e119917226c5e4aa9c533e38cc7b2c96))
+* update java to 21 ([61ab8d7](https://github.com/marcoslozina/template-service/commit/61ab8d7c59a11518b01a5b1bdecf5cafd4a5404c))
+* update release please ([7f42023](https://github.com/marcoslozina/template-service/commit/7f420231795f98fa843d56f40290192d389c1383))
+
 ## [1.1.0](https://github.com/marcoslozina/template-service/compare/v1.0.0...v1.1.0) (2025-06-05)
 
 
