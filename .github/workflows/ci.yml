@@ -89,10 +89,7 @@ jobs:
         run: |
           echo "Updating Gist with dependency report..."
           content=$(cat deps.txt | jq -Rs .)
-          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3 \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{\"files\": {\"dependencies.json\": {\"content\": $content}}}"
+          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3             -H "Authorization: token $GITHUB_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"dependencies.json": {"content": $content}}}"
 
       ########################################
       # 🔐 Update security badge (Dependabot alerts)
@@ -105,11 +102,42 @@ jobs:
         run: |
           echo "Counting open Dependabot alerts..."
           count=$(gh api /repos/${{ github.repository }}/dependabot/alerts --paginate | jq length)
-          echo "{\"vulnerabilities\": $count}" > security.json
+          echo "{"vulnerabilities": $count}" > security.json
           content=$(cat security.json | jq -Rs .)
 
           echo "Updating Gist file..."
-          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a \
-            -H "Authorization: Bearer $GIST_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{\"files\": {\"security.json\": {\"content\": $content}}}"
+          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a             -H "Authorization: Bearer $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"security.json": {"content": $content}}}"
+
+      ########################################
+      # 📈 Update coverage badge (Gist)
+      ########################################
+
+      - name: Update coverage badge (Gist)
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+        run: |
+          echo "Reading coverage from Jacoco XML..."
+          coverage=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml)
+          missed=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@missed)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml)
+          total=$(echo "$coverage + $missed" | bc)
+          percent=$(echo "scale=1; 100 * $coverage / $total" | bc)
+
+          echo "Detected coverage: $percent%"
+
+          if (( $(echo "$percent >= 80" | bc -l) )); then
+            color="brightgreen"
+          else
+            color="red"
+          fi
+
+          jq -n             --arg percent "${percent}%"             --arg color "$color"             '{
+              schemaVersion: 1,
+              label: "coverage",
+              message: $percent,
+              color: $color
+            }' > coverage.json
+
+          echo "Uploading coverage badge to Gist..."
+          content=$(cat coverage.json | jq -Rs .)
+
+          curl -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: Bearer $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"coverage.json": {"content": $content}}}"

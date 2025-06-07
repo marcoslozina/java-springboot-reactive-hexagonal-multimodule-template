@@ -1,165 +1,202 @@
-# 📽️ Template Service
+# 🚀 Reactive Microservice Template (Multi-Module)
 
-## 📌 Project Status
-
+## 📊 Project Health
 
 [![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
+[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/012a070225e33492e22097a93349fc61/raw/coverage.json)](https://github.com/marcoslozina/template-service)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 [![Vulnerabilities](https://img.shields.io/badge/dynamic/json?label=Vulnerabilities&query=$.vulnerabilities&url=https://gist.githubusercontent.com/marcoslozina/a593e52d50f687d909316b2e77e7370a/raw/security.json&color=brightgreen&suffix=%20found)](https://github.com/marcoslozina/template-service/security/dependabot)
 [![Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=release)](https://github.com/marcoslozina/template-service/releases)
-
-
----
-
-## 🌱 Overview
-
-**Template Service** is a production-ready backend starter built with **Hexagonal Architecture**, reactive programming, and cloud-native best practices.  
-It provides a clean and extensible foundation for building secure, observable, and testable microservices..
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
----
+## 🌟 Overview
 
-## 🛠️ Technology Stack by Layer
+Plantilla **productiva** de microservicio reactivo con Spring Boot 3.2, basada en **Arquitectura Hexagonal**, diseñada con Java 21 y WebFlux para entornos cloud-native.
 
-### 🛋️ Development
+### ✨ Beneficios de la Arquitectura
 
-[![Java](https://img.shields.io/badge/Java-23-blue?logo=openjdk)](https://openjdk.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.4-brightgreen?logo=spring)](https://spring.io/projects/spring-boot)
-[![Gradle](https://img.shields.io/badge/Gradle-8.7-green?logo=gradle)](https://gradle.org/)
-[![Reactive](https://img.shields.io/badge/WebFlux-Reactive-orange?logo=reactivex)](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html)
-[![R2DBC](https://img.shields.io/badge/R2DBC-Reactive%20DB-blueviolet)](https://r2dbc.io/)
-
-> Java 23, Spring Boot 3.4.4, Gradle Kotlin DSL and WebFlux for reactive backend development.
-
-### 🔐 Security
-
-[![Vault](https://img.shields.io/badge/Vault-Secrets-black?logo=hashicorp)](https://www.vaultproject.io/)
-[![OAuth2](https://img.shields.io/badge/OAuth2-Resource_Server-yellow)](https://oauth.net/2/)
-[![Spring Security](https://img.shields.io/badge/Spring_Security-RBAC-red)](https://spring.io/projects/spring-security)
-
-> OAuth2 Resource Server, Role-Based Access Control (RBAC), and Vault for secure credentials.
-
-### 🔄 CI / CD
-
-[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-blue?logo=githubactions)](https://docs.github.com/en/actions)
-[![Release](https://img.shields.io/github/v/release/marcoslozina/template-service)](https://github.com/marcoslozina/template-service/releases)
-[![Dependencies](https://img.shields.io/badge/Dependencies-Up--to--date-brightgreen)](https://github.com/ben-manes/gradle-versions-plugin)
-
-> Fully automated CI/CD pipeline for testing, formatting, code analysis, and versioned releases. Weekly dependency check included.
-
-### 🌍 Security & Vulnerabilities
-
-[![OWASP](https://img.shields.io/badge/OWASP-Dependency_Check-lightgrey)](https://owasp.org/www-project-dependency-check/)
-
-> Runs `OWASP Dependency Check` on schedule to detect vulnerabilities in 3rd-party libraries.
-
-### 📈 Observability
-
-[![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-orange?logo=prometheus)](https://prometheus.io/)
-[![Grafana](https://img.shields.io/badge/Grafana-Dashboard-yellow?logo=grafana)](https://grafana.com/)
-[![Loki](https://img.shields.io/badge/Loki-Logs-grey?logo=grafana)](https://grafana.com/oss/loki/)
-[![Logstash](https://img.shields.io/badge/Logstash-Structured_Logs-black)](https://www.elastic.co/logstash)
-
-> Metrics via Micrometer + Prometheus, dashboards via Grafana, and structured logging using Logstash.
-
-### 📊 Code Quality
-
-[![Jacoco](https://img.shields.io/badge/Jacoco-Coverage-red?logo=codecov)](https://www.jacoco.org/jacoco/)
-[![SonarCloud](https://img.shields.io/badge/SonarCloud-Analysis-yellow?logo=sonarcloud)](https://sonarcloud.io/dashboard?id=marcoslozina_template-service)
-[![ArchUnit](https://img.shields.io/badge/ArchUnit-Architecture-blue)](https://www.archunit.org/)
-[![Checkstyle](https://img.shields.io/badge/Checkstyle-Static_Analysis-orange)](https://checkstyle.org/)
-[![PMD](https://img.shields.io/badge/PMD-Rules-blueviolet)](https://pmd.github.io/)
-
-> Code coverage, static analysis, and architectural constraints automatically enforced via CI.
-
-### 🖌️ Style & Formatting
-
-[![Spotless](https://img.shields.io/badge/Style-Spotless-blue)](https://github.com/diffplug/spotless)
-[![Google Format](https://img.shields.io/badge/Style-Google%20Java%20Format-ffb400)](https://github.com/google/google-java-format)
-[![Lint](https://img.shields.io/badge/linter-Checkstyle-orange)](https://checkstyle.org/)
-> Consistent code formatting enforced automatically with Spotless + Google Java Format.
+- 🧱 Fronteras modulares estrictas
+- ↔️ Flujo de dependencias claro: `domain ← application ← adapters`
+- 🧪 Testabilidad independiente por capa
+- 🚀 Builds paralelos por módulo
+- 🔒 Configuraciones de seguridad aisladas
 
 ---
 
-## 📦 Build & Run Commands
+## 🏗️ Estructura de Módulos
+
+```mermaid
+graph TD
+    D[Domain] --> A[Application]
+    A --> IN[Adapters:In]
+    A --> OUT[Adapters:Out]
+    IN --> REST[REST API]
+    OUT --> DB[Persistence]
+    OUT --> MSG[Messaging]
+    S[Shared] --> ALL
+```
+
+| Módulo           | Propósito                                               |
+|------------------|----------------------------------------------------------|
+| `:domain`        | Lógica de negocio y entidades puras (POJOs)              |
+| `:application`   | Casos de uso (separados en comandos y consultas)         |
+| `:adapters:in`   | Entrada (REST controllers, listeners)                    |
+| `:adapters:out`  | Salida (BD, mensajería, servicios externos)              |
+| `:infrastructure`| Configuración técnica (seguridad, monitoring, etc.)      |
+| `:shared`        | Utilidades comunes, excepciones, helpers                 |
+
+### ➕ Flujo de Dependencias
+
+```
+domain ← application ← adapters
+  ↑           ↑            ↑
+shared ───────┴────────────┘
+```
+
+---
+
+## 🛠️ Stack Tecnológico
+
+### Framework Principal
+
+| Componente     | Versión | Módulo         |
+|----------------|---------|----------------|
+| Java           | 21      | Todos          |
+| Spring Boot    | 3.2.5   | Infrastructure |
+| Spring WebFlux | 3.2.5   | Adapters:In    |
+| Gradle (KTS)   | 8.7     | Raíz           |
+
+### Persistencia
+
+| Componente | Versión | Módulo        |
+|------------|---------|---------------|
+| R2DBC      | 3.2.5   | Adapters:Out  |
+| Flyway     | 9.22.3  | Adapters:Out  |
+
+### Observabilidad
+
+| Componente        | Versión | Módulo         |
+|-------------------|---------|----------------|
+| Micrometer        | 1.12.3  | Infrastructure |
+| Logstash Logback  | 7.4     | Shared         |
+
+---
+
+## 🚀 Getting Started
+
+### 🔧 Build por Módulo
 
 ```bash
-# Clean, build, and run tests
+# Compilar solo domain y application
+./gradlew :domain:build :application:build
+
+# Ejecutar toda la app
+./gradlew :infrastructure:bootRun
+
+# Testear un adapter específico
+./gradlew :adapters:in:rest:test
+```
+
+### 🛠️ Comandos Útiles
+
+```bash
+# Live reload en infraestructura
+./gradlew :infrastructure:bootRun --continuous
+
+# Ver dependencias
+./gradlew :infrastructure:dependencies
+
+# Build completo con tests
 ./gradlew clean build
-
-# Run the app
-./gradlew bootRun
-
-# Run unit tests
-./gradlew test
-
-# Run architecture tests
-./gradlew archTest
-
-# Run code formatting check
-./gradlew spotlessCheck
-
-# Generate Jacoco report
-./gradlew jacocoTestReport
-
-# Check dependency updates
-./gradlew dependencyUpdates -Drevision=release
-
-# Run security dependency audit
-./gradlew dependencyCheckAnalyze
 ```
 
 ---
 
-## 📂 Project Structure
+## 📂 Estructura del Proyecto
 
-```text
-src/
- ├── main/
- │    ├── java/
- │    │    └── com/company/templateservice/
- │    │         ├── application/   # Application services (use cases)
- │    │         ├── domain/         # Core domain models and business logic
- │    │         ├── infrastructure/ # Outbound adapters (DB, Kafka, Vault, etc.)
- │    │         ├── adapter/         # Inbound adapters (controllers, API endpoints)
- │    │         ├── shared/          # Shared utilities, exceptions, constants
- │    │         └── config/          # Spring Boot configuration classes
- │    └── resources/                # Application properties, YAML configs
- └── test/
-      └── java/
-           └── com/company/templateservice/
-                ├── application/   # Application layer unit tests
-                ├── domain/         # Domain model and business rule tests
-                ├── infrastructure/ # Infrastructure integration tests
-                ├── adapter/        # API/controller endpoint tests
-                ├── shared/         # Shared utils testing
-                └── integration/    # Full end-to-end integration tests
-Dockerfile
-build.gradle.kts
-settings.gradle.kts
-README.md
-docker-compose.yml
+```
+template-service/
+├── adapters/
+│   ├── in/
+│   │   └── rest/          # Controladores REST
+│   └── out/
+│       ├── messaging/     # Kafka/RabbitMQ
+│       └── persistence/   # Repositorios R2DBC
+├── application/
+│   ├── commands/          # Escritura (CQRS)
+│   └── queries/           # Lectura (CQRS)
+├── domain/                # Entidades de negocio
+├── infrastructure/        # Config Spring Boot
+└── shared/                # Utilidades comunes
+```
+
+Cada módulo contiene:
+
+- `build.gradle.kts` específico
+- Suites de test (unitarios/integración)
+- Documentación en `module-info.java`
+
+---
+
+## 🧪 Estrategia de Testing
+
+| Módulo         | Tipo de Test       | Herramientas                   |
+|----------------|--------------------|--------------------------------|
+| `domain`       | Unitarios puros    | JUnit 5, AssertJ               |
+| `application`  | Casos de uso       | Mockito, Reactor Test          |
+| `adapters:in`  | Capa web           | WebTestClient, ArchUnit        |
+| `adapters:out` | Integración        | Testcontainers                 |
+| `infrastructure`| Validación config | Spring Boot Test               |
+
+```bash
+# Ejecutar todos los tests
+./gradlew test integrationTest
 ```
 
 ---
 
-## 🤝 Contributing
+## 🔄 CI/CD Pipeline
 
-1. Fork this repo
-2. Clone it locally
-3. Create a new feature branch
-4. Commit and push your changes
-5. Open a pull request
+```mermaid
+graph LR
+    A[Code Push] --> B[Parallel Module Builds]
+    B --> C[Layer-Specific Tests]
+    C --> D[Integration Tests]
+    D --> E[SonarCloud Analysis]
+    E --> F[Docker Image Build]
+```
+
+### 🔧 Características
+
+- Builds paralelos por módulo
+- Tests aislados por capa
+- Reportes combinados de JaCoCo
+- Escaneo de vulnerabilidades por módulo
 
 ---
 
-## 📜 License
+## 🛡️ Seguridad
 
-Licensed under the MIT License. See [`LICENSE`](LICENSE) for more.
+| Módulo         | Preocupación        | Implementación               |
+|----------------|---------------------|------------------------------|
+| `adapters:in`  | Seguridad API       | Spring Security WebFlux      |
+| `infrastructure`| Config OAuth2      | Resource Server              |
+| `adapters:out` | Cifrado de datos    | Jasypt / Vault               |
+| `shared`       | Utilidades seguras  | Crypto helpers               |
 
 ---
 
-> Made with ❤️ by [@marcoslozina](https://github.com/marcoslozina)
+## 🤝 Contribuciones
 
+- Ubicá el módulo correcto para cada funcionalidad
+- Mantené mínima la dependencia cruzada
+- Actualizá `settings.gradle.kts` al agregar módulos nuevos
+- Documentá la relación entre módulos en tu Pull Request
+
+---
+
+## 📜 Licencia
+
+Este proyecto está licenciado bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
