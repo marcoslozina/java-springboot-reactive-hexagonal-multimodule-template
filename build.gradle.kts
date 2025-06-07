@@ -230,5 +230,3 @@ configurations.all {
     }
 }
 
-// ✅ Aplica restricciones de seguridad definidas externamente
-apply(from = "$rootDir/constraints.gradle.kts")
