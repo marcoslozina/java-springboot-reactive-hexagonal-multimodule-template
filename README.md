@@ -3,11 +3,9 @@
 ## 📊 Project Health
 
 [![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
-![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/012a070225e33492e22097a93349fc61/raw/coverage.json&nocache=1)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
+![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/012a070225e33492e22097a93349fc61/raw/coverage.json)[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 ![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
-![Vulnerabilities](https://img.shields.io/badge/dynamic/json?label=Vulnerabilities&query=$.vulnerabilities&url=https://gist.githubusercontent.com/marcoslozina/a593e52d50f687d909316b2e77e7370a/raw/security.json&color=brightgreen&suffix=%20found)
-![Release Please](https://img.shields.io/badge/release%20please-enabled-brightgreen)
+![Vulnerabilities](https://img.shields.io/badge/dynamic/json?label=Vulnerabilities&query=$.vulnerabilities&url=https://gist.githubusercontent.com/marcoslozina/a593e52d50f687d909316b2e77e7370a/raw/security.json)![Release Please](https://img.shields.io/badge/release%20please-enabled-brightgreen)
 [![Last Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=Release)](https://github.com/marcoslozina/template-service/releases)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 

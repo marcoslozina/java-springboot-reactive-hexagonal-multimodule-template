@@ -90,8 +90,7 @@ jobs:
         run: |
           echo "Updating Gist with dependency report..."
           content=$(cat deps.txt | jq -Rs .)
-          # Formato compacto sin saltos de línea
-          data=$(jq -c -n --arg content "$content" '{files: {"dependencies.json": {content: $content}}}')
+          data=$(jq -n --arg content "$content" '{files: {"dependencies.json": {content: $content}}}' | jq -c)
           curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3 \
             -H "Authorization: token $GIST_TOKEN" \
             -H "Content-Type: application/json" \
@@ -106,22 +105,24 @@ jobs:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
           echo "Counting open GitHub Security alerts..."
-          # Usamos el token automático de GitHub
           count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq '. | length')
 
           echo "Vulnerabilities count: $count"
 
-          # JSON compacto y válido
-          echo "{\"vulnerabilities\": $count}" | jq -c > security.json
+          # Crear JSON válido con formato exacto
+          jq -n --argjson count "$count" '{vulnerabilities: $count}' | jq -c > security.json
+
+          echo "Contenido de security.json:"
+          cat security.json
 
           echo "Uploading to Gist..."
           curl -X PATCH \
             "https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a" \
             -H "Authorization: token $GIST_TOKEN" \
             -H "Content-Type: application/json" \
-            --data-binary @security.json
+            -d "$(cat security.json)"
 
       ##############################################################
       # 📈 Update coverage badge from Jacoco report
@@ -158,12 +159,18 @@ jobs:
             color="red"
           fi
 
-          # JSON compacto y válido (sin saltos de línea)
-          echo "{\"schemaVersion\":1,\"label\":\"coverage\",\"message\":\"$percent%\",\"color\":\"$color\"}" | jq -c > coverage.json
+          # Crear JSON con formato exacto para shields.io
+          jq -n \
+            --arg percent "$percent%" \
+            --arg color "$color" \
+            '{schemaVersion: 1, label: "coverage", message: $percent, color: $color}' | jq -c > coverage.json
+
+          echo "Contenido de coverage.json:"
+          cat coverage.json
 
           echo "Uploading to Gist..."
           curl -X PATCH \
             "https://api.github.com/gists/012a070225e33492e22097a93349fc61" \
             -H "Authorization: token $GIST_TOKEN" \
             -H "Content-Type: application/json" \
-            --data-binary @coverage.json
+            -d "$(cat coverage.json)"
