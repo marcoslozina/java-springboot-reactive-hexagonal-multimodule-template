@@ -89,7 +89,8 @@ jobs:
         run: |
           echo "Updating Gist with dependency report..."
           content=$(cat deps.txt | jq -Rs .)
-          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"dependencies.json": {"content": $content}}}"
+          data=$(jq -n --arg content "$content" '{ files: { "dependencies.json": { content: $content } } }')
+          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data"
 
       ##############################################################
       # 🔐 Update vulnerabilities badge (Dependabot alerts)
@@ -103,9 +104,10 @@ jobs:
           count=$(gh api /repos/${{ github.repository }}/dependabot/alerts --paginate | jq length)
           echo "{"vulnerabilities": $count}" > security.json
           content=$(cat security.json | jq -Rs .)
+          data=$(jq -n --arg content "$content" '{ files: { "security.json": { content: $content } } }')
 
           echo "Updating Gist file..."
-          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"security.json": {"content": $content}}}"
+          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data"
 
       ##############################################################
       # 📈 Update coverage badge from Jacoco report
@@ -147,8 +149,9 @@ jobs:
 
           echo "🚀 Uploading coverage badge to Gist..."
           content=$(cat coverage.json | jq -Rs .)
+          data=$(jq -n --arg content "$content" '{ files: { "coverage.json": { content: $content } } }')
 
-          response=$(curl -s -o response.json -w "%{http_code}"             -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"coverage.json": {"content": $content}}}")
+          response=$(curl -s -o response.json -w "%{http_code}"             -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data")
 
           echo "🧾 Gist update HTTP response code: $response"
           echo "📦 Gist response content:"
