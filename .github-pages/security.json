@@ -1,1 +1,6 @@
-{"vulnerabilities":25}
+{
+  "schemaVersion": 1,
+  "label": "Vulnerabilities",
+  "message": "25",
+  "color": "red"
+}
