@@ -6,7 +6,7 @@
 [![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
-[![Security Status](https://img.shields.io/badge/Security-14%20vulnerabilities-orange?logo=github)](https://github.com/marcoslozina/template-service/security/dependabot)
+[![Vulnerabilities](https://img.shields.io/badge/dynamic/json?label=Vulnerabilities&query=$.vulnerabilities&url=https://gist.githubusercontent.com/marcoslozina/a593e52d50f687d909316b2e77e7370a/raw/security.json&color=brightgreen&suffix=%20found)](https://github.com/marcoslozina/template-service/security/dependabot)
 [![Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=release)](https://github.com/marcoslozina/template-service/releases)
 
 

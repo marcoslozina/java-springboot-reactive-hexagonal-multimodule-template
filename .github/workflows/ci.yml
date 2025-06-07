@@ -78,3 +78,26 @@ jobs:
               }
             }
           }
+          EOF
+
+      - name: Actualizar badge de vulnerabilidades (Gist)
+        run: |
+          echo "Contando alertas de Dependabot..."
+          count=$(gh api /repos/${{ github.repository }}/dependabot/alerts --paginate | jq length)
+          echo "{\"vulnerabilities\": $count}" > security.json
+
+          echo "Actualizando Gist..."
+          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a \
+            -H "Authorization: Bearer ${{ secrets.GIST_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d @- <<EOF
+  {
+    "files": {
+      "security.json": {
+        "content": "$(cat security.json)"
+      }
+    }
+  }
+  EOF
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
