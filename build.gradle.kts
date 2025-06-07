@@ -1,4 +1,3 @@
-
 // ✅ Load project-wide version values from gradle.properties file
 val logstashLogbackVersion = project.findProperty("logstashLogbackVersion") as String
 val springBootVersion = project.findProperty("springBootVersion") as String
@@ -60,7 +59,8 @@ dependencies {
     implementation(Dependencies.Validation.hibernateValidator)
     implementation(Dependencies.Validation.jakartaEl)
     implementation(Dependencies.Logging.logstashLogback)
-  // 🔐 Seguridad: Corrección de vulnerabilidades detectadas
+
+    // 🔐 Seguridad: Corrección de vulnerabilidades detectadas
     implementation(SecurityFixes.commonsBeanutils)
     implementation(SecurityFixes.commonsIo)
     implementation(SecurityFixes.httpClient5)
@@ -85,8 +85,6 @@ dependencies {
     testRuntimeOnly(Dependencies.Test.junitEngine)
     testImplementation(project(":adapters:in:rest"))
 }
-
-
 
 testing {
     suites {
@@ -231,3 +229,6 @@ configurations.all {
         force("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
     }
 }
+
+// ✅ Aplica restricciones de seguridad definidas externamente
+apply(from = "$rootDir/constraints.gradle.kts")

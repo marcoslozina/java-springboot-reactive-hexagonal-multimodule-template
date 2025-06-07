@@ -3,9 +3,9 @@
 ## 📊 Project Health
 
 [![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
-![Coverage](https://marcoslozina.github.io/template-service/coverage.json?nocache=1)
+![Coverage](https://img.shields.io/endpoint?url=https://marcoslozina.github.io/template-service/coverage.json&nocache=1)
 ![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
-![Vulnerabilities](https://marcoslozina.github.io/template-service/security.json?nocache=1)
+![Vulnerabilities](https://img.shields.io/endpoint?url=https://marcoslozina.github.io/template-service/security.json&nocache=1)
 [![Last Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=Release)](https://github.com/marcoslozina/template-service/releases)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 

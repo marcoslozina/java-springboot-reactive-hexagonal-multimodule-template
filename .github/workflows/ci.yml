@@ -86,6 +86,7 @@ jobs:
 
       - name: Generate coverage.json
         run: |
+          mkdir -p .badge-data
           coverage=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
           missed=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@missed)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
           total=$((coverage + missed))
@@ -98,15 +99,16 @@ jobs:
             color="yellow"
           fi
 
-          jq -n --arg percent "$percent%" --arg color "$color" '{schemaVersion:1,label:"coverage",message:$percent,color:$color}' > .github-pages/coverage.json
+          jq -n --arg percent "$percent%" --arg color "$color" '{schemaVersion:1,label:"coverage",message:$percent,color:$color}' > .badge-data/coverage.json
 
       - name: Generate security.json
         run: |
+          mkdir -p .badge-data
           count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq length)
-          jq -n --argjson count "$count" '{vulnerabilities:$count}' > .github-pages/security.json
+          jq -n --argjson count "$count" '{vulnerabilities:$count}' > .badge-data/security.json
 
       ##############################################################
-      # 🚀 Deploy to GitHub Pages (gh-pages branch)
+      # 🚀 Deploy badge data to GitHub Pages
       ##############################################################
 
       - name: Commit and push badge files to gh-pages
@@ -115,8 +117,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git fetch origin gh-pages || git checkout --orphan gh-pages
           git switch gh-pages
-          mkdir -p .github-pages
-          cp .github-pages/*.json .
+          cp .badge-data/*.json .
           git add *.json
           git commit -m "📊 Update badges" || echo "No changes to commit"
           git push origin gh-pages
