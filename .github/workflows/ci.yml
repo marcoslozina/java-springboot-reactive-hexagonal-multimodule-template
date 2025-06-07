@@ -11,7 +11,7 @@ permissions:
   checks: write
   pull-requests: write
   id-token: write
-  security-events: read  # Necesario para leer vulnerabilidades
+  security-events: read
 
 jobs:
   build-and-test:
@@ -78,99 +78,45 @@ jobs:
         uses: gradle/actions/dependency-submission@v4
 
       ##############################################################
-      # 📌 Check outdated dependencies and upload to Gist
+      # 📊 Generate coverage and vulnerability JSONs
       ##############################################################
 
-      - name: Run Gradle dependency updates
-        run: ./gradlew dependencyUpdates > deps.txt
+      - name: Install required tools
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils jq
 
-      - name: Upload dependency status to Gist
-        env:
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+      - name: Generate coverage.json
         run: |
-          echo "Updating Gist with dependency report..."
-          content=$(cat deps.txt | jq -Rs .)
-          data=$(jq -n --arg content "$content" '{files: {"dependencies.json": {content: $content}}}' | jq -c)
-          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3 \
-            -H "Authorization: token $GIST_TOKEN" \
-            -H "Content-Type: application/json" \
-            --data "$data"
-
-      ##############################################################
-      # 🔐 Update vulnerabilities badge (GitHub Security)
-      ##############################################################
-
-      - name: Update vulnerabilities badge (Gist)
-        env:
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
-        run: |
-          echo "Counting open GitHub Security alerts..."
-          count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq '. | length')
-
-          echo "Vulnerabilities count: $count"
-
-          # Crear JSON válido con formato exacto
-          jq -n --argjson count "$count" '{vulnerabilities: $count}' | jq -c > security.json
-
-          echo "Contenido de security.json:"
-          cat security.json
-
-          echo "Uploading to Gist..."
-          curl -X PATCH \
-            "https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a" \
-            -H "Authorization: token $GIST_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "$(cat security.json)"
-
-      ##############################################################
-      # 📈 Update coverage badge from Jacoco report
-      ##############################################################
-
-      - name: Install xmllint
-        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
-
-      - name: Update coverage badge (Gist)
-        env:
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
-        run: |
-          echo "Reading coverage from Jacoco XML..."
           coverage=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
           missed=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@missed)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
-
-          # Asegurar valores numéricos
-          coverage=${coverage:-0}
-          missed=${missed:-0}
-
           total=$((coverage + missed))
           percent=$(awk "BEGIN {printf \"%.1f\", ($coverage/$total)*100}")
 
-          echo "✔️ covered=$coverage"
-          echo "❌ missed=$missed"
-          echo "📊 total=$total"
-          echo "✅ percent=$percent%"
-
+          color="red"
           if (( $(echo "$percent >= 80" | bc -l) )); then
             color="brightgreen"
           elif (( $(echo "$percent >= 50" | bc -l) )); then
             color="yellow"
-          else
-            color="red"
           fi
 
-          # Crear JSON con formato exacto para shields.io
-          jq -n \
-            --arg percent "$percent%" \
-            --arg color "$color" \
-            '{schemaVersion: 1, label: "coverage", message: $percent, color: $color}' | jq -c > coverage.json
+          jq -n --arg percent "$percent%" --arg color "$color" '{schemaVersion:1,label:"coverage",message:$percent,color:$color}' > .github-pages/coverage.json
 
-          echo "Contenido de coverage.json:"
-          cat coverage.json
+      - name: Generate security.json
+        run: |
+          count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq length)
+          jq -n --argjson count "$count" '{vulnerabilities:$count}' > .github-pages/security.json
 
-          echo "Uploading to Gist..."
-          curl -X PATCH \
-            "https://api.github.com/gists/012a070225e33492e22097a93349fc61" \
-            -H "Authorization: token $GIST_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "$(cat coverage.json)"
+      ##############################################################
+      # 🚀 Deploy to GitHub Pages (gh-pages branch)
+      ##############################################################
+
+      - name: Commit and push badge files to gh-pages
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git fetch origin gh-pages || git checkout --orphan gh-pages
+          git switch gh-pages
+          mkdir -p .github-pages
+          cp .github-pages/*.json .
+          git add *.json
+          git commit -m "📊 Update badges" || echo "No changes to commit"
+          git push origin gh-pages
