@@ -87,42 +87,29 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "Updating Gist with dependency report..."
+          content=$(cat deps.txt | jq -Rs .)
           curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3 \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
-            -d @- <<EOF
-  {
-    "files": {
-      "dependencies.json": {
-        "content": "$(cat deps.txt)"
-      }
-    }
-  }
-  EOF
+            -d "{\"files\": {\"dependencies.json\": {\"content\": $content}}}"
 
-########################################
-# 🔐 Update security badge (Dependabot alerts)
-########################################
+      ########################################
+      # 🔐 Update security badge (Dependabot alerts)
+      ########################################
 
-- name: Update vulnerabilities badge (Gist)
-  env:
-    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
-  run: |
-    echo "Counting open Dependabot alerts..."
-    count=$(gh api /repos/${{ github.repository }}/dependabot/alerts --paginate | jq length)
-    echo "{\"vulnerabilities\": $count}" > security.json
+      - name: Update vulnerabilities badge (Gist)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+        run: |
+          echo "Counting open Dependabot alerts..."
+          count=$(gh api /repos/${{ github.repository }}/dependabot/alerts --paginate | jq length)
+          echo "{\"vulnerabilities\": $count}" > security.json
+          content=$(cat security.json | jq -Rs .)
 
-    echo "Updating Gist file..."
-    curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a \
-      -H "Authorization: Bearer $GIST_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d @- <<EOF
-  {
-    "files": {
-      "security.json": {
-        "content": "$(cat security.json)"
-      }
-    }
-  }
-  EOF
+          echo "Updating Gist file..."
+          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a \
+            -H "Authorization: Bearer $GIST_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"files\": {\"security.json\": {\"content\": $content}}}"
