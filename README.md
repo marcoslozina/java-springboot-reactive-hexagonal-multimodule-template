@@ -15,7 +15,7 @@
 ## 🌱 Overview
 
 **Template Service** is a production-ready backend starter built with **Hexagonal Architecture**, reactive programming, and cloud-native best practices.  
-It provides a clean and extensible foundation for building secure, observable, and testable microservices.
+It provides a clean and extensible foundation for building secure, observable, and testable microservices..
 
 ---
 
