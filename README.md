@@ -6,8 +6,8 @@
 ![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/012a070225e33492e22097a93349fc61/raw/coverage.json&nocache=1)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 ![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
-![GitHub Security Alerts](https://img.shields.io/badge/GitHub%2520Security-Alerts-enabled-brightgreen)
-![Release Please](https://img.shields.io/badge/release%2520please-enabled-brightgreen)
+![Vulnerabilities](https://img.shields.io/badge/dynamic/json?label=Vulnerabilities&query=$.vulnerabilities&url=https://gist.githubusercontent.com/marcoslozina/a593e52d50f687d909316b2e77e7370a/raw/security.json&color=brightgreen&suffix=%20found)
+![Release Please](https://img.shields.io/badge/release%20please-enabled-brightgreen)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## 🌟 Overview
@@ -26,12 +26,12 @@ Plantilla productiva de microservicio reactivo con Spring Boot 3.2, basada en Ar
 
 ### Framework Principal
 
-| Componente   | Versión | Módulo         |
-|--------------|---------|----------------|
-| Java         | 21      | Todos          |
-| Spring Boot  | 3.2.5   | Infrastructure |
-| Spring WebFlux | 3.2.5 | Adapters:In    |
-| Gradle (KTS) | 8.7     | Raíz           |
+| Componente     | Versión | Módulo         |
+|----------------|---------|----------------|
+| Java           | 21      | Todos          |
+| Spring Boot    | 3.2.5   | Infrastructure |
+| Spring WebFlux | 3.2.5   | Adapters:In    |
+| Gradle (KTS)   | 8.7     | Raíz           |
 
 ### Persistencia
 
@@ -42,21 +42,23 @@ Plantilla productiva de microservicio reactivo con Spring Boot 3.2, basada en Ar
 
 ### Observabilidad
 
-| Componente        | Versión | Módulo        |
-|-------------------|---------|---------------|
-| Micrometer        | 1.12.3  | Infrastructure|
-| Logstash Logback  | 7.4     | Shared        |
-| SonarCloud        | Latest  | CI/CD         |
+| Componente       | Versión | Módulo         |
+|------------------|---------|----------------|
+| Micrometer       | 1.12.3  | Infrastructure |
+| Logstash Logback | 7.4     | Shared         |
+| SonarCloud       | Latest  | CI/CD          |
 
 ### Seguridad
 
-| Componente     | Versión | Uso                        |
-|----------------|---------|----------------------------|
-| Dependabot     | Latest  | Actualización dependencias |
-| GitHub Security| Latest  | Alertas vulnerabilidades   |
-| OWASP DC       | 8.4.1   | Escaneo CI/CD              |
+| Componente       | Versión | Uso                          |
+|------------------|---------|-------------------------------|
+| Dependabot       | Latest  | Actualización dependencias    |
+| GitHub Security  | Latest  | Alertas vulnerabilidades      |
+| OWASP DC         | 8.4.1   | Escaneo CI/CD                 |
 
 ## 🔄 CI/CD Pipeline
+
+![CI/CD Diagram](docs/images/cicd-diagram.png)
 
 ### 🔧 Etapas del Pipeline
 
@@ -114,6 +116,10 @@ Plantilla productiva de microservicio reactivo con Spring Boot 3.2, basada en Ar
 # Ver dependencias vulnerables
 ./gradlew dependencyUpdates -Drevision=release
 ```
+
+## 🔍 Security Workflow
+
+![Security Workflow](docs/images/security-diagram.png)
 
 ## 🛡️ Políticas de Seguridad
 
