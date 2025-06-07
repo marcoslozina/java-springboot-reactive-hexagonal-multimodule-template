@@ -102,9 +102,8 @@ jobs:
         run: |
           echo "Counting open Dependabot alerts..."
           count=$(gh api /repos/${{ github.repository }}/dependabot/alerts --paginate | jq length)
-          echo "{"vulnerabilities": $count}" > security.json
-          content=$(cat security.json | jq -Rs .)
-          data=$(jq -n --arg content "$content" '{ files: { "security.json": { content: $content } } }')
+          jq -n --arg count "$count" '{ vulnerabilities: ($count | tonumber) }' > security.json
+          data=$(jq -n --slurpfile file security.json '{ files: { "security.json": { content: ($file | join("")) } } }')
 
           echo "Updating Gist file..."
           curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data"
@@ -148,8 +147,7 @@ jobs:
           cat coverage.json
 
           echo "🚀 Uploading coverage badge to Gist..."
-          content=$(cat coverage.json | jq -Rs .)
-          data=$(jq -n --arg content "$content" '{ files: { "coverage.json": { content: $content } } }')
+          data=$(jq -n --slurpfile file coverage.json '{ files: { "coverage.json": { content: ($file | join("")) } } }')
 
           response=$(curl -s -o response.json -w "%{http_code}"             -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data")
 
