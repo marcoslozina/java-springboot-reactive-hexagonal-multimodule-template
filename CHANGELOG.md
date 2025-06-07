@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.9](https://github.com/marcoslozina/template-service/compare/v1.2.8...v1.2.9) (2025-06-07)
+
+
+### Bug Fixes
+
+* fix ci y readme ([b6f549e](https://github.com/marcoslozina/template-service/commit/b6f549e08974a880642afa8a24049ba895f35dea))
+
 ## [1.2.8](https://github.com/marcoslozina/template-service/compare/v1.2.7...v1.2.8) (2025-06-07)
 
 
