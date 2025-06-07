@@ -11,6 +11,7 @@ permissions:
   checks: write
   pull-requests: write
   id-token: write
+  security-events: read  # Necesario para leer vulnerabilidades
 
 jobs:
   build-and-test:
@@ -89,24 +90,38 @@ jobs:
         run: |
           echo "Updating Gist with dependency report..."
           content=$(cat deps.txt | jq -Rs .)
-          data=$(jq -n --arg content "$content" '{ files: { "dependencies.json": { content: $content } } }')
-          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data"
+          # Formato compacto sin saltos de línea
+          data=$(jq -c -n --arg content "$content" '{files: {"dependencies.json": {content: $content}}}')
+          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3 \
+            -H "Authorization: token $GIST_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "$data"
 
       ##############################################################
-      # 🔐 Update vulnerabilities badge (Dependabot alerts)
+      # 🔐 Update vulnerabilities badge (GitHub Security)
       ##############################################################
 
       - name: Update vulnerabilities badge (Gist)
         env:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
-          echo "Counting open Dependabot alerts..."
-          count=$(gh api /repos/${{ github.repository }}/dependabot/alerts --paginate | jq length)
-          jq -n --arg count "$count" '{ vulnerabilities: ($count | tonumber) }' > security.json
-          data=$(jq -n --slurpfile file security.json '{ files: { "security.json": { content: ($file | join("")) } } }')
+          echo "Counting open GitHub Security alerts..."
+          # Usamos el token automático de GitHub
+          count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq '. | length')
 
-          echo "Updating Gist file..."
-          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data"
+          echo "Vulnerabilities count: $count"
+
+          # JSON compacto y válido
+          echo "{\"vulnerabilities\": $count}" | jq -c > security.json
+
+          echo "Uploading to Gist..."
+          curl -X PATCH \
+            "https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a" \
+            -H "Authorization: token $GIST_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data-binary @security.json
 
       ##############################################################
       # 📈 Update coverage badge from Jacoco report
@@ -120,42 +135,35 @@ jobs:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
           echo "Reading coverage from Jacoco XML..."
-          coverage=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml)
-          missed=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@missed)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml)
-          total=$(echo "$coverage + $missed" | bc)
-          percent=$(echo "scale=1; 100 * $coverage / $total" | bc)
+          coverage=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
+          missed=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@missed)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
+
+          # Asegurar valores numéricos
+          coverage=${coverage:-0}
+          missed=${missed:-0}
+
+          total=$((coverage + missed))
+          percent=$(awk "BEGIN {printf \"%.1f\", ($coverage/$total)*100}")
 
           echo "✔️ covered=$coverage"
           echo "❌ missed=$missed"
           echo "📊 total=$total"
-          echo "✅ percent=$percent"
+          echo "✅ percent=$percent%"
 
           if (( $(echo "$percent >= 80" | bc -l) )); then
             color="brightgreen"
+          elif (( $(echo "$percent >= 50" | bc -l) )); then
+            color="yellow"
           else
             color="red"
           fi
 
-          jq -n             --arg percent "${percent}%"             --arg color "$color"             '{
-              schemaVersion: 1,
-              label: "coverage",
-              message: $percent,
-              color: $color
-            }' > coverage.json
+          # JSON compacto y válido (sin saltos de línea)
+          echo "{\"schemaVersion\":1,\"label\":\"coverage\",\"message\":\"$percent%\",\"color\":\"$color\"}" | jq -c > coverage.json
 
-          echo "📝 Generated coverage.json:"
-          cat coverage.json
-
-          echo "🚀 Uploading coverage badge to Gist..."
-          data=$(jq -n --slurpfile file coverage.json '{ files: { "coverage.json": { content: ($file | join("")) } } }')
-
-          response=$(curl -s -o response.json -w "%{http_code}"             -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             --data "$data")
-
-          echo "🧾 Gist update HTTP response code: $response"
-          echo "📦 Gist response content:"
-          cat response.json
-
-          if [[ "$response" != "200" ]]; then
-            echo "❌ Failed to update Gist"
-            exit 1
-          fi
+          echo "Uploading to Gist..."
+          curl -X PATCH \
+            "https://api.github.com/gists/012a070225e33492e22097a93349fc61" \
+            -H "Authorization: token $GIST_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data-binary @coverage.json
