@@ -125,7 +125,10 @@ jobs:
           total=$(echo "$coverage + $missed" | bc)
           percent=$(echo "scale=1; 100 * $coverage / $total" | bc)
 
-          echo "Detected coverage: $percent%"
+          echo "✔️ covered=$coverage"
+          echo "❌ missed=$missed"
+          echo "📊 total=$total"
+          echo "✅ percent=$percent"
 
           if (( $(echo "$percent >= 80" | bc -l) )); then
             color="brightgreen"
@@ -133,20 +136,26 @@ jobs:
             color="red"
           fi
 
-          jq -n \
-            --arg percent "${percent}%" \
-            --arg color "$color" \
-            '{
+          jq -n             --arg percent "${percent}%"             --arg color "$color"             '{
               schemaVersion: 1,
               label: "coverage",
               message: $percent,
               color: $color
             }' > coverage.json
 
-          echo "Uploading coverage badge to Gist..."
+          echo "📝 Generated coverage.json:"
+          cat coverage.json
+
+          echo "🚀 Uploading coverage badge to Gist..."
           content=$(cat coverage.json | jq -Rs .)
 
-          curl -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61 \
-            -H "Authorization: Bearer $GIST_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{\"files\": {\"coverage.json\": {\"content\": $content}}}"
+          response=$(curl -s -o response.json -w "%{http_code}"             -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: Bearer $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"coverage.json": {"content": $content}}}")
+
+          echo "🧾 Gist update HTTP response code: $response"
+          echo "📦 Gist response content:"
+          cat response.json
+
+          if [[ "$response" != "200" ]]; then
+            echo "❌ Failed to update Gist"
+            exit 1
+          fi

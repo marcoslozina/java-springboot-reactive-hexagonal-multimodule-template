@@ -3,19 +3,18 @@
 ## 📊 Project Health
 
 [![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/012a070225e33492e22097a93349fc61/raw/coverage.json)](https://github.com/marcoslozina/template-service)
+![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/marcoslozina/012a070225e33492e22097a93349fc61/raw/coverage.json&nocache=1)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
-[![Vulnerabilities](https://img.shields.io/badge/dynamic/json?label=Vulnerabilities&query=$.vulnerabilities&url=https://gist.githubusercontent.com/marcoslozina/a593e52d50f687d909316b2e77e7370a/raw/security.json&color=brightgreen&suffix=%20found)](https://github.com/marcoslozina/template-service/security/dependabot)
-[![Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=release)](https://github.com/marcoslozina/template-service/releases)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
----
+![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
+![GitHub Security Alerts](https://img.shields.io/badge/GitHub%2520Security-Alerts-enabled-brightgreen)
+![Release Please](https://img.shields.io/badge/release%2520please-enabled-brightgreen)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## 🌟 Overview
 
-Plantilla **productiva** de microservicio reactivo con Spring Boot 3.2, basada en **Arquitectura Hexagonal**, diseñada con Java 21 y WebFlux para entornos cloud-native.
+Plantilla productiva de microservicio reactivo con Spring Boot 3.2, basada en Arquitectura Hexagonal, diseñada con Java 21 y WebFlux para entornos cloud-native.
 
-### ✨ Beneficios de la Arquitectura
+## ✨ Beneficios de la Arquitectura
 
 - 🧱 Fronteras modulares estrictas
 - ↔️ Flujo de dependencias claro: `domain ← application ← adapters`
@@ -23,180 +22,110 @@ Plantilla **productiva** de microservicio reactivo con Spring Boot 3.2, basada e
 - 🚀 Builds paralelos por módulo
 - 🔒 Configuraciones de seguridad aisladas
 
----
-
-## 🏗️ Estructura de Módulos
-
-```mermaid
-graph TD
-    D[Domain] --> A[Application]
-    A --> IN[Adapters:In]
-    A --> OUT[Adapters:Out]
-    IN --> REST[REST API]
-    OUT --> DB[Persistence]
-    OUT --> MSG[Messaging]
-    S[Shared] --> ALL
-```
-
-| Módulo           | Propósito                                               |
-|------------------|----------------------------------------------------------|
-| `:domain`        | Lógica de negocio y entidades puras (POJOs)              |
-| `:application`   | Casos de uso (separados en comandos y consultas)         |
-| `:adapters:in`   | Entrada (REST controllers, listeners)                    |
-| `:adapters:out`  | Salida (BD, mensajería, servicios externos)              |
-| `:infrastructure`| Configuración técnica (seguridad, monitoring, etc.)      |
-| `:shared`        | Utilidades comunes, excepciones, helpers                 |
-
-### ➕ Flujo de Dependencias
-
-```
-domain ← application ← adapters
-  ↑           ↑            ↑
-shared ───────┴────────────┘
-```
-
----
-
 ## 🛠️ Stack Tecnológico
 
 ### Framework Principal
 
-| Componente     | Versión | Módulo         |
-|----------------|---------|----------------|
-| Java           | 21      | Todos          |
-| Spring Boot    | 3.2.5   | Infrastructure |
-| Spring WebFlux | 3.2.5   | Adapters:In    |
-| Gradle (KTS)   | 8.7     | Raíz           |
+| Componente   | Versión | Módulo         |
+|--------------|---------|----------------|
+| Java         | 21      | Todos          |
+| Spring Boot  | 3.2.5   | Infrastructure |
+| Spring WebFlux | 3.2.5 | Adapters:In    |
+| Gradle (KTS) | 8.7     | Raíz           |
 
 ### Persistencia
 
-| Componente | Versión | Módulo        |
-|------------|---------|---------------|
-| R2DBC      | 3.2.5   | Adapters:Out  |
-| Flyway     | 9.22.3  | Adapters:Out  |
+| Componente | Versión | Módulo       |
+|------------|---------|--------------|
+| R2DBC      | 3.2.5   | Adapters:Out |
+| Flyway     | 9.22.3  | Adapters:Out |
 
 ### Observabilidad
 
-| Componente        | Versión | Módulo         |
-|-------------------|---------|----------------|
-| Micrometer        | 1.12.3  | Infrastructure |
-| Logstash Logback  | 7.4     | Shared         |
+| Componente        | Versión | Módulo        |
+|-------------------|---------|---------------|
+| Micrometer        | 1.12.3  | Infrastructure|
+| Logstash Logback  | 7.4     | Shared        |
+| SonarCloud        | Latest  | CI/CD         |
 
----
+### Seguridad
 
-## 🚀 Getting Started
-
-### 🔧 Build por Módulo
-
-```bash
-# Compilar solo domain y application
-./gradlew :domain:build :application:build
-
-# Ejecutar toda la app
-./gradlew :infrastructure:bootRun
-
-# Testear un adapter específico
-./gradlew :adapters:in:rest:test
-```
-
-### 🛠️ Comandos Útiles
-
-```bash
-# Live reload en infraestructura
-./gradlew :infrastructure:bootRun --continuous
-
-# Ver dependencias
-./gradlew :infrastructure:dependencies
-
-# Build completo con tests
-./gradlew clean build
-```
-
----
-
-## 📂 Estructura del Proyecto
-
-```
-template-service/
-├── adapters/
-│   ├── in/
-│   │   └── rest/          # Controladores REST
-│   └── out/
-│       ├── messaging/     # Kafka/RabbitMQ
-│       └── persistence/   # Repositorios R2DBC
-├── application/
-│   ├── commands/          # Escritura (CQRS)
-│   └── queries/           # Lectura (CQRS)
-├── domain/                # Entidades de negocio
-├── infrastructure/        # Config Spring Boot
-└── shared/                # Utilidades comunes
-```
-
-Cada módulo contiene:
-
-- `build.gradle.kts` específico
-- Suites de test (unitarios/integración)
-- Documentación en `module-info.java`
-
----
-
-## 🧪 Estrategia de Testing
-
-| Módulo         | Tipo de Test       | Herramientas                   |
-|----------------|--------------------|--------------------------------|
-| `domain`       | Unitarios puros    | JUnit 5, AssertJ               |
-| `application`  | Casos de uso       | Mockito, Reactor Test          |
-| `adapters:in`  | Capa web           | WebTestClient, ArchUnit        |
-| `adapters:out` | Integración        | Testcontainers                 |
-| `infrastructure`| Validación config | Spring Boot Test               |
-
-```bash
-# Ejecutar todos los tests
-./gradlew test integrationTest
-```
-
----
+| Componente     | Versión | Uso                        |
+|----------------|---------|----------------------------|
+| Dependabot     | Latest  | Actualización dependencias |
+| GitHub Security| Latest  | Alertas vulnerabilidades   |
+| OWASP DC       | 8.4.1   | Escaneo CI/CD              |
 
 ## 🔄 CI/CD Pipeline
 
-```mermaid
-graph LR
-    A[Code Push] --> B[Parallel Module Builds]
-    B --> C[Layer-Specific Tests]
-    C --> D[Integration Tests]
-    D --> E[SonarCloud Analysis]
-    E --> F[Docker Image Build]
+### 🔧 Etapas del Pipeline
+
+- **Build Paralelo**: Compilación independiente por módulo
+- **Security Scan**:
+    - OWASP Dependency Check
+    - CodeQL Analysis
+    - Dependabot alerts
+- **Testing**:
+    - Unit tests (por capa)
+    - Integration tests (Testcontainers)
+    - Architecture tests (ArchUnit)
+- **Quality Gate**:
+    - SonarCloud analysis
+    - Coverage enforcement (80% mínimo)
+- **Release**:
+    - Versionado semántico automático
+    - CHANGELOG generation
+    - Artifact publication
+
+## 🔍 Herramientas de Calidad y Seguridad
+
+### 🔒 Seguridad Automatizada
+
+- **Dependabot**: Actualización diaria de dependencias vulnerables
+- **GitHub Security Alerts**: Monitoreo continuo de vulnerabilidades (CVE)
+- **OWASP Dependency Check**: Escaneo en CI con reporte HTML
+- **CodeQL**: Análisis estático de vulnerabilidades en el código
+
+### 📊 Calidad de Código
+
+- **SonarCloud**:
+    - Análisis estático continuo
+    - Reglas personalizadas para arquitectura hexagonal
+    - Gate de calidad con métricas personalizadas
+- **Release Please**:
+    - Automatización de releases semánticas
+    - Generación de `CHANGELOG.md`
+    - Manejo de conventional commits
+
+## 🚀 Getting Started
+
+### 🔧 Comandos de Desarrollo
+
+```bash
+# Ejecutar con live reload
+./gradlew :infrastructure:bootRun --continuous
+
+# Ejecutar security scan local
+./gradlew dependencyCheckAnalyze
+
+# Generar reporte para SonarCloud
+./gradlew jacocoRootReport sonarqube
+
+# Ver dependencias vulnerables
+./gradlew dependencyUpdates -Drevision=release
 ```
 
-### 🔧 Características
+## 🛡️ Políticas de Seguridad
 
-- Builds paralelos por módulo
-- Tests aislados por capa
-- Reportes combinados de JaCoCo
-- Escaneo de vulnerabilidades por módulo
-
----
-
-## 🛡️ Seguridad
-
-| Módulo         | Preocupación        | Implementación               |
-|----------------|---------------------|------------------------------|
-| `adapters:in`  | Seguridad API       | Spring Security WebFlux      |
-| `infrastructure`| Config OAuth2      | Resource Server              |
-| `adapters:out` | Cifrado de datos    | Jasypt / Vault               |
-| `shared`       | Utilidades seguras  | Crypto helpers               |
-
----
-
-## 🤝 Contribuciones
-
-- Ubicá el módulo correcto para cada funcionalidad
-- Mantené mínima la dependencia cruzada
-- Actualizá `settings.gradle.kts` al agregar módulos nuevos
-- Documentá la relación entre módulos en tu Pull Request
-
----
+- Escaneo diario automático de dependencias
+- Bloqueo de merges con vulnerabilidades críticas
+- Requerimiento de 2 approvals para actualizaciones mayores
+- Notificaciones Slack para alertas de seguridad
 
 ## 📜 Licencia
 
-Este proyecto está licenciado bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la licencia MIT. Ver `LICENSE` para más detalles.
+
+## 🔍 Security Policy
+
+Para reportar vulnerabilidades de seguridad, por favor consulta nuestra Política de Seguridad y utiliza GitHub Security Advisories. Todas las vulnerabilidades serán investigadas dentro de las 24 horas.
