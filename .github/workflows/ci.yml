@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      ########################################
+      ##############################################################
       # 🧱 Project setup & build
-      ########################################
+      ##############################################################
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,9 +36,9 @@ jobs:
       - name: Run tests and generate coverage reports
         run: ./gradlew clean build test jacocoTestReport jacocoRootReport --no-daemon
 
-      ########################################
-      # 📦 Test and coverage reports
-      ########################################
+      ##############################################################
+      # 📦 Upload test and coverage reports as artifacts
+      ##############################################################
 
       - name: Upload test report
         if: always()
@@ -54,9 +54,9 @@ jobs:
           name: jacoco-report
           path: build/reports/jacoco/
 
-      ########################################
+      ##############################################################
       # 📊 SonarCloud static code analysis
-      ########################################
+      ##############################################################
 
       - name: SonarCloud Analysis
         uses: SonarSource/sonarcloud-github-action@v5
@@ -69,35 +69,34 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml
 
-      ########################################
+      ##############################################################
       # 📥 Submit dependency graph to GitHub
-      ########################################
+      ##############################################################
 
       - name: Submit dependency graph
         uses: gradle/actions/dependency-submission@v4
 
-      ########################################
-      # 📌 Check outdated dependencies
-      ########################################
+      ##############################################################
+      # 📌 Check outdated dependencies and upload to Gist
+      ##############################################################
 
       - name: Run Gradle dependency updates
         run: ./gradlew dependencyUpdates > deps.txt
 
       - name: Upload dependency status to Gist
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
           echo "Updating Gist with dependency report..."
           content=$(cat deps.txt | jq -Rs .)
-          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3             -H "Authorization: token $GITHUB_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"dependencies.json": {"content": $content}}}"
+          curl -X PATCH https://api.github.com/gists/c8f7b18150bc5ff47041cafca28dabc3             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"dependencies.json": {"content": $content}}}"
 
-      ########################################
-      # 🔐 Update security badge (Dependabot alerts)
-      ########################################
+      ##############################################################
+      # 🔐 Update vulnerabilities badge (Dependabot alerts)
+      ##############################################################
 
       - name: Update vulnerabilities badge (Gist)
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
           echo "Counting open Dependabot alerts..."
@@ -106,11 +105,11 @@ jobs:
           content=$(cat security.json | jq -Rs .)
 
           echo "Updating Gist file..."
-          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a             -H "Authorization: Bearer $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"security.json": {"content": $content}}}"
+          curl -X PATCH https://api.github.com/gists/a593e52d50f687d909316b2e77e7370a             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"security.json": {"content": $content}}}"
 
-      ########################################
-      # 📈 Update coverage badge (Gist)
-      ########################################
+      ##############################################################
+      # 📈 Update coverage badge from Jacoco report
+      ##############################################################
 
       - name: Install xmllint
         run: sudo apt-get update && sudo apt-get install -y libxml2-utils
@@ -149,7 +148,7 @@ jobs:
           echo "🚀 Uploading coverage badge to Gist..."
           content=$(cat coverage.json | jq -Rs .)
 
-          response=$(curl -s -o response.json -w "%{http_code}"             -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: Bearer $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"coverage.json": {"content": $content}}}")
+          response=$(curl -s -o response.json -w "%{http_code}"             -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: token $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"coverage.json": {"content": $content}}}")
 
           echo "🧾 Gist update HTTP response code: $response"
           echo "📦 Gist response content:"

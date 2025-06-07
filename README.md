@@ -8,6 +8,7 @@
 ![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
 ![Vulnerabilities](https://img.shields.io/badge/dynamic/json?label=Vulnerabilities&query=$.vulnerabilities&url=https://gist.githubusercontent.com/marcoslozina/a593e52d50f687d909316b2e77e7370a/raw/security.json&color=brightgreen&suffix=%20found)
 ![Release Please](https://img.shields.io/badge/release%20please-enabled-brightgreen)
+[![Last Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=Release)](https://github.com/marcoslozina/template-service/releases)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## 🌟 Overview
