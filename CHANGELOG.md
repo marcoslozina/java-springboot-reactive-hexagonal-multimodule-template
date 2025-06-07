@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.10](https://github.com/marcoslozina/template-service/compare/v1.2.9...v1.2.10) (2025-06-07)
+
+
+### Bug Fixes
+
+* add constraint ([663fc11](https://github.com/marcoslozina/template-service/commit/663fc11d4eb0464d0a71e4f86043bf0522e38129))
+* change to git pages ([46dc790](https://github.com/marcoslozina/template-service/commit/46dc790057adc9ff2b86a0d1931ad5af9c6905d3))
+* fix ([9a841cd](https://github.com/marcoslozina/template-service/commit/9a841cdc388966feaebf5e66eec9fc14d67d6038))
+
 ## [1.2.9](https://github.com/marcoslozina/template-service/compare/v1.2.8...v1.2.9) (2025-06-07)
 
 
