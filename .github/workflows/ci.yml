@@ -112,6 +112,9 @@ jobs:
       # 📈 Update coverage badge (Gist)
       ########################################
 
+      - name: Install xmllint
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
       - name: Update coverage badge (Gist)
         env:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
@@ -130,7 +133,10 @@ jobs:
             color="red"
           fi
 
-          jq -n             --arg percent "${percent}%"             --arg color "$color"             '{
+          jq -n \
+            --arg percent "${percent}%" \
+            --arg color "$color" \
+            '{
               schemaVersion: 1,
               label: "coverage",
               message: $percent,
@@ -140,4 +146,7 @@ jobs:
           echo "Uploading coverage badge to Gist..."
           content=$(cat coverage.json | jq -Rs .)
 
-          curl -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61             -H "Authorization: Bearer $GIST_TOKEN"             -H "Content-Type: application/json"             -d "{"files": {"coverage.json": {"content": $content}}}"
+          curl -X PATCH https://api.github.com/gists/012a070225e33492e22097a93349fc61 \
+            -H "Authorization: Bearer $GIST_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"files\": {\"coverage.json\": {\"content\": $content}}}"
