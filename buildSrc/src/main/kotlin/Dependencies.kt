@@ -57,13 +57,12 @@ object Dependencies {
 }
 
 object SecurityFixes {
-    const val commonsBeanutils = "commons-beanutils:commons-beanutils:1.9.4"
-    const val commonsIo = "commons-io:commons-io:2.15.0"
-    const val httpClient5 = "org.apache.httpcomponents.client5:httpclient5:5.2.1"
-    const val springBootStarter = "org.springframework.boot:spring-boot-starter:3.1.5"
-    const val activemqArtemis = "org.apache.activemq:artemis-core-client:2.31.2"
-    const val jettyServer = "org.eclipse.jetty:jetty-server:11.0.20"
-    const val jettyHttp = "org.eclipse.jetty:jetty-http:11.0.20"
+    const val commonsBeanutils = "commons-beanutils:commons-beanutils:${Versions.commonsBeanutils}"
+    const val commonsIo = "commons-io:commons-io:${Versions.commonsIo}"
+    const val httpClient5 = "org.apache.httpcomponents.client5:httpclient5:${Versions.httpClient5}"
+    const val artemis = "org.apache.activemq:artemis-core-client:${Versions.artemis}"
+    const val jettyServer = "org.eclipse.jetty:jetty-server:${Versions.jetty}"
+    const val jettyHttp = "org.eclipse.jetty:jetty-http:${Versions.jetty}"
 }
 
 /**

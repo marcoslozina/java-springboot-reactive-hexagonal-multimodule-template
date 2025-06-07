@@ -25,4 +25,10 @@ object Versions {
 
     // 📝 Logging (structured JSON logging support)
     const val logstashLogback = "7.4" // Logstash Logback Encoder (requires Logback 1.4.11+)
+
+    const val commonsBeanutils = "1.9.4"
+    const val commonsIo = "2.15.0"
+    const val httpClient5 = "5.2.1"
+    const val artemis = "2.31.2"
+    const val jetty = "11.0.20"
 }
