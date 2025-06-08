@@ -61,14 +61,13 @@ dependencies {
     implementation(Dependencies.Logging.logstashLogback)
 
     // 🔐 Seguridad: Corrección de vulnerabilidades detectadas
-    implementation(SecurityFixes.commonsBeanutils)
+    implementation(SecurityFixes.beanutils)
     implementation(SecurityFixes.commonsIo)
-    implementation(SecurityFixes.httpClient5)
-    implementation(SecurityFixes.activemqArtemis)
+    implementation(SecurityFixes.httpClient)
+    implementation(SecurityFixes.artemis)
     implementation(SecurityFixes.jettyServer)
     implementation(SecurityFixes.jettyHttp)
-    implementation(Dependencies.Test.junitPlatformCommonsStrict)
-
+    add("implementation", Dependencies.Test.junitPlatformCommonsStrict)
     testImplementation(Dependencies.Test.wiremock)
     testImplementation(Dependencies.Test.restAssured)
     testImplementation(Dependencies.Test.junitApi)
@@ -81,7 +80,6 @@ dependencies {
     testImplementation(Dependencies.Test.reactorTest)
     testImplementation(Dependencies.Test.springSecurityTest)
     testImplementation(Dependencies.Test.archunit)
-
     testRuntimeOnly(Dependencies.Test.junitEngine)
     testImplementation(project(":adapters:in:rest"))
 }
@@ -134,14 +132,8 @@ sonarqube {
         property("sonar.organization", "marcoslozina")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.token", System.getenv("SONAR_TOKEN"))
-
-        // ✅ Reporte de cobertura
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml")
-
-        // ✅ Excluir del coverage, no del análisis general
         property("sonar.coverage.exclusions", "**/Application.java, **/DummyService.java, **/AdminController.java, **/config/**, **/integration/**, **/architecture/**, **/logging/**, **/security/**")
-
-        // ✅ Mantener si querés comparar ramas
         property("sonar.newCode.referenceBranch", "main")
     }
 }
@@ -167,7 +159,7 @@ subprojects {
         group = "info"
         description = "Prints the project version"
         doLast {
-            println("Project version: ${project.version}")
+            println("Project version: \${project.version}")
         }
     }
 }
@@ -192,7 +184,7 @@ tasks.register<JacocoReport>("jacocoRootReport") {
     classDirectories.setFrom(
         files(
             subprojects.map {
-                fileTree("${it.buildDir}/classes/java/main") {
+                fileTree("\${it.buildDir}/classes/java/main") {
                     exclude("**/infrastructure/**", "**/shared/**", "**/config/**")
                 }
             }
@@ -229,4 +221,3 @@ configurations.all {
         force("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
     }
 }
-

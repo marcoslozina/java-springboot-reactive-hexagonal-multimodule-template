@@ -1,55 +1,50 @@
-import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency
 
 /**
  * Centralized dependency declarations organized by concern/domain.
- * This improves readability, makes version upgrades easier, and avoids duplication.
  */
 object Dependencies {
 
     object Spring {
-        const val bootWebflux = "org.springframework.boot:spring-boot-starter-webflux" // Reactive web framework
-        const val bootSecurity = "org.springframework.boot:spring-boot-starter-security" // Core Spring Security
-        const val bootOauth2 = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" // OAuth2 resource server
-        const val bootTest = "org.springframework.boot:spring-boot-starter-test" // Spring Boot test utilities
-        const val securityConfig = "org.springframework.security:spring-security-config" // Programmatic security config support
+        const val bootWebflux = "org.springframework.boot:spring-boot-starter-webflux"
+        const val bootSecurity = "org.springframework.boot:spring-boot-starter-security"
+        const val bootOauth2 = "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
+        const val bootTest = "org.springframework.boot:spring-boot-starter-test"
+        const val securityConfig = "org.springframework.security:spring-security-config"
     }
 
     object Cloud {
-        const val vaultConfig = "org.springframework.cloud:spring-cloud-starter-vault-config" // Spring Cloud Vault integration
+        const val vaultConfig = "org.springframework.cloud:spring-cloud-starter-vault-config"
     }
 
     object Observability {
-        const val micrometerPrometheus = "io.micrometer:micrometer-registry-prometheus:${Versions.micrometer}" // Micrometer + Prometheus registry
+        val micrometerPrometheus = "io.micrometer:micrometer-registry-prometheus:${Versions.micrometer}"
     }
 
     object Logging {
-        const val logstashLogback = "net.logstash.logback:logstash-logback-encoder:${Versions.logstashLogback}"
-        // Enables structured logging (JSON) for Logback. Required if using logback-spring.xml with JSON encoders.
+        val logstashLogback = "net.logstash.logback:logstash-logback-encoder:${Versions.logstashLogback}"
     }
 
     object OpenAPI {
-        const val springdocWebflux = "org.springdoc:springdoc-openapi-starter-webflux-ui:${Versions.springdocOpenApi}"
-        // OpenAPI documentation for Spring WebFlux apps (includes Swagger UI)
+        val springdocWebflux = "org.springdoc:springdoc-openapi-starter-webflux-ui:${Versions.springdocOpenApi}"
     }
 
     object Validation {
-        const val jakartaValidation = "jakarta.validation:jakarta.validation-api:${Versions.jakartaValidation}" // Java validation API
-        const val hibernateValidator = "org.hibernate.validator:hibernate-validator:${Versions.hibernateValidator}" // Hibernate implementation of Jakarta Validation
-        const val jakartaEl = "org.glassfish:jakarta.el:${Versions.jakartaEl}" // Expression Language support (required by validators)
+        val jakartaValidation = "jakarta.validation:jakarta.validation-api:${Versions.jakartaValidation}"
+        val hibernateValidator = "org.hibernate.validator:hibernate-validator:${Versions.hibernateValidator}"
+        val jakartaEl = "org.glassfish:jakarta.el:${Versions.jakartaEl}"
     }
 
     object Test {
-        const val junitApi = "org.junit.jupiter:junit-jupiter-api:${Versions.junit}" // JUnit 5 API
-        const val junitEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit}" // JUnit 5 runtime engine
-        const val wiremock = "com.github.tomakehurst:wiremock-jre8:${Versions.wiremock}" // HTTP mocking for integration tests
-        const val restAssured = "io.rest-assured:rest-assured:${Versions.restAssured}" // Fluent HTTP testing DSL
-        const val reactorTest = "io.projectreactor:reactor-test" // Reactor-specific test utilities
-        const val springSecurityTest = "org.springframework.security:spring-security-test" // Mock support for Spring Security
-        const val archunit = "com.tngtech.archunit:archunit-junit5:${Versions.archunit}" // Enforces architecture rules with tests
+        val junitApi = "org.junit.jupiter:junit-jupiter-api:${Versions.junit}"
+        val junitEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit}"
+        val wiremock = "com.github.tomakehurst:wiremock-jre8:${Versions.wiremock}"
+        val restAssured = "io.rest-assured:rest-assured:${Versions.restAssured}"
+        const val reactorTest = "io.projectreactor:reactor-test"
+        const val springSecurityTest = "org.springframework.security:spring-security-test"
+        val archunit = "com.tngtech.archunit:archunit-junit5:${Versions.archunit}"
 
-        // Workaround to strictly enforce version of JUnit platform commons and avoid classpath resolution issues
         val junitPlatformCommonsStrict = moduleWithStrictVersion(
             "org.junit.platform:junit-platform-commons", Versions.junitPlatform
         )
@@ -57,21 +52,37 @@ object Dependencies {
 }
 
 object SecurityFixes {
-    const val commonsBeanutils = "commons-beanutils:commons-beanutils:${Versions.commonsBeanutils}"
-    const val commonsIo = "commons-io:commons-io:${Versions.commonsIo}"
-    const val httpClient5 = "org.apache.httpcomponents.client5:httpclient5:${Versions.httpClient5}"
-    const val artemis = "org.apache.activemq:artemis-core-client:${Versions.artemis}"
-    const val jettyServer = "org.eclipse.jetty:jetty-server:${Versions.jetty}"
-    const val jettyHttp = "org.eclipse.jetty:jetty-http:${Versions.jetty}"
+    val beanutils = "commons-beanutils:commons-beanutils:${Versions.commonsBeanutils}"
+    val commonsIo = "commons-io:commons-io:${Versions.commonsIo}"
+    val httpClient = "org.apache.httpcomponents.client5:httpclient5:${Versions.httpClient5}"
 
-    const val logback = "ch.qos.logback:logback-core:1.4.14"
-    const val xmlunit = "org.xmlunit:xmlunit-core:2.9.1"
-    const val activemqArtemis = "org.apache.activemq:artemis-core-client:2.31.2"
+    val artemis = "org.apache.activemq:artemis-core-client:${Versions.artemis}"
+
+    val jettyServer = "org.eclipse.jetty:jetty-server:${Versions.jetty}"
+    val jettyHttp = "org.eclipse.jetty:jetty-http:${Versions.jetty}"
+    val jettyUtil = "org.eclipse.jetty:jetty-util:${Versions.jetty}"
+
+    val logbackCore = "ch.qos.logback:logback-core:${Versions.logback}"
+    val logbackClassic = "ch.qos.logback:logback-classic:${Versions.logback}"
+
+    val xmlunit = "org.xmlunit:xmlunit-core:${Versions.xmlunit}"
+
+    val bcprov = "org.bouncycastle:bcprov-jdk18on:${Versions.bcprov}"
+
+    val nimbusJoseJwt = "com.nimbusds:nimbus-jose-jwt:${Versions.nimbusJoseJwt}"
+
+    val nettyCommon = "io.netty:netty-common:${Versions.netty}"
+    val nettyHandler = "io.netty:netty-handler:${Versions.netty}"
+
+    val springWeb = "org.springframework:spring-web:${Versions.spring}"
+    val springContext = "org.springframework:spring-context:${Versions.spring}"
+    val springSecurityWeb = "org.springframework.security:spring-security-web:${Versions.springSecurity}"
+    val springSecurityCore = "org.springframework.security:spring-security-core:${Versions.springSecurity}"
+    val springSecurityCrypto = "org.springframework.security:spring-security-crypto:${Versions.springSecurity}"
 }
 
 /**
- * Helper function to create a module dependency with a strict version constraint.
- * This prevents version conflicts that can occur with transitive dependencies.
+ * Helper function to strictly enforce dependency versions.
  */
 fun moduleWithStrictVersion(groupAndName: String, version: String): ExternalModuleDependency =
     DefaultExternalModuleDependency(

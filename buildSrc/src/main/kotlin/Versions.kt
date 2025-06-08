@@ -5,30 +5,37 @@
 object Versions {
 
     // 📈 Observability & Monitoring
-    const val micrometer = "1.12.3" // Micrometer metrics library (used with Prometheus)
+    const val micrometer = "1.12.3"
 
     // 📘 API Documentation
-    const val springdocOpenApi = "2.5.0" // OpenAPI + Swagger support for Spring WebFlux
+    const val springdocOpenApi = "2.5.0"
 
     // ✅ Validation Framework
-    const val jakartaValidation = "3.0.2" // Jakarta Bean Validation API
-    const val hibernateValidator = "8.0.1.Final" // Hibernate Validator implementation
-    const val jakartaEl = "4.0.2" // Jakarta Expression Language (required by Hibernate Validator)
+    const val jakartaValidation = "3.0.2"
+    const val hibernateValidator = "8.0.1.Final"
+    const val jakartaEl = "4.0.2"
 
     // 🧪 Testing
-    const val junit = "5.10.1" // JUnit 5 (Jupiter) core version
-    const val junitPlatform = "1.10.1" // JUnit platform and engine integration
+    const val junit = "5.10.1"
+    const val junitPlatform = "1.10.1"
+    const val wiremock = "3.0.1"
+    const val restAssured = "5.3.1"
+    const val archunit = "1.2.1"
 
-    const val wiremock = "3.0.1" // WireMock for mocking HTTP services
-    const val restAssured = "5.3.1" // REST-assured for fluent REST testing
-    const val archunit = "1.2.1" // ArchUnit for architecture validation through tests
+    // 📝 Logging
+    const val logstashLogback = "7.4"
+    const val logback = "1.4.14"
 
-    // 📝 Logging (structured JSON logging support)
-    const val logstashLogback = "7.4" // Logstash Logback Encoder (requires Logback 1.4.11+)
-
+    // 🔐 Security-related fixes
     const val commonsBeanutils = "1.9.4"
     const val commonsIo = "2.15.0"
     const val httpClient5 = "5.2.1"
     const val artemis = "2.31.2"
     const val jetty = "11.0.20"
+    const val xmlunit = "2.9.1"
+    const val bcprov = "1.78.1"
+    const val nimbusJoseJwt = "9.37.3"
+    const val netty = "4.1.110.Final"
+    const val spring = "6.1.6"
+    const val springSecurity = "6.2.3"
 }
