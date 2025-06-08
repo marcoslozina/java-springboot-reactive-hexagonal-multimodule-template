@@ -1,9 +1,6 @@
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency
 
-/**
- * Centralized dependency declarations organized by concern/domain.
- */
 object Dependencies {
 
     object Spring {
@@ -52,11 +49,11 @@ object Dependencies {
 }
 
 object SecurityFixes {
-    val beanutils = "commons-beanutils:commons-beanutils:${Versions.commonsBeanutils}"
+    val commonsBeanutils = "commons-beanutils:commons-beanutils:${Versions.commonsBeanutils}"
     val commonsIo = "commons-io:commons-io:${Versions.commonsIo}"
-    val httpClient = "org.apache.httpcomponents.client5:httpclient5:${Versions.httpClient5}"
+    val httpClient5 = "org.apache.httpcomponents.client5:httpclient5:${Versions.httpClient5}"
 
-    val artemis = "org.apache.activemq:artemis-core-client:${Versions.artemis}"
+    val activemqArtemis = "org.apache.activemq:artemis-core-client:${Versions.artemis}"
 
     val jettyServer = "org.eclipse.jetty:jetty-server:${Versions.jetty}"
     val jettyHttp = "org.eclipse.jetty:jetty-http:${Versions.jetty}"

@@ -61,13 +61,16 @@ dependencies {
     implementation(Dependencies.Logging.logstashLogback)
 
     // 🔐 Seguridad: Corrección de vulnerabilidades detectadas
-    implementation(SecurityFixes.beanutils)
+    implementation(SecurityFixes.commonsBeanutils)
     implementation(SecurityFixes.commonsIo)
-    implementation(SecurityFixes.httpClient)
-    implementation(SecurityFixes.artemis)
+    implementation(SecurityFixes.httpClient5)
+    implementation(SecurityFixes.activemqArtemis)
     implementation(SecurityFixes.jettyServer)
     implementation(SecurityFixes.jettyHttp)
+
+    // ✅ Fijar versión estricta de junit-platform-commons para evitar conflictos
     add("implementation", Dependencies.Test.junitPlatformCommonsStrict)
+
     testImplementation(Dependencies.Test.wiremock)
     testImplementation(Dependencies.Test.restAssured)
     testImplementation(Dependencies.Test.junitApi)
@@ -81,6 +84,8 @@ dependencies {
     testImplementation(Dependencies.Test.springSecurityTest)
     testImplementation(Dependencies.Test.archunit)
     testRuntimeOnly(Dependencies.Test.junitEngine)
+
+    // ⚙️ Módulo interno
     testImplementation(project(":adapters:in:rest"))
 }
 
