@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.2.11](https://github.com/marcoslozina/template-service/compare/v1.2.10...v1.2.11) (2025-06-08)
+
+
+### Bug Fixes
+
+* fix ci ([ded936d](https://github.com/marcoslozina/template-service/commit/ded936d79384d115f1e0a7a22ce5eb5b3d5e06e0))
+* fix securrity issues ([8116074](https://github.com/marcoslozina/template-service/commit/811607498d523ca063d527feaab23217e713a60c))
+* fix sonar properties ([0ed07de](https://github.com/marcoslozina/template-service/commit/0ed07de77ec0ce7dd7ef3ed1fbf557386c3903e4))
+* security issues ([808562e](https://github.com/marcoslozina/template-service/commit/808562ed6c1461de052eff07f8f5127c153303dd))
+* vulnerabilities ([0c10cca](https://github.com/marcoslozina/template-service/commit/0c10cca987d42e9424fc3a59fc19b3735ac55646))
+
 ## [1.2.10](https://github.com/marcoslozina/template-service/compare/v1.2.9...v1.2.10) (2025-06-07)
 
 
