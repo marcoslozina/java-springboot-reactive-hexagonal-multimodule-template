@@ -90,7 +90,12 @@ jobs:
           coverage=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
           missed=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@missed)" build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml || echo "0")
           total=$((coverage + missed))
-          percent=$(awk "BEGIN {printf \"%.1f\", ($coverage/$total)*100}")
+
+          if [ "$total" -eq 0 ]; then
+            percent="0.0"
+          else
+            percent=$(awk "BEGIN {printf \"%.1f\", ($coverage/$total)*100}")
+          fi
 
           if (( $(echo "$percent >= 80" | bc -l) )); then
             color="brightgreen"
