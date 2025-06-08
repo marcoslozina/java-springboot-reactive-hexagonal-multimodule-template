@@ -92,32 +92,55 @@ jobs:
           total=$((coverage + missed))
           percent=$(awk "BEGIN {printf \"%.1f\", ($coverage/$total)*100}")
 
-          color="red"
           if (( $(echo "$percent >= 80" | bc -l) )); then
             color="brightgreen"
           elif (( $(echo "$percent >= 50" | bc -l) )); then
             color="yellow"
+          else
+            color="red"
           fi
 
-          jq -n --arg percent "$percent%" --arg color "$color" '{schemaVersion:1,label:"coverage",message:$percent,color:$color}' > .badge-data/coverage.json
+          jq -n \
+            --arg percent "$percent%" \
+            --arg color "$color" \
+            '{schemaVersion:1,label:"coverage",message:$percent,color:$color}' \
+            > .badge-data/coverage.json
 
       - name: Generate security.json
         run: |
           mkdir -p .badge-data
-          count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq length)
-          jq -n --argjson count "$count" '{vulnerabilities:$count}' > .badge-data/security.json
+          count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq length)
+
+          if (( count == 0 )); then
+            color="brightgreen"
+          elif (( count < 10 )); then
+            color="yellow"
+          else
+            color="red"
+          fi
+
+          jq -n \
+            --arg count "$count" \
+            --arg color "$color" \
+            '{schemaVersion:1,label:"Vulnerabilities",message:$count,color:$color}' \
+            > .badge-data/security.json
 
       ##############################################################
-      # 🚀 Deploy badge data to GitHub Pages
+      # 🚀 Deploy badge data to GitHub Pages (gh-pages branch)
       ##############################################################
 
       - name: Commit and push badge files to gh-pages
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git fetch origin gh-pages || git checkout --orphan gh-pages
-          git switch gh-pages
-          cp .badge-data/*.json .
+
+          git fetch origin gh-pages || true
+          git worktree add gh-pages gh-pages || git checkout --orphan gh-pages
+
+          cp .badge-data/*.json gh-pages/
+          cd gh-pages
           git add *.json
           git commit -m "📊 Update badges" || echo "No changes to commit"
-          git push origin gh-pages
+          git push origin HEAD:gh-pages

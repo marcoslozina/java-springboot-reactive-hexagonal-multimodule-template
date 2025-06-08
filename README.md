@@ -3,10 +3,10 @@
 ## 📊 Project Health
 
 [![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
-![Coverage](https://img.shields.io/endpoint?url=https://marcoslozina.github.io/template-service/coverage.json&nocache=1)
+![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/marcoslozina/template-service/gh-pages/coverage.json)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
 ![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
-![Vulnerabilities](https://raw.githubusercontent.com/marcoslozina/template-service/gh-pages/security.json)
+![Vulnerabilities](https://img.shields.io/endpoint?url=https://marcoslozina.github.io/template-service/security.json)
 [![Last Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=Release)](https://github.com/marcoslozina/template-service/releases)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
