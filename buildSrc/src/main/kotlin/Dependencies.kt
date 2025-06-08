@@ -63,6 +63,10 @@ object SecurityFixes {
     const val artemis = "org.apache.activemq:artemis-core-client:${Versions.artemis}"
     const val jettyServer = "org.eclipse.jetty:jetty-server:${Versions.jetty}"
     const val jettyHttp = "org.eclipse.jetty:jetty-http:${Versions.jetty}"
+
+    const val logback = "ch.qos.logback:logback-core:1.4.14"
+    const val xmlunit = "org.xmlunit:xmlunit-core:2.9.1"
+    const val activemqArtemis = "org.apache.activemq:artemis-core-client:2.31.2"
 }
 
 /**
