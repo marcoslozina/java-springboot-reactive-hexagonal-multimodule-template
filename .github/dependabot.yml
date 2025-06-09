@@ -6,8 +6,8 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 5
     rebase-strategy: auto
+    security-updates: true   # <-- Habilita PRs de seguridad automáticos
     ignore:
-      # Ignorar actualizaciones conflictivas o que ya maneja el BOM de Spring Boot y Cloud
       - dependency-name: "org.springframework.boot*"
       - dependency-name: "org.springframework.security*"
       - dependency-name: "org.springframework.cloud*"
@@ -21,3 +21,4 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    security-updates: true   # <-- También para GitHub Actions
