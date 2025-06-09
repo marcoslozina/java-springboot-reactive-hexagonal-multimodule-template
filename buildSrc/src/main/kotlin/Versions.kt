@@ -38,4 +38,6 @@ object Versions {
     const val netty = "4.1.111.Final" // 🔐 updated from 4.1.110.Final
     const val spring = "6.1.8" // 🔐 updated from 6.1.6
     const val springSecurity = "6.2.4" // 🔐 updated from 6.2.3
+    const val versionCommonsIo = "2.15.1"
+    const val versionJetty = "11.0.20"
 }

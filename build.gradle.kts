@@ -66,6 +66,12 @@ dependencies {
     implementation(SecurityFixes.activemqArtemis)
     implementation(SecurityFixes.jettyServer)
     implementation(SecurityFixes.jettyHttp)
+    implementation(SecurityFixes.commonsBeanutils)
+    implementation(SecurityFixes.commonsIo)
+    implementation(SecurityFixes.httpClient5)
+    implementation(SecurityFixes.activemqArtemis)
+    implementation(SecurityFixes.jettyServer)
+    implementation(SecurityFixes.jettyHttp)
 
     // ✅ Fijar versión estricta de junit-platform-commons para evitar conflictos
     add("implementation", Dependencies.Test.junitPlatformCommonsStrict)
