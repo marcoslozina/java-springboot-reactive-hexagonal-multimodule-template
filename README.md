@@ -2,7 +2,7 @@
 
 ## 📊 Project Health
 
-[![CI](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/actions/workflows/ci.yml)
+[![CI](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/actions/workflows/ci.yml)
 ![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/gh-pages/coverage.json)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_java-springboot-reactive-hexagonal-multimodule-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_java-springboot-reactive-hexagonal-multimodule-template)
 ![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
