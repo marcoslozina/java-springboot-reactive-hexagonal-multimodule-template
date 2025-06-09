@@ -29,7 +29,7 @@ java {
 }
 
 springBoot {
-    mainClass.set("com.company.Application")
+    mainClass.set("com.company.project.templateservice.Application")
 }
 
 allprojects {
