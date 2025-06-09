@@ -1,4 +1,15 @@
-// ✅ Load project-wide version values from gradle.properties file
+plugins {
+    java
+    jacoco
+    id("checkstyle")
+    id("org.springframework.boot") version "3.2.5"
+    id("io.spring.dependency-management") version "1.1.4"
+    id("com.diffplug.spotless") version "7.0.4"
+    id("org.sonarqube") version "6.2.0.5505"
+    id("org.owasp.dependencycheck") version "12.1.1"
+    id("com.github.ben-manes.versions") version "0.52.0"
+}
+
 val logstashLogbackVersion = project.findProperty("logstashLogbackVersion") as String
 val springBootVersion = project.findProperty("springBootVersion") as String
 val springCloudVersion = project.findProperty("springCloudVersion") as String
@@ -7,18 +18,6 @@ val checkstyleVersion = project.findProperty("checkstyleVersion") as String
 val javaVersion = project.findProperty("javaVersion") as String
 val junitVersion = project.findProperty("junitVersion") as String
 val junitPlatformVersion = project.findProperty("junitPlatformVersion") as String
-
-plugins {
-    java
-    jacoco
-    id("checkstyle")
-    id("org.springframework.boot") version "3.5.0"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("com.diffplug.spotless") version "7.0.4"
-    id("org.sonarqube") version "6.2.0.5505"
-    id("org.owasp.dependencycheck") version "12.1.1"
-    id("com.github.ben-manes.versions") version "0.52.0"
-}
 
 group = "com.company.templateservice"
 version = "1.0.0-RELEASE"
@@ -85,7 +84,6 @@ dependencies {
     testImplementation(Dependencies.Test.archunit)
     testRuntimeOnly(Dependencies.Test.junitEngine)
 
-    // ⚙️ Módulo interno
     testImplementation(project(":adapters:in:rest"))
 }
 
@@ -189,7 +187,7 @@ tasks.register<JacocoReport>("jacocoRootReport") {
     classDirectories.setFrom(
         files(
             subprojects.map {
-                fileTree("\${it.buildDir}/classes/java/main") {
+                fileTree("${it.buildDir}/classes/java/main") {
                     exclude("**/infrastructure/**", "**/shared/**", "**/config/**")
                 }
             }
