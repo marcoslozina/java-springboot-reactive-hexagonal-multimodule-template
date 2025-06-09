@@ -65,7 +65,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=marcoslozina_marcoslozina_java-springboot-reactive-hexagonal-multimodule-template
+            -Dsonar.projectKey=marcoslozina_java-springboot-reactive-hexagonal-multimodule-template
             -Dsonar.organization=marcoslozina
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml
