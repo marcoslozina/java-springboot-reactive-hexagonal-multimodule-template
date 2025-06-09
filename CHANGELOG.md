@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/compare/v1.2.12...v1.3.0) (2025-06-09)
+
+
+### Features
+
+* change repository name ([787aac6](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/commit/787aac6151785c2ac48fc49fbce4b19c3e87ea0a))
+
+
+### Bug Fixes
+
+* fix ci ([226a807](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/commit/226a807e149577580fc5b6cbf64e0b5df3c96efa))
+* fix dependabot ([e217513](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/commit/e217513c6812cb9bc71365b667b31feba7019a22))
+* fix main class ([8120382](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/commit/81203825b438a57d5ba703bc9a26a1bcb34b1659))
+* fix readme ([5498821](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/commit/54988211d9c7da31b3cff7d1f25fc52d2e4964f0))
+* fix sonar ([89b21d8](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/commit/89b21d81c97e18f0a2e35b1ca09c7991e3ca2e8b))
+
 ## [1.2.12](https://github.com/marcoslozina/template-service/compare/v1.2.11...v1.2.12) (2025-06-09)
 
 
