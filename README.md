@@ -2,12 +2,12 @@
 
 ## 📊 Project Health
 
-[![CI](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/template-service/actions/workflows/ci.yml)
-![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/marcoslozina/template-service/gh-pages/coverage.json)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_template-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_template-service)
++[![CI](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/actions/workflows/ci.yml/badge.svg)](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/actions/workflows/ci.yml)
++![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/gh-pages/coverage.json)
++[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=marcoslozina_java-springboot-reactive-hexagonal-multimodule-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcoslozina_java-springboot-reactive-hexagonal-multimodule-template)
 ![Dependabot](https://img.shields.io/badge/dependabot-active-brightgreen.svg)
-![Vulnerabilities](https://img.shields.io/endpoint?url=https://marcoslozina.github.io/template-service/security.json)
-[![Last Release](https://img.shields.io/github/v/release/marcoslozina/template-service?label=Release)](https://github.com/marcoslozina/template-service/releases)
++![Vulnerabilities](https://img.shields.io/endpoint?url=https://marcoslozina.github.io/java-springboot-reactive-hexagonal-multimodule-template/security.json)
++[![Last Release](https://img.shields.io/github/v/release/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template?label=Release)](https://github.com/marcoslozina/java-springboot-reactive-hexagonal-multimodule-template/releases)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## 🌟 Overview
