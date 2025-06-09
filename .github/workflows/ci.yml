@@ -114,7 +114,7 @@ jobs:
       - name: Generate security.json
         run: |
           mkdir -p .badge-data
-          count=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
+          count=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq length)
 
@@ -131,6 +131,13 @@ jobs:
             --arg color "$color" \
             '{schemaVersion:1,label:"Vulnerabilities",message:$count,color:$color}' \
             > .badge-data/security.json
+
+      - name: Show updated security badge
+        run: |
+          echo "📋 Contents of security.json:"
+          cat .badge-data/security.json
+          echo "--- Git status ---"
+          git status
 
       ##############################################################
       # 🚀 Deploy badge data to GitHub Pages (gh-pages branch)
