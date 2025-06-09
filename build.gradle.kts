@@ -3,7 +3,7 @@ plugins {
     jacoco
     id("checkstyle")
     id("org.springframework.boot") version "3.2.5"
-    id("io.spring.dependency-management") version "1.1.4"
+    id("io.spring.dependency-management") version "1.1.7"
     id("com.diffplug.spotless") version "7.0.4"
     id("org.sonarqube") version "6.2.0.5505"
     id("org.owasp.dependencycheck") version "12.1.1"
