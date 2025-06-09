@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.2.12](https://github.com/marcoslozina/template-service/compare/v1.2.11...v1.2.12) (2025-06-09)
+
+
+### Bug Fixes
+
+* fix config security ([ba80610](https://github.com/marcoslozina/template-service/commit/ba80610401f3cfe1af80fce4ee97b1ccca5e5a76))
+* fix coverage ([07240f0](https://github.com/marcoslozina/template-service/commit/07240f0b3d8e4520930ec360aab5d399a52dd080))
+* fix vulnerability ([6be9f59](https://github.com/marcoslozina/template-service/commit/6be9f59e49d1da874244fe271d95c74eae9d665a))
+* security issues ([26ad171](https://github.com/marcoslozina/template-service/commit/26ad171745b36979d3cd254b1772481b4d8923f9))
+* update securities ([5989d4e](https://github.com/marcoslozina/template-service/commit/5989d4e47e5ff4a6f5292f73896289d589e26a03))
+
 ## [1.2.11](https://github.com/marcoslozina/template-service/compare/v1.2.10...v1.2.11) (2025-06-08)
 
 
