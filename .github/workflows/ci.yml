@@ -111,23 +111,24 @@ jobs:
             '{schemaVersion:1,label:"coverage",message:$percent,color:$color}' \
             > .badge-data/coverage.json
 
-      - name: Generate security.json
+      - name: Generate security.json (from SonarCloud)
         run: |
           mkdir -p .badge-data
-          count=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/dependabot/alerts?state=open" | jq length)
 
-          if (( count == 0 )); then
+          vulnerabilities=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:" \
+            "https://sonarcloud.io/api/measures/component?component=marcoslozina_template-service&metricKeys=vulnerabilities" \
+            | jq -r '.component.measures[0].value // "0"')
+
+          if (( vulnerabilities == 0 )); then
             color="brightgreen"
-          elif (( count < 10 )); then
+          elif (( vulnerabilities < 10 )); then
             color="yellow"
           else
             color="red"
           fi
 
           jq -n \
-            --arg count "$count" \
+            --arg count "$vulnerabilities" \
             --arg color "$color" \
             '{schemaVersion:1,label:"Vulnerabilities",message:$count,color:$color}' \
             > .badge-data/security.json
