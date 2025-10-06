@@ -75,7 +75,7 @@ jobs:
       ##############################################################
 
       - name: Submit dependency graph
-        uses: gradle/actions/dependency-submission@v4
+        uses: gradle/actions/dependency-submission@v5
 
       ##############################################################
       # 📊 Generate coverage and vulnerability JSONs
