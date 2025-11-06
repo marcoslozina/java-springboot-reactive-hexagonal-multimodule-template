@@ -20,7 +20,7 @@ object Versions {
     const val junit = "5.10.2"
     const val junitPlatform = "1.10.2"
     const val wiremock = "3.0.1"
-    const val restAssured = "5.4.0"
+    const val restAssured = "5.5.6" // Updated to latest stable
     const val archunit = "1.3.0"
 
     // 📝 Logging
@@ -29,14 +29,14 @@ object Versions {
 
     // 🔐 Security-related fixes (updated for CVE mitigation)
     const val commonsBeanutils = "1.9.4"
-    const val commonsIo = "2.16.1" // 🔐 updated to latest stable
+    const val commonsIo = "2.20.0" // 🔐 updated to latest stable
     const val httpClient5 = "5.3.1" // Latest stable (5.6-alpha1 is RC)
     const val artemis = "2.35.0" // 🔐 updated to latest stable
     const val jetty = "11.0.21" // 🔐 updated to latest stable (11.x compatible with Spring Boot 3.3)
     const val xmlunit = "2.10.0" // Updated to latest
-    const val bcprov = "1.78.1"
-    const val nimbusJoseJwt = "9.40" // 🔐 updated to latest stable
-    const val netty = "4.1.112.Final" // 🔐 updated to latest stable
+    const val bcprov = "1.82" // 🔐 updated to latest stable for security
+    const val nimbusJoseJwt = "9.40" // 🔐 updated to latest stable (10.5 is major version, needs compatibility check)
+    const val netty = "4.1.115.Final" // 🔐 updated to match Spring Boot 3.3.6 default version
     const val spring = "6.1.15" // 🔐 updated to latest stable (matches Spring Boot 3.3.6)
     const val springSecurity = "6.3.5" // 🔐 updated to latest stable (matches Spring Boot 3.3.6)
 }

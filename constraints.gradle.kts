@@ -17,9 +17,9 @@ dependencies {
         implementation("org.eclipse.jetty:jetty-io:11.0.21")
 
         // ⚡ Netty (WebFlux internals, DoS vuln)
-        // Updated to latest stable version
-        implementation("io.netty:netty-common:4.1.112.Final")
-        implementation("io.netty:netty-handler:4.1.112.Final")
+        // Updated to match Spring Boot 3.3.6 default version (4.1.115.Final)
+        implementation("io.netty:netty-common:4.1.115.Final")
+        implementation("io.netty:netty-handler:4.1.115.Final")
 
         // 🔐 Nimbus JOSE JWT (DoS via parsing)
         // Updated to latest stable version
@@ -31,11 +31,12 @@ dependencies {
         implementation("ch.qos.logback:logback-classic:1.5.20")
 
         // 🔒 Bouncy Castle (Marvin attack, DNS poisoning, Infinite loop, CPU usage)
-        implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+        // Updated to latest stable version
+        implementation("org.bouncycastle:bcprov-jdk18on:1.82")
 
         // ⚠️ Apache Commons
         implementation("commons-beanutils:commons-beanutils:1.9.4")
-        implementation("commons-io:commons-io:2.16.1")
+        implementation("commons-io:commons-io:2.20.0")
 
         // 🌐 Apache HTTP Client 5
         implementation("org.apache.httpcomponents.client5:httpclient5:5.3.1")
