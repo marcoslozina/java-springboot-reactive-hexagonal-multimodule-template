@@ -58,6 +58,7 @@ object SecurityFixes {
     val jettyServer = "org.eclipse.jetty:jetty-server:${Versions.jetty}"
     val jettyHttp = "org.eclipse.jetty:jetty-http:${Versions.jetty}"
     val jettyUtil = "org.eclipse.jetty:jetty-util:${Versions.jetty}"
+    val jettyIo = "org.eclipse.jetty:jetty-io:${Versions.jetty}"
 
     val logbackCore = "ch.qos.logback:logback-core:${Versions.logback}"
     val logbackClassic = "ch.qos.logback:logback-classic:${Versions.logback}"

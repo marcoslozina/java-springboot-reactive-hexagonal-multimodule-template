@@ -2,12 +2,12 @@ plugins {
     java
     jacoco
     id("checkstyle")
-    id("org.springframework.boot") version "3.2.5"
+    id("org.springframework.boot") version "3.3.6"
     id("io.spring.dependency-management") version "1.1.7"
-    id("com.diffplug.spotless") version "7.0.4"
+    id("com.diffplug.spotless") version "8.0.0"
     id("org.sonarqube") version "6.2.0.5505"
-    id("org.owasp.dependencycheck") version "12.1.3"
-    id("com.github.ben-manes.versions") version "0.52.0"
+    id("org.owasp.dependencycheck") version "12.1.8"
+    id("com.github.ben-manes.versions") version "0.53.0"
 }
 
 val logstashLogbackVersion = project.findProperty("logstashLogbackVersion") as String
@@ -66,12 +66,19 @@ dependencies {
     implementation(SecurityFixes.activemqArtemis)
     implementation(SecurityFixes.jettyServer)
     implementation(SecurityFixes.jettyHttp)
-    implementation(SecurityFixes.commonsBeanutils)
-    implementation(SecurityFixes.commonsIo)
-    implementation(SecurityFixes.httpClient5)
-    implementation(SecurityFixes.activemqArtemis)
-    implementation(SecurityFixes.jettyServer)
-    implementation(SecurityFixes.jettyHttp)
+    implementation(SecurityFixes.jettyUtil)
+    implementation(SecurityFixes.logbackCore)
+    implementation(SecurityFixes.logbackClassic)
+    implementation(SecurityFixes.xmlunit)
+    implementation(SecurityFixes.bcprov)
+    implementation(SecurityFixes.nimbusJoseJwt)
+    implementation(SecurityFixes.nettyCommon)
+    implementation(SecurityFixes.nettyHandler)
+    implementation(SecurityFixes.springWeb)
+    implementation(SecurityFixes.springContext)
+    implementation(SecurityFixes.springSecurityWeb)
+    implementation(SecurityFixes.springSecurityCore)
+    implementation(SecurityFixes.springSecurityCrypto)
 
     // ✅ Fijar versión estricta de junit-platform-commons para evitar conflictos
     add("implementation", Dependencies.Test.junitPlatformCommonsStrict)
@@ -124,7 +131,7 @@ tasks.register<Test>("archTest") {
 
 spotless {
     java {
-        googleJavaFormat("1.17.0")
+        googleJavaFormat("1.23.0")
         target("src/**/*.java")
     }
 }
