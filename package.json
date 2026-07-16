@@ -2,5 +2,8 @@
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.1",
     "release-it": "^19.0.6"
+  },
+  "overrides": {
+    "tmp": "^0.2.7"
   }
 }

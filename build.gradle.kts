@@ -74,11 +74,17 @@ dependencies {
     implementation(SecurityFixes.nimbusJoseJwt)
     implementation(SecurityFixes.nettyCommon)
     implementation(SecurityFixes.nettyHandler)
+    implementation(SecurityFixes.nettyResolverDns)
+    implementation(SecurityFixes.nettyCodecHttp2)
     implementation(SecurityFixes.springWeb)
     implementation(SecurityFixes.springContext)
     implementation(SecurityFixes.springSecurityWeb)
     implementation(SecurityFixes.springSecurityCore)
     implementation(SecurityFixes.springSecurityCrypto)
+    implementation(SecurityFixes.jacksonDatabind)
+    implementation(SecurityFixes.jacksonCore)
+    implementation(SecurityFixes.jacksonAnnotations)
+    implementation(SecurityFixes.handlebars)
 
     // ✅ Fijar versión estricta de junit-platform-commons para evitar conflictos
     add("implementation", Dependencies.Test.junitPlatformCommonsStrict)

@@ -25,7 +25,7 @@ object Versions {
 
     // 📝 Logging
     const val logstashLogback = "8.0" // Updated to latest stable
-    const val logback = "1.5.20" // 🔐 updated to latest stable version
+    const val logback = "1.5.33" // 🔐 updated to fix CVE-2026-9828 (HardenedObjectInputStream allowlist bypass)
 
     // 🔐 Security-related fixes (updated for CVE mitigation)
     const val commonsBeanutils = "1.9.4"
@@ -34,9 +34,13 @@ object Versions {
     const val artemis = "2.35.0" // 🔐 updated to latest stable
     const val jetty = "11.0.21" // 🔐 updated to latest stable (11.x compatible with Spring Boot 3.3)
     const val xmlunit = "2.10.0" // Updated to latest
-    const val bcprov = "1.82" // 🔐 updated to latest stable for security
+    const val bcprov = "1.84" // 🔐 updated to fix CVE-2025-14813 (GOST28147 CTR keystream reuse) + covert timing channel
     const val nimbusJoseJwt = "9.40" // 🔐 updated to latest stable (10.5 is major version, needs compatibility check)
-    const val netty = "4.1.115.Final" // 🔐 updated to match Spring Boot 3.3.6 default version
+    const val netty = "4.1.135.Final" // 🔐 updated to fix multiple CVEs (hostname verification bypass, SNI, DNS cache poisoning, HTTP/2 DoS)
     const val spring = "6.1.15" // 🔐 updated to latest stable (matches Spring Boot 3.3.6)
-    const val springSecurity = "6.3.5" // 🔐 updated to latest stable (matches Spring Boot 3.3.6)
+    const val springSecurity = "6.3.5" // ⚠️ NOT bumped: CVE-2026-47838 (X.509 impersonation) fix for the 6.3.x line (6.3.18) is Enterprise-support-only, not published to Maven Central. Public OSS fix requires Spring Security 6.5.11, incompatible with this project's Spring Boot 3.3.6 / Spring Security 6.3.x baseline. See PR description.
+    const val jacksonDatabind = "2.21.4" // 🔐 added to fix CVE-2026-54512 / CVE-2026-54513 (PolymorphicTypeValidator bypasses) + case-insensitive @JsonIgnoreProperties bypass + InetSocketAddress SSRF
+    const val jacksonCore = "2.21.4" // 🔐 kept in lockstep with jacksonDatabind: databind's ABI depends on a matching jackson-core release
+    const val jacksonAnnotations = "2.21" // 🔐 kept in lockstep with jacksonDatabind: mismatched jackson-annotations causes NoClassDefFoundError (JacksonAnnotationIntrospector references classes only present in matching annotations release; annotations has no patch component in its versioning)
+    const val handlebars = "4.5.2" // 🔐 added to fix CVE-2026-55760 (FileTemplateLoader path traversal) - transitive via wiremock-jre8
 }
