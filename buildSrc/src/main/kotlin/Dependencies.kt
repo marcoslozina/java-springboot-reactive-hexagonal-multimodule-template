@@ -81,6 +81,8 @@ object SecurityFixes {
     val springSecurityCrypto = "org.springframework.security:spring-security-crypto:${Versions.springSecurity}"
 
     val jacksonDatabind = "com.fasterxml.jackson.core:jackson-databind:${Versions.jacksonDatabind}"
+    val jacksonCore = "com.fasterxml.jackson.core:jackson-core:${Versions.jacksonCore}"
+    val jacksonAnnotations = "com.fasterxml.jackson.core:jackson-annotations:${Versions.jacksonAnnotations}"
     val handlebars = "com.github.jknack:handlebars:${Versions.handlebars}"
 }
 

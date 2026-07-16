@@ -82,6 +82,8 @@ dependencies {
     implementation(SecurityFixes.springSecurityCore)
     implementation(SecurityFixes.springSecurityCrypto)
     implementation(SecurityFixes.jacksonDatabind)
+    implementation(SecurityFixes.jacksonCore)
+    implementation(SecurityFixes.jacksonAnnotations)
     implementation(SecurityFixes.handlebars)
 
     // ✅ Fijar versión estricta de junit-platform-commons para evitar conflictos

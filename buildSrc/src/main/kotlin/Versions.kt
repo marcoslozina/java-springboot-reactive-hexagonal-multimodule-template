@@ -40,5 +40,7 @@ object Versions {
     const val spring = "6.1.15" // 🔐 updated to latest stable (matches Spring Boot 3.3.6)
     const val springSecurity = "6.3.5" // ⚠️ NOT bumped: CVE-2026-47838 (X.509 impersonation) fix for the 6.3.x line (6.3.18) is Enterprise-support-only, not published to Maven Central. Public OSS fix requires Spring Security 6.5.11, incompatible with this project's Spring Boot 3.3.6 / Spring Security 6.3.x baseline. See PR description.
     const val jacksonDatabind = "2.21.4" // 🔐 added to fix CVE-2026-54512 / CVE-2026-54513 (PolymorphicTypeValidator bypasses) + case-insensitive @JsonIgnoreProperties bypass + InetSocketAddress SSRF
+    const val jacksonCore = "2.21.4" // 🔐 kept in lockstep with jacksonDatabind: databind's ABI depends on a matching jackson-core release
+    const val jacksonAnnotations = "2.21" // 🔐 kept in lockstep with jacksonDatabind: mismatched jackson-annotations causes NoClassDefFoundError (JacksonAnnotationIntrospector references classes only present in matching annotations release; annotations has no patch component in its versioning)
     const val handlebars = "4.5.2" // 🔐 added to fix CVE-2026-55760 (FileTemplateLoader path traversal) - transitive via wiremock-jre8
 }

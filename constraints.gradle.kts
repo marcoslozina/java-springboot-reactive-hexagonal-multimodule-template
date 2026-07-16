@@ -41,7 +41,11 @@ dependencies {
         implementation("org.bouncycastle:bcprov-jdk18on:1.84")
 
         // 🔐 Jackson-databind (PolymorphicTypeValidator bypasses, SSRF, @JsonIgnoreProperties bypass)
+        // Kept in lockstep with jackson-core/jackson-annotations: bumping databind alone causes
+        // NoClassDefFoundError at runtime (mismatched jackson-annotations classes).
         implementation("com.fasterxml.jackson.core:jackson-databind:2.21.4")
+        implementation("com.fasterxml.jackson.core:jackson-core:2.21.4")
+        implementation("com.fasterxml.jackson.core:jackson-annotations:2.21")
 
         // 🔐 Handlebars (transitive via wiremock-jre8) - FileTemplateLoader Path Traversal
         implementation("com.github.jknack:handlebars:4.5.2")
