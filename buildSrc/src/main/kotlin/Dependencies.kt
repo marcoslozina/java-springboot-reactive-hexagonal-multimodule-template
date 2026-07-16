@@ -71,12 +71,17 @@ object SecurityFixes {
 
     val nettyCommon = "io.netty:netty-common:${Versions.netty}"
     val nettyHandler = "io.netty:netty-handler:${Versions.netty}"
+    val nettyResolverDns = "io.netty:netty-resolver-dns:${Versions.netty}"
+    val nettyCodecHttp2 = "io.netty:netty-codec-http2:${Versions.netty}"
 
     val springWeb = "org.springframework:spring-web:${Versions.spring}"
     val springContext = "org.springframework:spring-context:${Versions.spring}"
     val springSecurityWeb = "org.springframework.security:spring-security-web:${Versions.springSecurity}"
     val springSecurityCore = "org.springframework.security:spring-security-core:${Versions.springSecurity}"
     val springSecurityCrypto = "org.springframework.security:spring-security-crypto:${Versions.springSecurity}"
+
+    val jacksonDatabind = "com.fasterxml.jackson.core:jackson-databind:${Versions.jacksonDatabind}"
+    val handlebars = "com.github.jknack:handlebars:${Versions.handlebars}"
 }
 
 /**
